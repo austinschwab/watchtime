@@ -7,4 +7,78 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: #111111;
+  font-family: "Inter";
 }
+
+.Body {
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  font-weight: "Semi-bold";
+  font-family: "Inter";
+  color: white;
+  font-size: 32px;
+}
+
+.Test {
+  background: red;
+}
+
+.transparent {
+  background-color: "transparent";
+}
+
+.Youtube_Stats_Section {
+  position: relative;
+  flex-direction: row;
+  align-content: "stretch";
+  justify-content: "center";
+}
+
+.Stats {
+  padding: 160px;
+}
+
+.Stats_Container {
+  padding-top: 56px;
+  padding-bottom: 56px;
+  margin-top: 156px;
+  margin-bottom: 156px;
+}
+
+.Sidebar {
+  width: 4%;
+  height: 8%;
+  max-height: 391px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 236px;
+}
+
+.sidelink {
+  padding: 12px;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  border-color: white;
+  background: #1c1c1c;
+  margin-top: 32px;
+  justify-content: center;
+}
+
+.sidedot {
+  width: 12px;
+  height: 12px;
+  border-radius: 12px;
+}
+
+@import url("https://fonts.google.com/specimen/Inter");
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap");

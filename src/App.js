@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Item } from "react";
 import data from "./data/watch-history1.json";
-import "./App.css";
+import * as classes from "./App.css";
 import axios from "axios";
 import _ from "lodash";
 import moment from "moment";
@@ -9,9 +9,15 @@ import { LoadingOutlined } from "@ant-design/icons";
 import * as constants from "./constants";
 import Chart from "./components/chart";
 import TableComponent from "./components/table";
+import Radium from "radium";
+import ScrollIntoView from "react-scroll-into-view";
+
 const key = "AIzaSyBGA1zk3BrWeWEPMOv4zI1u0-wEvByfRdo";
+
 const App = () => {
-  const [reportData, setReportData] = useState(null);
+  const [reportData, setReportData] = useState(
+    constants.sampleReportData ? constants.sampleReportData : null
+  );
   const [isLoading, setIsLoading] = useState(false);
 
   // Helper function to convert Youtube duration into seconds
@@ -322,82 +328,348 @@ const App = () => {
       additionalWatchTimeData,
     });
   };
+
+  const [selectCategory, setselectCategory] = useState([
+    {
+      name: "Total Watch Time",
+      color: "#FFFFFF",
+      id: Math.floor(Math.random() * 1000000),
+    },
+    {
+      name: "Avg. Daily Usage",
+      color: "#4FFFAA",
+      id: Math.floor(Math.random() * 1000000),
+    },
+    {
+      name: "Avg. Weekly Usage",
+      color: "#C51818",
+      id: Math.floor(Math.random() * 1000000),
+    },
+    {
+      name: "Historical Usage",
+      color: "#10CCF5",
+      id: Math.floor(Math.random() * 1000000),
+    },
+    {
+      name: "Most watched channels",
+      color: "#F0F510",
+      id: Math.floor(Math.random() * 1000000),
+    },
+    {
+      name: "More...",
+      color: "#4FFFAA",
+      id: Math.floor(Math.random() * 1000000),
+    },
+  ]);
+
+  const mapCategories = () => {
+    return selectCategory.map((item, index) => (
+      <div
+        key={index}
+        style={{
+          backgroundColor: "#1C1C1C",
+          display: "inline-block",
+          flexDirection: "row",
+          fontSize: 18,
+          fontHeight: 16,
+          fontWeight: "Medium",
+          margin: 10,
+          justifyContent: "space-evenly",
+          justifySelf: "",
+          borderRadius: 12,
+          padding: 20,
+          color: "#b4b4b4",
+          // hover effect using Radium
+          ":hover": {
+            border: "solid",
+            borderColor: item.color,
+            borderWidth: "1px",
+          },
+        }}
+      >
+        <ScrollIntoView selector="#chartOne" smooth>
+          <button>Scroll To</button>
+        </ScrollIntoView>
+        <div
+          style={{
+            width: 16,
+            height: 16,
+            fontWeight: 20,
+            backgroundColor: item.color,
+            borderRadius: 20,
+            float: "left",
+            marginRight: 12,
+          }}
+        ></div>
+        {item.name}
+      </div>
+    ));
+  };
+
   console.log(reportData);
   return (
     <div className="App">
+      <img
+        src={process.env.PUBLIC_URL + "images/watchtime_logo.png"}
+        alt="img"
+        style={{ width: 131 }}
+      />
       {/* <BarChart data={data} /> */}
       <Button type="primary" onClick={() => generateCompleteReportData()}>
         Generate Report
       </Button>
       {isLoading && <LoadingOutlined style={{ fontSize: 300 }} spin />}
       {reportData && (
-        <div>
-          <p>
-            Since you watched your first Youtube video on{" "}
-            {reportData.firstVideoWatchedOn}, you've watched{" "}
-            {reportData.numberOfVideosWatched}, videos.{" "}
-          </p>
-          <p>
-            Thats a total of{" "}
-            {reportData.additionalWatchTimeData.totalHoursWatched} hours in the
-            past {reportData.daysSinceFirstVideo} days
-          </p>
-          <p>
-            On average you watch{" "}
-            {(
-              reportData.additionalWatchTimeData.totalHoursWatched /
-              reportData.daysSinceFirstVideo
-            ).toFixed(1)}{" "}
-            hours every day
-          </p>
+        <div className="Body">
+          <p>We've made it.</p>
 
-          {/* Insert Chart With average week */}
-          <Chart
-            key="averageWeek"
-            type="bar"
-            data={reportData.additionalWatchTimeData.averageWeek.data}
-            labels={reportData.additionalWatchTimeData.averageWeek.labels}
-            id="AverageWeek"
-            title="Hours per Day"
+          <p>Scroll down to see your Youtube stats.</p>
+          <img
+            src={process.env.PUBLIC_URL + "images/Arrows.png"}
+            alt="img"
+            style={{ width: 131 }}
           />
 
-          {/* Insert Chart With time on youtube */}
-          <Chart
-            key="averageTimes"
-            type="bar"
-            data={reportData.additionalWatchTimeData.averageTimes.data}
-            labels={reportData.additionalWatchTimeData.averageTimes.labels}
-            id="AverageTimes"
-            title="Minutes per hour"
-          />
-          {/* Insert Chart With historical breakdown */}
-          <Chart
-            key="hisstoricalUsage"
-            type="line"
-            data={reportData.additionalWatchTimeData.historicalUsage.data}
-            labels={reportData.additionalWatchTimeData.historicalUsage.labels}
-            id="historicalUsage"
-            title="Hours per month"
-            // xAxesType="time"
-          />
-          {/* Insert Chart With most watched channels */}
-          <TableComponent
-            data={reportData.additionalWatchTimeData.updatedChannelTimes}
-          />
-          {/* Insert Chart With most categories breakdown */}
-          <Chart
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              direction: "horizontal",
+              alignCenter: "center",
+              justifySelf: "start",
+              maxWidth: 862,
+              margin: "2%",
+            }}
+          >
+            <p
+              style={{
+                fontSize: 18,
+                fontWeight: "Semi-bold",
+              }}
+            >
+              Data categories
+            </p>
+            <div>{mapCategories()}</div>
+          </div>
+
+          <div className="Youtube_Stats_Section">
+            <div className="Sidebar">
+              {selectCategory.map((item, index) => (
+                <div
+                  key={index}
+                  className="sidelink"
+                  style={
+                    {
+                      // ":hover": {
+                      //   border: "solid",
+                      //   borderColor: item.color,
+                      //   borderWidth: "1px",
+                      // },
+                    }
+                  }
+                >
+                  <div
+                    className="sidedot"
+                    style={{
+                      backgroundColor: item.color,
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+            <div className="Stats">
+              <div className="Stats_Container">
+                <p
+                  style={{
+                    color: "#9D9D9D",
+                    fontSize: "48",
+                    fontWeight: "Semi-bold",
+                  }}
+                >
+                  Since you watched your first Youtube video on{" "}
+                  <span style={{ color: "white" }}>
+                    <p></p>
+                    {reportData.firstVideoWatchedOn}
+                  </span>
+                  <div style={{ color: "white" }}>
+                    {reportData.firstVideoWatchedOn}
+                  </div>
+                  , you've watched{" "}
+                  <div style={{ color: "white" }}>
+                    {reportData.numberOfVideosWatched}{" "}
+                  </div>
+                  , videos.{" "}
+                </p>
+                <p style={{ color: "white" }}>
+                  <div style={{ color: "#9D9D9D" }}>That's a total of </div>
+                  {reportData.additionalWatchTimeData.totalHoursWatched} hours
+                  in the past {reportData.daysSinceFirstVideo} days
+                </p>
+                <p>
+                  <div style={{ color: "#9D9D9D" }}> On average you watch </div>
+                  {(
+                    reportData.additionalWatchTimeData.totalHoursWatched /
+                    reportData.daysSinceFirstVideo
+                  ).toFixed(1)}{" "}
+                  hours every day
+                </p>
+
+                {/* Insert Chart With average week */}
+                <div className="Stats_Container" id="chartOne">
+                  <p
+                    style={{
+                      fontWeight: "Medium",
+                      color: "#9d9d9d",
+                      fontSize: 48,
+                    }}
+                  >
+                    You watch Youtube the most on{" "}
+                    <span style={{ color: "white" }}>Saturdays</span>.
+                  </p>
+                  <p
+                    style={{
+                      fontWeight: "Semi-bold",
+                      color: "#9d9d9d",
+                      fontSize: 20,
+                    }}
+                  >
+                    Your daily average is{" "}
+                    <span
+                      style={{
+                        borderBottom: "1px solid #4fffaa",
+                        display: "inline-block",
+                        paddingBottom: 1,
+                        color: "white",
+                      }}
+                    >
+                      6.5 hours.
+                    </span>
+                  </p>
+
+                  <Chart
+                    key="averageWeek"
+                    type="bar"
+                    data={reportData.additionalWatchTimeData.averageWeek.data}
+                    labels={
+                      reportData.additionalWatchTimeData.averageWeek.labels
+                    }
+                    id="averageWeek"
+                    title="Hours per Day"
+                  />
+                </div>
+
+                {/* Insert Chart With time on youtube */}
+                <div className="Stats_Container">
+                  <div>
+                    <p
+                      style={{
+                        fontWeight: "Medium",
+                        color: "#9d9d9d",
+                        fontSize: 48,
+                      }}
+                    >
+                      You prefer watching videos during the
+                    </p>
+                    <p
+                      style={{
+                        fontWeight: "Medium",
+                        color: "#9d9d9d",
+                        fontSize: 20,
+                      }}
+                    >
+                      make up 51% of your daily Youtube usage.
+                    </p>
+                  </div>
+                  <Chart
+                    key="averageTimes"
+                    type="bar"
+                    data={reportData.additionalWatchTimeData.averageTimes.data}
+                    labels={
+                      reportData.additionalWatchTimeData.averageTimes.labels
+                    }
+                    id="averageTimes"
+                    title="Minutes per hour"
+                  />
+                </div>
+                {/* Insert Chart With historical breakdown */}
+                <div className="Stats_Container">
+                  <p
+                    style={{
+                      fontWeight: "Medium",
+                      color: "#9d9d9d",
+                      fontSize: 48,
+                    }}
+                  >
+                    Here’s a breakdown of your{" "}
+                    <p style={{ color: "white" }}>historical usage.</p>
+                  </p>
+                  <p
+                    style={{
+                      fontWeight: "Medium",
+                      color: "#9d9d9d",
+                      fontSize: 20,
+                    }}
+                  >
+                    Your top month was June 2020. You watched 160 hours.
+                  </p>
+
+                  <Chart
+                    key="historicalUsage"
+                    type="line"
+                    data={
+                      reportData.additionalWatchTimeData.historicalUsage.data
+                    }
+                    labels={
+                      reportData.additionalWatchTimeData.historicalUsage.labels
+                    }
+                    id="historicalUsage"
+                    title="Hours per month"
+                    // xAxesType="time"
+                  />
+                </div>
+                {/* Insert Chart With most watched channels */}
+
+                <p
+                  style={{
+                    fontWeight: "Medium",
+                    color: "#9d9d9d",
+                    fontSize: 48,
+                  }}
+                >
+                  Most watched <p style={{ color: "white" }}>channels</p>
+                </p>
+                <p
+                  style={{
+                    fontWeight: "Medium",
+                    color: "#9d9d9d",
+                    fontSize: 20,
+                  }}
+                >
+                  Across your top 10 channels, you've watched 555 hours. This
+                  makes up for 68% of your total watch time.
+                </p>
+
+                <TableComponent
+                  data={reportData.additionalWatchTimeData.updatedChannelTimes}
+                />
+              </div>
+              {/* Insert Chart With most categories breakdown */}
+
+              {/* <Chart
             key="categoryChart"
             type="pie"
             data={reportData.additionalWatchTimeData.cateogryChartData.data}
-            labels={reportData.additionalWatchTimeData.cateogryChartData.labels}
+            labels={reportData.additionalWatchTimeData.cateogrychartData.labels}
             id="categoryChart"
             title=""
             // xAxesType="time"
-          />
+          /> */}
+            </div>
+          </div>
         </div>
       )}
     </div>
   );
 };
 
-export default App;
+export default Radium(App);

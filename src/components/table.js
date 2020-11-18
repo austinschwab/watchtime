@@ -1,5 +1,7 @@
 import React from "react";
 import { Table } from "antd";
+import MaterialTable from "material-table";
+import styles from "../App.css";
 
 const columns = [
   {
@@ -38,10 +40,30 @@ const data = [
 
 const TableComponent = ({ data }) => {
   let columns = [
-    { title: "Channel Name", dataIndex: "title" },
-    { title: "Videos", dataIndex: "count" },
-    { title: "Time(hrs)", dataIndex: "time" },
+    { title: "#", field: "number" },
+    { title: "Channel Name", field: "title" },
+    { title: "Videos", field: "count" },
+    { title: "Time(hrs)", field: "time" },
   ];
-  return <Table columns={columns} dataSource={data} size="middle" />;
+  return (
+    <MaterialTable
+      columns={columns}
+      data={data}
+      style={{
+        backgroundColor: "#111111",
+        color: "#b9b9b9",
+        fontSize: 18,
+      }}
+      options={{
+        paging: false,
+        search: false,
+        headerStyle: { backgroundColor: "#111111", color: "#727272" },
+      }}
+      // size="middle"
+      // rowClassName={(record, index) =>
+      //   record.count > 0 ? "transparent" : "transparent"
+      // }
+    />
+  );
 };
 export default TableComponent;

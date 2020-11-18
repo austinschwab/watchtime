@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -10,11 +12,15 @@
     "axios": "^0.20.0",
     "chart.js": "^2.9.4",
     "lodash": "^4.17.20",
+    "material-table": "^1.69.2",
     "moment": "^2.29.1",
     "nivo": "^0.31.0",
+    "radium": "^0.26.1",
     "react": "^16.13.1",
+    "react-animate-on-scroll": "^2.1.5",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3"
+    "react-scripts": "3.4.3",
+    "react-scroll-into-view": "^1.8.2"
   },
   "scripts": {
     "start": "react-scripts start",
