@@ -362,6 +362,8 @@ const App = () => {
     },
   ]);
 
+  const scroll = () => {};
+
   const mapCategories = () => {
     return selectCategory.map((item, index) => (
       <div
@@ -388,20 +390,28 @@ const App = () => {
         }}
       >
         <ScrollIntoView selector="#chartOne" smooth>
-          <button>Scroll To</button>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <div
+              style={{
+                width: 16,
+                height: 16,
+                fontWeight: 20,
+                backgroundColor: item.color,
+                borderRadius: 20,
+                float: "left",
+                marginRight: 12,
+              }}
+            ></div>
+            <span>{item.name}</span>
+          </div>
         </ScrollIntoView>
-        <div
-          style={{
-            width: 16,
-            height: 16,
-            fontWeight: 20,
-            backgroundColor: item.color,
-            borderRadius: 20,
-            float: "left",
-            marginRight: 12,
-          }}
-        ></div>
-        {item.name}
       </div>
     ));
   };
@@ -449,7 +459,15 @@ const App = () => {
             >
               Data categories
             </p>
-            <div>{mapCategories()}</div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                flexWrap: "wrap",
+              }}
+            >
+              {mapCategories()}
+            </div>
           </div>
 
           <div className="Youtube_Stats_Section">
