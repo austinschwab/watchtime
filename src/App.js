@@ -11,6 +11,7 @@ import Chart from "./components/chart";
 import TableComponent from "./components/table";
 import Radium from "radium";
 import ScrollIntoView from "react-scroll-into-view";
+import * as functions from "./functions/report";
 
 const key = "AIzaSyBGA1zk3BrWeWEPMOv4zI1u0-wEvByfRdo";
 
@@ -20,64 +21,10 @@ const App = () => {
   );
   const [isLoading, setIsLoading] = useState(false);
 
-  // Helper function to convert Youtube duration into seconds
-  const convertISO8601ToSeconds = (input) => {
-    var reptms = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/;
-    var hours = 0,
-      minutes = 0,
-      seconds = 0,
-      totalseconds;
-
-    if (reptms.test(input)) {
-      var matches = reptms.exec(input);
-      if (matches[1]) hours = Number(matches[1]);
-      if (matches[2]) minutes = Number(matches[2]);
-      if (matches[3]) seconds = Number(matches[3]);
-      totalseconds = hours * 3600 + minutes * 60 + seconds;
-    }
-
-    return totalseconds;
-  };
-
-  // Extract video Ids from watch.json
-  const getVideoIds = () => {
-    let videoIdWithTime = [];
-    let totalIdBatch = [];
-    let idBatch = [];
-    for (let i = 0; i < 250; i++) {
-      if (
-        data[i].titleUrl.indexOf("https://www.youtube.com/watch?v\u003d") !== -1
-      ) {
-        let id = data[i].titleUrl.replace(
-          "https://www.youtube.com/watch?v\u003d",
-          ""
-        );
-        videoIdWithTime.push({ videoId: id, time: data[i].time });
-        if (idBatch.length < 50) {
-          idBatch.push(id);
-        } else {
-          totalIdBatch.push(idBatch);
-          idBatch = [];
-          idBatch.push(
-            data[i].titleUrl.replace(
-              "https://www.youtube.com/watch?v\u003d",
-              ""
-            )
-          );
-        }
-      }
-    }
-    if (idBatch.length > 0) {
-      totalIdBatch.push(idBatch);
-      idBatch = [];
-    }
-    return { batch: totalIdBatch, batchWithTimes: videoIdWithTime };
-  };
-
   // Request Youtube api for batched video/channel data
   const generateVideoList = async () => {
     // videoId structure = {batch: videoIdList, batchWithTimes: videoIdListWithVideoDurations}
-    let videoIds = getVideoIds();
+    let videoIds = functions.getVideoIds();
     let requestData = [];
     for (let videoList of videoIds.batch) {
       await axios
@@ -119,213 +66,27 @@ const App = () => {
     }
   };
 
-  // Obtains several watchtime data requirments. Data includes: channel names with number of videos and time spent on channel, categories and number of
-  // videos per category, the days of the week with the amount of videos watched on that day per full watch.json history, hours of the day with number of
-  // videos watched during that hour for entire watch.json history
-  const getVideoListRelevantData = (videoList) => {
-    let channelList = [];
-    let channelsWithVideosAndTime = {};
-
-    let categoryList = [];
-    let categoriesWithCount = {};
-
-    let totalSecondsWatched = 0;
-
-    let daysWithCount = {
-      0: { count: 0, time: 0 },
-      1: { count: 0, time: 0 },
-      2: { count: 0, time: 0 },
-      3: { count: 0, time: 0 },
-      4: { count: 0, time: 0 },
-      5: { count: 0, time: 0 },
-      6: { count: 0, time: 0 },
-    };
-
-    let timeOfDayWithCount = {
-      0: { count: 0, time: 0 },
-      1: { count: 0, time: 0 },
-      2: { count: 0, time: 0 },
-      3: { count: 0, time: 0 },
-      4: { count: 0, time: 0 },
-      5: { count: 0, time: 0 },
-      6: { count: 0, time: 0 },
-      7: { count: 0, time: 0 },
-      8: { count: 0, time: 0 },
-      9: { count: 0, time: 0 },
-      10: { count: 0, time: 0 },
-      11: { count: 0, time: 0 },
-      12: { count: 0, time: 0 },
-      13: { count: 0, time: 0 },
-      14: { count: 0, time: 0 },
-      15: { count: 0, time: 0 },
-      16: { count: 0, time: 0 },
-      17: { count: 0, time: 0 },
-      18: { count: 0, time: 0 },
-      19: { count: 0, time: 0 },
-      20: { count: 0, time: 0 },
-      21: { count: 0, time: 0 },
-      22: { count: 0, time: 0 },
-      23: { count: 0, time: 0 },
-    };
-
-    let dateLabels = [];
-    let dateOverTimeData = {};
-
-    for (let videoObj of videoList) {
-      const date = new Date(videoObj.time);
-      const hour = date.getHours();
-      const duration = convertISO8601ToSeconds(videoObj.duration);
-      const day = date.getDay();
-
-      if (channelList.indexOf(videoObj.channelTitle) !== -1) {
-        channelsWithVideosAndTime[videoObj.channelTitle].count += 1;
-        channelsWithVideosAndTime[videoObj.channelTitle].time += duration;
-      } else {
-        channelList.push(videoObj.channelTitle);
-        channelsWithVideosAndTime[videoObj.channelTitle] = {
-          count: 1,
-          time: duration,
-          title: videoObj.channelTitle,
-        };
-      }
-
-      if (dateLabels.indexOf(moment(date).format("l")) !== -1) {
-        dateOverTimeData[moment(date).format("l")].y += duration;
-      } else {
-        dateLabels.push(moment(date).format("l"));
-        dateOverTimeData[moment(date).format("l")] = {
-          y: duration,
-          t: moment(date).format("l"),
-        };
-      }
-
-      if (categoryList.indexOf(videoObj.categoryId) !== -1) {
-        categoriesWithCount[
-          constants.YoutubeCategories[videoObj.categoryId]
-        ].value += 1;
-      } else {
-        categoryList.push(videoObj.categoryId);
-        categoriesWithCount[
-          constants.YoutubeCategories[videoObj.categoryId]
-        ] = { value: 1, id: constants.YoutubeCategories[videoObj.categoryId] };
-      }
-
-      timeOfDayWithCount[hour].count += 1;
-      timeOfDayWithCount[hour].time += duration;
-
-      daysWithCount[day].time += duration;
-      daysWithCount[day].count += 1;
-
-      totalSecondsWatched += duration;
-    }
-
-    let totalHoursWatched = Math.floor(totalSecondsWatched / 3600);
-    let averageWeekLabels = [];
-    let averageWeekData = [];
-
-    let averageTimesLabels = [];
-    let averageTimesData = [];
-
-    for (let index in daysWithCount) {
-      let day = constants.daysOfWeek[index];
-      averageWeekLabels.push(day);
-
-      if (daysWithCount[index].count > 0) {
-        averageWeekData.push(
-          daysWithCount[index].count /
-            Math.floor(daysWithCount[index].time / 3600)
-        );
-      } else {
-        averageWeekData.push(0);
-      }
-    }
-
-    for (let index in timeOfDayWithCount) {
-      let hour = constants.hourFormat[index].value;
-      averageTimesLabels.push(hour);
-      if (timeOfDayWithCount[index].count > 0) {
-        averageTimesData.push(
-          Math.floor(timeOfDayWithCount[index].time / 60) /
-            timeOfDayWithCount[index].count
-        );
-      } else {
-        averageTimesData.push(0);
-      }
-    }
-
-    let averageWeek = { labels: averageWeekLabels, data: averageWeekData };
-    let averageTimes = { labels: averageTimesLabels, data: averageTimesData };
-
-    let historicalData = Object.values(dateOverTimeData).sort(
-      (a, b) => new Date(b.t) - new Date(a.t)
-    );
-    let adjustedHistoricalDataTimes = historicalData.map(
-      (data) => data.y / 3600
-    );
-    dateLabels.sort((a, b) => new Date(b) - new Date(a));
-
-    let historicalUsage = {
-      labels: dateLabels,
-      data: adjustedHistoricalDataTimes,
-    };
-
-    let categoryLabels = [];
-    let categoryData = [];
-
-    for (let obj of Object.values(categoriesWithCount)) {
-      categoryLabels.push(obj.id);
-      categoryData.push(obj.value);
-    }
-
-    let cateogryChartData = { labels: categoryLabels, data: categoryData };
-    let channelTableData = Object.values(channelsWithVideosAndTime)
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 10);
-    let updatedChannelTimes = channelTableData.map((obj, index) => {
-      return {
-        time: (obj.time / 3600).toFixed(1),
-        title: obj.title,
-        count: obj.count,
-        key: index,
-      };
-    });
-
-    return {
-      averageTimes,
-      averageWeek,
-      cateogryChartData,
-      totalHoursWatched,
-      historicalUsage,
-      updatedChannelTimes,
-    };
-  };
-
-  // Get Day since first video
-  const getDaySinceFirstVideo = () => {
-    let Difference_In_Time =
-      new Date().getTime() - new Date(data[data.length - 1].time).getTime();
-
-    let Difference_In_Days = Math.floor(
-      Difference_In_Time / (1000 * 3600 * 24)
-    );
-    return Difference_In_Days;
-  };
-
   // Outputs all watchtime report data fields
   const generateCompleteReportData = async () => {
     setIsLoading(true);
     let videoList = await generateVideoList();
     let firstVideoWatchedOn = moment(data[data.length - 1].time).format("L");
     let numberOfVideosWatched = data.length;
-    let daysSinceFirstVideo = getDaySinceFirstVideo();
-    let additionalWatchTimeData = getVideoListRelevantData(videoList);
+    let daysSinceFirstVideo = functions.getDaySinceFirstVideo();
+    let chartData = functions.getWatchTimeChartData(videoList);
+
     setIsLoading(false);
 
     setReportData({
       firstVideoWatchedOn,
       numberOfVideosWatched,
       daysSinceFirstVideo,
-      additionalWatchTimeData,
+      averageWeekChart: chartData.averageWeekChartData,
+      averageTimesChart: chartData.averageTimesChartData,
+      categoryChart: chartData.categoryChartData,
+      totalHoursWatched: chartData.totalHoursWatched,
+      historicalChart: chartData.historicalUsageChartData,
+      channelTable: chartData.channelTableData,
     });
   };
 
@@ -520,13 +281,13 @@ const App = () => {
                 </p>
                 <p style={{ color: "white" }}>
                   <div style={{ color: "#9D9D9D" }}>That's a total of </div>
-                  {reportData.additionalWatchTimeData.totalHoursWatched} hours
-                  in the past {reportData.daysSinceFirstVideo} days
+                  {reportData.totalHoursWatched} hours in the past{" "}
+                  {reportData.daysSinceFirstVideo} days
                 </p>
                 <p>
                   <div style={{ color: "#9D9D9D" }}> On average you watch </div>
                   {(
-                    reportData.additionalWatchTimeData.totalHoursWatched /
+                    reportData.totalHoursWatched /
                     reportData.daysSinceFirstVideo
                   ).toFixed(1)}{" "}
                   hours every day
@@ -567,10 +328,8 @@ const App = () => {
                   <Chart
                     key="averageWeek"
                     type="bar"
-                    data={reportData.additionalWatchTimeData.averageWeek.data}
-                    labels={
-                      reportData.additionalWatchTimeData.averageWeek.labels
-                    }
+                    data={reportData.averageWeekChart.data}
+                    labels={reportData.averageWeekChart.labels}
                     id="averageWeek"
                     title="Hours per Day"
                   />
@@ -601,10 +360,8 @@ const App = () => {
                   <Chart
                     key="averageTimes"
                     type="bar"
-                    data={reportData.additionalWatchTimeData.averageTimes.data}
-                    labels={
-                      reportData.additionalWatchTimeData.averageTimes.labels
-                    }
+                    data={reportData.averageTimesChart.data}
+                    labels={reportData.averageTimesChart.labels}
                     id="averageTimes"
                     title="Minutes per hour"
                   />
@@ -634,12 +391,8 @@ const App = () => {
                   <Chart
                     key="historicalUsage"
                     type="line"
-                    data={
-                      reportData.additionalWatchTimeData.historicalUsage.data
-                    }
-                    labels={
-                      reportData.additionalWatchTimeData.historicalUsage.labels
-                    }
+                    data={reportData.historicalChart.data}
+                    labels={reportData.historicalChart.labels}
                     id="historicalUsage"
                     title="Hours per month"
                     // xAxesType="time"
@@ -667,21 +420,19 @@ const App = () => {
                   makes up for 68% of your total watch time.
                 </p>
 
-                <TableComponent
-                  data={reportData.additionalWatchTimeData.updatedChannelTimes}
-                />
+                <TableComponent data={reportData.channelTable} />
               </div>
               {/* Insert Chart With most categories breakdown */}
 
-              {/* <Chart
-            key="categoryChart"
-            type="pie"
-            data={reportData.additionalWatchTimeData.cateogryChartData.data}
-            labels={reportData.additionalWatchTimeData.cateogrychartData.labels}
-            id="categoryChart"
-            title=""
-            // xAxesType="time"
-          /> */}
+              <Chart
+                key="categoryChart"
+                type="pie"
+                data={reportData.categoryChart.data}
+                labels={reportData.categoryChart.labels}
+                id="categoryChart"
+                title=""
+                // xAxesType="time"
+              />
             </div>
           </div>
         </div>
