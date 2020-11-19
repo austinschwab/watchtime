@@ -6,6 +6,7 @@ const ChartComponent = ({ id, type, data, labels, title, xAxesType }) => {
   let colorArray = [];
   let greenForMaxDaily = "#4fffaa";
   let redForMaxWeekly = "#c51818";
+  let purpleForMaxCategory = "#4A0DCD";
 
   var myChart;
 
@@ -19,6 +20,8 @@ const ChartComponent = ({ id, type, data, labels, title, xAxesType }) => {
         return greenForMaxDaily;
       case "averageTimes":
         return redForMaxWeekly;
+      case "categoryChart":
+        return purpleForMaxCategory;
       default:
         return greenForMaxDaily;
     }
@@ -28,6 +31,7 @@ const ChartComponent = ({ id, type, data, labels, title, xAxesType }) => {
     let largeNumber = Math.max(...data);
     let largeNumberIndex = data.indexOf(largeNumber);
     colorArray[largeNumberIndex] = getMaxBorderColor();
+
     return largeNumber;
 
     // if (data === largeNumber) {
@@ -50,15 +54,27 @@ const ChartComponent = ({ id, type, data, labels, title, xAxesType }) => {
   const styles = {
     averageWeek: {
       borderColor: colorArray,
+      backgroundColor: "#111111",
     },
     averageTimes: {
       borderColor: colorArray,
+      backgroundColor: "#111111",
     },
     categoryChart: {
       borderColor: "white",
+      backgroundColor: [
+        colorArray,
+        "#005CFF",
+        "#0083FF",
+        "#00A0FF",
+        "#00B9DD",
+        "#00CFA8",
+        "#E3F3FB",
+      ],
     },
     historicalUsage: {
       borderColor: "#10ccf5",
+      backgroundColor: "#111111",
     },
   };
 
@@ -74,7 +90,7 @@ const ChartComponent = ({ id, type, data, labels, title, xAxesType }) => {
               label: title,
               data: data,
               // backgroundColor: styles.averageWeek.backgroundColor,
-              backgroundColor: ["#111111"],
+              backgroundColor: styles[id].backgroundColor,
               borderWidth: 2,
               borderColor: styles[id].borderColor,
             },
@@ -93,6 +109,9 @@ const ChartComponent = ({ id, type, data, labels, title, xAxesType }) => {
           },
         },
       });
+    }
+    if (id === "categoryChart") {
+      console.log("hey", id);
     }
   }, [chartRef]);
 

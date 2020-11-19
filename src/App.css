@@ -2,13 +2,19 @@
   text-align: center;
   height: 100%;
   width: 100%;
-  padding: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: #111111;
   font-family: "Inter";
+}
+
+.Menu {
+  width: 100vw;
+  display: flex;
+  top: 0;
+  align-self: start;
 }
 
 .Body {
@@ -69,13 +75,47 @@
   border-color: white;
   background: #1c1c1c;
   margin-top: 32px;
-  justify-content: center;
 }
 
 .sidedot {
   width: 12px;
   height: 12px;
   border-radius: 12px;
+}
+
+.Reccomendation_Section {
+  justify-content: center;
+  align-items: center;
+  color: "white";
+}
+
+.Reccomendation_Container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 56px;
+  row-gap: 56px;
+  align-items: center;
+  justify-content: center;
+}
+.reccomendation_item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  max-width: 271px;
+  max-height: 119px;
+  border-radius: 20px;
+}
+
+.reccomendation_item:hover {
+  border: 2px solid #4fffaa;
+}
+.reccomendation_text {
+  font-size: 16;
+}
+.rec_image {
+  margin-right: 16;
 }
 
 @import url("https://fonts.google.com/specimen/Inter");

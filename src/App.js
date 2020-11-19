@@ -90,6 +90,78 @@ const App = () => {
     });
   };
 
+  const [reccomendations, setRecomendations] = useState([
+    {
+      name: "/r/Nosurf",
+      type: "Community",
+      image: (
+        <img
+          src={process.env.PUBLIC_URL + "images/r.png"}
+          alt="img"
+          width="40px"
+        />
+      ),
+    },
+    {
+      name: "Humane Tech",
+      type: "Community",
+      image: (
+        <img
+          src={process.env.PUBLIC_URL + "images/htech.png"}
+          alt="img"
+          width="64px"
+          color="white"
+          invert="100%"
+        />
+      ),
+    },
+    {
+      name: "The Shallows",
+      type: "Book",
+      image: (
+        <img
+          src={process.env.PUBLIC_URL + "images/TheShallows.jpg"}
+          alt="img"
+          width="56px"
+          className="rec_image"
+        />
+      ),
+    },
+    {
+      name: "Freedom App",
+      type: "Tool",
+      image: (
+        <img
+          src={process.env.PUBLIC_URL + "images/FreedomApp.png"}
+          alt="img"
+          width="40px"
+        />
+      ),
+    },
+    {
+      name: "Rescue Time",
+      type: "Tool",
+      image: (
+        <img
+          src={process.env.PUBLIC_URL + "images/RescueTime.png"}
+          alt="img"
+          width="40px"
+        />
+      ),
+    },
+    {
+      name: "The Social Dilemna",
+      type: "Film",
+      image: (
+        <img
+          src={process.env.PUBLIC_URL + "images/TheSocialDilemna.jpg"}
+          alt="img"
+          width="56px"
+        />
+      ),
+    },
+  ]);
+
   const [selectCategory, setselectCategory] = useState([
     {
       name: "Total Watch Time",
@@ -112,13 +184,13 @@ const App = () => {
       id: Math.floor(Math.random() * 1000000),
     },
     {
-      name: "Most watched channels",
+      name: "Most Watched Channels",
       color: "#F0F510",
       id: Math.floor(Math.random() * 1000000),
     },
     {
-      name: "More...",
-      color: "#4FFFAA",
+      name: "Category Breakdown",
+      color: "#4A0DCD",
       id: Math.floor(Math.random() * 1000000),
     },
   ]);
@@ -180,11 +252,13 @@ const App = () => {
   console.log(reportData);
   return (
     <div className="App">
-      <img
-        src={process.env.PUBLIC_URL + "images/watchtime_logo.png"}
-        alt="img"
-        style={{ width: 131 }}
-      />
+      <div className="Menu">
+        <img
+          src={process.env.PUBLIC_URL + "images/watchtime_logo.png"}
+          alt="img"
+          style={{ width: 200, padding: 40 }}
+        />
+      </div>
       {/* <BarChart data={data} /> */}
       <Button type="primary" onClick={() => generateCompleteReportData()}>
         Generate Report
@@ -433,6 +507,24 @@ const App = () => {
                 title=""
                 // xAxesType="time"
               />
+            </div>
+          </div>
+          <div className="Reccomendation_Section">
+            <h1 style={{ color: "white", fontSize: 38, marginBottom: 160 }}>
+              Now that you have a better sense of your usage. Here are some
+              resources to help :D
+            </h1>
+            <p style={{ fontSize: 20 }}>Handpicked resources</p>
+            <div className="Reccomendation_Container">
+              {reccomendations.map((item, index) => (
+                <div className="reccomendation_item" key={index}>
+                  {item.image}
+                  <div style={{ marginLeft: 16 }}>
+                    <p style={{ fontSize: 16 }}>{item.name}</p>
+                    <p style={{ fontSize: 16 }}>{item.type}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
