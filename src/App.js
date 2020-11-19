@@ -195,26 +195,15 @@ const App = () => {
     },
   ]);
 
-  const scroll = () => {};
-
   const mapCategories = () => {
     return selectCategory.map((item, index) => (
       <div
         key={index}
         style={{
           backgroundColor: "#1C1C1C",
-          display: "inline-block",
-          flexDirection: "row",
-          fontSize: 18,
-          fontHeight: 16,
-          fontWeight: "Medium",
           margin: 10,
-          justifyContent: "space-evenly",
-          justifySelf: "",
           borderRadius: 12,
           padding: 20,
-          color: "#b4b4b4",
-          // hover effect using Radium
           ":hover": {
             border: "solid",
             borderColor: item.color,
@@ -222,31 +211,74 @@ const App = () => {
           },
         }}
       >
-        <ScrollIntoView selector="#chartOne" smooth>
+        <ScrollIntoView
+          selector={`#chart${index}`}
+          smooth
+          style={{
+            // hover effect using Radium
+            width: "100%",
+            height: "100%",
+            justifyContent: "center",
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "row",
+          }}
+        >
           <div
             style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
+              width: 16,
+              height: 16,
+              fontWeight: 20,
+              backgroundColor: item.color,
+              borderRadius: 20,
+              marginRight: 12,
+            }}
+          ></div>
+          <span
+            style={{
+              fontSize: 18,
+              fontHeight: 16,
+              fontWeight: "Medium",
+              color: "#b4b4b4",
             }}
           >
-            <div
-              style={{
-                width: 16,
-                height: 16,
-                fontWeight: 20,
-                backgroundColor: item.color,
-                borderRadius: 20,
-                float: "left",
-                marginRight: 12,
-              }}
-            ></div>
-            <span>{item.name}</span>
-          </div>
+            {item.name}
+          </span>
         </ScrollIntoView>
       </div>
     ));
+  };
+  //finish chart items and rendercharts styles
+  const chartItems = [
+    {
+      heading: "You watch Youtube the most on Satrudays",
+      subtitle: " Your daily average is 6.5 hours",
+      component: (
+        <Chart
+          key="averageWeek"
+          type="bar"
+          data={reportData.averageWeekChart.data}
+          labels={reportData.averageWeekChart.labels}
+          id="averageWeek"
+          title="Hours per Day"
+        />
+      ),
+    },
+  ];
+  const renderCharts = () => {
+    return (
+      <div style={{ width: "50%", margin: "auto" }}>
+        {chartItems.map((item, index) => {
+          return (
+            <div key={index} id={`chart${index}`}>
+              <h2 style={{ color: "white" }}>{item.heading}</h2>
+              <p>{item.subtitle}</p>
+              <div>{item.component}</div>
+            </div>
+          );
+        })}
+      </div>
+    );
   };
 
   console.log(reportData);
@@ -330,43 +362,45 @@ const App = () => {
                 </div>
               ))}
             </div>
+            <div style={{ width: "50%", margin: "auto" }}>
+              <p
+                style={{
+                  color: "#9D9D9D",
+                  fontSize: "48",
+                  fontWeight: "Semi-bold",
+                }}
+              >
+                Since you watched your first Youtube video on{" "}
+                <span style={{ color: "white" }}>
+                  {reportData.firstVideoWatchedOn}
+                </span>
+                , you've watched{" "}
+                <span style={{ color: "white" }}>
+                  {reportData.numberOfVideosWatched} videos.
+                </span>
+              </p>
+              <p />
+              <p
+                style={{
+                  color: "#9D9D9D",
+                  fontSize: "48",
+                  fontWeight: "Semi-bold",
+                }}
+              >
+                That's a total of{" "}
+                <span style={{ color: "white" }}>
+                  {reportData.totalHoursWatched}
+                </span>{" "}
+                hours in the past{" "}
+                <span style={{ color: "white" }}>
+                  {reportData.daysSinceFirstVideo}
+                </span>{" "}
+                days.
+              </p>
+            </div>
+
             <div className="Stats">
               <div className="Stats_Container">
-                <p
-                  style={{
-                    color: "#9D9D9D",
-                    fontSize: "48",
-                    fontWeight: "Semi-bold",
-                  }}
-                >
-                  Since you watched your first Youtube video on{" "}
-                  <span style={{ color: "white" }}>
-                    <p></p>
-                    {reportData.firstVideoWatchedOn}
-                  </span>
-                  <div style={{ color: "white" }}>
-                    {reportData.firstVideoWatchedOn}
-                  </div>
-                  , you've watched{" "}
-                  <div style={{ color: "white" }}>
-                    {reportData.numberOfVideosWatched}{" "}
-                  </div>
-                  , videos.{" "}
-                </p>
-                <p style={{ color: "white" }}>
-                  <div style={{ color: "#9D9D9D" }}>That's a total of </div>
-                  {reportData.totalHoursWatched} hours in the past{" "}
-                  {reportData.daysSinceFirstVideo} days
-                </p>
-                <p>
-                  <div style={{ color: "#9D9D9D" }}> On average you watch </div>
-                  {(
-                    reportData.totalHoursWatched /
-                    reportData.daysSinceFirstVideo
-                  ).toFixed(1)}{" "}
-                  hours every day
-                </p>
-
                 {/* Insert Chart With average week */}
                 <div className="Stats_Container" id="chartOne">
                   <p

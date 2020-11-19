@@ -32,10 +32,6 @@
   font-size: 32px;
 }
 
-.Test {
-  background: red;
-}
-
 .transparent {
   background-color: "transparent";
 }
@@ -122,3 +118,7 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap");
+
+.MuiDataGrid-root .MuiDataGrid-cell {
+  border-bottom: none !important;
+}

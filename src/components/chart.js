@@ -79,6 +79,22 @@ const ChartComponent = ({ id, type, data, labels, title, xAxesType }) => {
   };
 
   useEffect(() => {
+    let options;
+    if (type !== "pie") {
+      options = {
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true,
+              },
+            },
+          ],
+        },
+      };
+    } else {
+      options = {};
+    }
     if (chartRef) {
       myChart = new Chart(chartRef.current.getContext("2d"), {
         type: type,
@@ -96,22 +112,8 @@ const ChartComponent = ({ id, type, data, labels, title, xAxesType }) => {
             },
           ],
         },
-        options: {
-          scales: {
-            yAxes: [
-              {
-                ticks: {
-                  beginAtZero: true,
-                },
-              },
-            ],
-            // xAxes: [{ type: xAxesType, time: { unit: "month" } }],
-          },
-        },
+        options: options,
       });
-    }
-    if (id === "categoryChart") {
-      console.log("hey", id);
     }
   }, [chartRef]);
 
