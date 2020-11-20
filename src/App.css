@@ -94,9 +94,38 @@
   width: 38px;
   height: 38px;
   border-radius: 12px;
-  border-color: white;
   background: #1c1c1c;
   margin-top: 32px;
+}
+.sidelink.red.is-active {
+  border-color: #c51818 !important;
+  border: solid;
+  border-width: 1px;
+}
+.sidelink.green.is-active {
+  border-color: #4fffaa !important;
+  border: solid;
+  border-width: 1px;
+}
+.sidelink.white.is-active {
+  border-color: #ffffff !important;
+  border: solid;
+  border-width: 1px;
+}
+.sidelink.blue.is-active {
+  border-color: #10ccf5 !important;
+  border: solid;
+  border-width: 1px;
+}
+.sidelink.yellow.is-active {
+  border-color: #f0f510 !important;
+  border: solid;
+  border-width: 1px;
+}
+.sidelink.purple.is-active {
+  border-color: #4a0dcd !important;
+  border: solid;
+  border-width: 1px;
 }
 
 .SideLinkAnchor {

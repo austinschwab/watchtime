@@ -414,9 +414,9 @@ const App = () => {
                     "chart4",
                     "chart5",
                   ]}
-                  currentClassName="is-current"
+                  currentClassName="is-active"
                 >
-                  <li className="sidelink">
+                  <li className="sidelink white">
                     <a href="#chart0" className="SideLinkAnchor">
                       <div
                         className="sidedot"
@@ -424,7 +424,7 @@ const App = () => {
                       ></div>
                     </a>
                   </li>
-                  <li className="sidelink">
+                  <li className="sidelink green">
                     <a href="#chart1" className="SideLinkAnchor">
                       {" "}
                       <div
@@ -433,7 +433,7 @@ const App = () => {
                       ></div>
                     </a>
                   </li>
-                  <li className="sidelink">
+                  <li className="sidelink red">
                     <a href="#chart2" className="SideLinkAnchor">
                       <div
                         className="sidedot"
@@ -441,7 +441,7 @@ const App = () => {
                       ></div>
                     </a>
                   </li>
-                  <li className="sidelink">
+                  <li className="sidelink blue">
                     <a href="#chart3" className="SideLinkAnchor">
                       {" "}
                       <div
@@ -450,7 +450,7 @@ const App = () => {
                       ></div>
                     </a>
                   </li>
-                  <li className="sidelink">
+                  <li className="sidelink  yellow">
                     <a href="#chart4" className="SideLinkAnchor">
                       {" "}
                       <div
@@ -459,7 +459,7 @@ const App = () => {
                       ></div>
                     </a>
                   </li>
-                  <li className="sidelink">
+                  <li className="sidelink purple">
                     <a href="#chart5" className="SideLinkAnchor">
                       {" "}
                       <div
