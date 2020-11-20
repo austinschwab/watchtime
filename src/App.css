@@ -1,66 +1,92 @@
 .App {
-  text-align: center;
   height: 100%;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   background-color: #111111;
   font-family: "Inter";
 }
 
-.Menu {
-  width: 100vw;
-  display: flex;
-  top: 0;
-  align-self: start;
+.Content {
+  width: 80%;
+  height: 100%;
+  margin: auto;
+  max-width: 800px;
 }
 
-.Body {
-  text-align: center;
-  height: 100%;
+.Menu {
   width: 100%;
-  padding: 50px;
+  margin-bottom: 100px;
+}
+
+.IntroSection {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: start;
-  font-weight: "Semi-bold";
-  font-family: "Inter";
-  color: white;
+  margin: auto;
+}
+
+.Paragraph {
+  width: 80%;
+  margin: auto;
+  color: #9d9d9d;
   font-size: 32px;
+  font-weight: " Semi-bold";
+  text-align: center;
+}
+
+.BreakdownImageContainer {
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 150px;
+  display: flex;
+}
+
+.BreakdownContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.BreakdownTitle {
+  font-size: 18px;
+  font-weight: "Semi-bold";
+  color: white;
+  text-align: center;
+}
+
+.ReportContainer {
+  width: 100%;
 }
 
 .transparent {
   background-color: "transparent";
 }
 
-.Youtube_Stats_Section {
-  position: relative;
-  flex-direction: row;
-  align-content: "stretch";
-  justify-content: "center";
-}
-
-.Stats {
-  padding: 160px;
-}
-
-.Stats_Container {
-  padding-top: 56px;
-  padding-bottom: 56px;
+.StatsContainer {
+  display: flex;
+  height: auto;
   margin-top: 156px;
   margin-bottom: 156px;
+  padding-top: 56px;
+  padding-bottom: 56px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-
 .Sidebar {
-  width: 4%;
-  height: 8%;
-  max-height: 391px;
-  position: -webkit-sticky;
   position: sticky;
-  top: 236px;
+  top: 15%;
+  width: auto;
+  height: auto;
+  max-height: 391px;
+  max-width: none;
+  margin-top: 236px;
+  margin-right: 0px;
+  border-radius: 13px;
+  background-color: transparent;
 }
 
 .sidelink {
@@ -73,25 +99,48 @@
   margin-top: 32px;
 }
 
+.SideLinkAnchor {
+  /* display: flex;
+  padding: 12px;
+  -webkit-box-pack: center;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background-color: #1c1c1c; */
+}
 .sidedot {
   width: 12px;
   height: 12px;
   border-radius: 12px;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 .Reccomendation_Section {
   justify-content: center;
   align-items: center;
   color: "white";
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: auto;
+  text-align: center;
+  margin-top: 100px;
+  margin-bottom: 100px;
 }
 
-.Reccomendation_Container {
+.ReccomendationContainer {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  column-gap: 56px;
-  row-gap: 56px;
+  column-gap: 30px;
+  row-gap: 30px;
   align-items: center;
   justify-content: center;
+  max-width: 800px;
 }
 .reccomendation_item {
   display: flex;
@@ -99,19 +148,20 @@
   align-items: center;
   justify-content: center;
   padding: 24px;
-  max-width: 271px;
-  max-height: 119px;
+  max-width: 240px;
+  max-height: 100px;
   border-radius: 20px;
+  color: white;
 }
 
 .reccomendation_item:hover {
   border: 2px solid #4fffaa;
 }
 .reccomendation_text {
-  font-size: 16;
+  font-size: 12px;
 }
 .rec_image {
-  margin-right: 16;
+  margin-right: 16px;
 }
 
 @import url("https://fonts.google.com/specimen/Inter");

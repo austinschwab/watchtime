@@ -1,3 +1,5 @@
+import React from "react";
+
 export const hourFormat = [
   { value: 12, period: "AM" },
   { value: 1, period: "AM" },
@@ -244,3 +246,75 @@ export const timeOfDayWithCount = {
   22: { count: 0, time: 0 },
   23: { count: 0, time: 0 },
 };
+
+export const recommendations = [
+  {
+    name: "/r/Nosurf",
+    type: "Community",
+    image: (
+      <img
+        src={process.env.PUBLIC_URL + "images/r.png"}
+        alt="img"
+        width="40px"
+      />
+    ),
+  },
+  {
+    name: "Humane Tech",
+    type: "Community",
+    image: (
+      <img
+        src={process.env.PUBLIC_URL + "images/htech.png"}
+        alt="img"
+        width="64px"
+        color="white"
+        invert="100%"
+      />
+    ),
+  },
+  {
+    name: "The Shallows",
+    type: "Book",
+    image: (
+      <img
+        src={process.env.PUBLIC_URL + "images/TheShallows.jpg"}
+        alt="img"
+        width="56px"
+        className="rec_image"
+      />
+    ),
+  },
+  {
+    name: "Freedom App",
+    type: "Tool",
+    image: (
+      <img
+        src={process.env.PUBLIC_URL + "images/FreedomApp.png"}
+        alt="img"
+        width="40px"
+      />
+    ),
+  },
+  {
+    name: "Rescue Time",
+    type: "Tool",
+    image: (
+      <img
+        src={process.env.PUBLIC_URL + "images/RescueTime.png"}
+        alt="img"
+        width="40px"
+      />
+    ),
+  },
+  {
+    name: "The Social Dilemna",
+    type: "Film",
+    image: (
+      <img
+        src={process.env.PUBLIC_URL + "images/TheSocialDilemna.jpg"}
+        alt="img"
+        width="56px"
+      />
+    ),
+  },
+];

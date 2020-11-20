@@ -20,7 +20,8 @@
     "react-animate-on-scroll": "^2.1.5",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3",
-    "react-scroll-into-view": "^1.8.2"
+    "react-scroll-into-view": "^1.8.2",
+    "react-scrollspy": "^3.4.3"
   },
   "scripts": {
     "start": "react-scripts start",
