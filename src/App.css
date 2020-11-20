@@ -3,6 +3,7 @@
   width: 100%;
   background-color: #111111;
   font-family: "Inter";
+  padding-bottom: 100px;
 }
 
 .Content {
@@ -128,16 +129,6 @@
   border-width: 1px;
 }
 
-.SideLinkAnchor {
-  /* display: flex;
-  padding: 12px;
-  -webkit-box-pack: center;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid transparent;
-  border-radius: 8px;
-  background-color: #1c1c1c; */
-}
 .sidedot {
   width: 12px;
   height: 12px;
@@ -186,18 +177,8 @@ ul {
 .reccomendation_item:hover {
   border: 2px solid #4fffaa;
 }
-.reccomendation_text {
-  font-size: 12px;
-}
-.rec_image {
-  margin-right: 16px;
-}
 
 @import url("https://fonts.google.com/specimen/Inter");
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap");
-
-.MuiDataGrid-root .MuiDataGrid-cell {
-  border-bottom: none !important;
-}
