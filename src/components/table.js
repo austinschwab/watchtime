@@ -1,6 +1,6 @@
 import React from "react";
 import { Table } from "antd";
-import MaterialTable from "material-table";
+import MaterialTable, { MTableToolbar } from "material-table";
 import styles from "../App.css";
 
 const columns = [
@@ -58,6 +58,14 @@ const TableComponent = ({ data }) => {
         paging: false,
         search: false,
         headerStyle: { backgroundColor: "#111111", color: "#727272" },
+      }}
+      components={{
+        Groupbar: (props) => (
+          <div style={{ backgroundColor: "D4AF37", borderColor: "yellow" }}>
+            {" "}
+            <MTableToolbar {...props} /> {props.children}{" "}
+          </div>
+        ),
       }}
       // size="middle"
       // rowClassName={(record, index) =>

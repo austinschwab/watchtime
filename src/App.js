@@ -477,20 +477,29 @@ const App = () => {
         )}
       </div>
       <div className="Reccomendation_Section">
-        <h1 style={{ color: "white", fontSize: 36, marginBottom: 150 }}>
+        <h1
+          style={{
+            color: "white",
+            fontSize: 36,
+            marginBottom: 100,
+            width: "70%",
+          }}
+        >
           Now that you have a better sense of your usage. Here are some
           resources to help :D
         </h1>
         <p style={{ fontSize: 20, color: "white" }}>Handpicked resources</p>
         <div className="ReccomendationContainer">
           {constants.recommendations.map((item, index) => (
-            <div className="reccomendation_item" key={index}>
-              {item.image}
-              <div style={{ marginLeft: 16 }}>
-                <p style={{ fontSize: 12 }}>{item.name}</p>
-                <p style={{ fontSize: 12 }}>{item.type}</p>
+            <a href={item.link} style={{ width: "100%" }}>
+              <div className="reccomendation_item" key={index}>
+                {item.image}
+                <div style={{ marginLeft: 16 }}>
+                  <p style={{ fontSize: 12 }}>{item.name}</p>
+                  <p style={{ fontSize: 12 }}>{item.type}</p>
+                </div>
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </div>

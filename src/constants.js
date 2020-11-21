@@ -258,6 +258,7 @@ export const recommendations = [
         width="40px"
       />
     ),
+    link: "https://www.reddit.com/r/nosurf/",
   },
   {
     name: "Humane Tech",
@@ -271,6 +272,7 @@ export const recommendations = [
         invert="100%"
       />
     ),
+    link: "https://www.humanetech.com/",
   },
   {
     name: "The Shallows",
@@ -283,6 +285,8 @@ export const recommendations = [
         className="rec_image"
       />
     ),
+    link:
+      "https://www.amazon.com/Shallows-What-Internet-Doing-Brains/dp/0393339750",
   },
   {
     name: "Freedom App",
@@ -294,6 +298,7 @@ export const recommendations = [
         width="40px"
       />
     ),
+    link: "https://www.freedom.to",
   },
   {
     name: "Rescue Time",
@@ -305,6 +310,7 @@ export const recommendations = [
         width="40px"
       />
     ),
+    link: "https://www.rescuetime.com/",
   },
   {
     name: "The Social Dilemna",
@@ -316,5 +322,6 @@ export const recommendations = [
         width="56px"
       />
     ),
+    link: "https://www.netflix.com/title/81254224",
   },
 ];
