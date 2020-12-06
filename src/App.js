@@ -155,8 +155,8 @@ const App = () => {
         >
           <div
             style={{
-              width: 10,
-              height: 10,
+              width: 16,
+              height: 16,
               fontWeight: 20,
               backgroundColor: item.color,
               borderRadius: 20,
@@ -165,8 +165,8 @@ const App = () => {
           ></div>
           <span
             style={{
-              fontSize: 14,
-              fontHeight: 14,
+              fontSize: 18,
+              fontHeight: 16,
               fontWeight: "Medium",
               color: "#b4b4b4",
             }}
@@ -218,11 +218,20 @@ const App = () => {
         </p>
       ),
       subtitle: (
-        <span style={{ fontSize: 14, color: "#9d9d9d" }}>
+        <div className="Subtitle">
           {" "}
           Your daily average is{" "}
-          <span style={{ color: "white" }}>6.5 hours</span>{" "}
-        </span>
+          <span
+            style={{
+              borderBottom: "1px solid #4fffaa",
+              display: "inline-block",
+              paddingBottom: 1,
+              color: "white",
+            }}
+          >
+            6.5 hours
+          </span>{" "}
+        </div>
       ),
       component: (
         <Chart
@@ -237,12 +246,26 @@ const App = () => {
     },
     {
       heading: (
-        <p className="Paragraph">You prefer watching videos during the</p>
+        <p className="Paragraph">
+          You prefer watching videos during the{" "}
+          <span style={{ color: "white" }}>afternoon</span>.
+        </p>
       ),
       subtitle: (
-        <span style={{ fontSize: 14, color: "#9d9d9d" }}>
-          make up 51% of your daily Youtube usage.
-        </span>
+        <div className="Subtitle">
+          Afternoons make up{" "}
+          <span
+            style={{
+              borderBottom: "1px solid #c51818",
+              display: "inline-block",
+              paddingBottom: 1,
+              color: "white",
+            }}
+          >
+            51%{" "}
+          </span>{" "}
+          of your daily Youtube usage.
+        </div>
       ),
       component: (
         <Chart
@@ -260,9 +283,32 @@ const App = () => {
         <p className="Paragraph">Here’s a breakdown of your historical usage</p>
       ),
       subtitle: (
-        <span style={{ fontSize: 14, color: "#9d9d9d" }}>
-          Your top month was June 2020. You watched 160 hours.
-        </span>
+        <div className="Subtitle">
+          Your top month was{" "}
+          <span
+            style={{
+              borderBottom: "1px solid #10ccf5",
+              display: "inline-block",
+              paddingBottom: 1,
+              color: "white",
+            }}
+          >
+            June 2020
+          </span>
+          . You watched{" "}
+          <span
+            style={{
+              borderBottom: "1px solid #10ccf5",
+              display: "inline-block",
+              paddingBottom: 1,
+              color: "white",
+            }}
+          >
+            {" "}
+            160
+          </span>{" "}
+          hours.
+        </div>
       ),
       component: (
         <Chart
@@ -279,10 +325,31 @@ const App = () => {
     {
       heading: <p className="Paragraph">Most watched channels</p>,
       subtitle: (
-        <span style={{ fontSize: 14, color: "#9d9d9d" }}>
-          Across your top 10 channels, you've watched 555 hours. This makes up
-          for 68% of your total watch time.
-        </span>
+        <div className="Subtitle">
+          Across your top 10 channels, you've watched{" "}
+          <span
+            style={{
+              borderBottom: "1px solid #f0f510",
+              display: "inline-block",
+              paddingBottom: 1,
+              color: "white",
+            }}
+          >
+            555 hours
+          </span>
+          . This makes up for{" "}
+          <span
+            style={{
+              borderBottom: "1px solid #f0f510",
+              display: "inline-block",
+              paddingBottom: 1,
+              color: "white",
+            }}
+          >
+            68%
+          </span>{" "}
+          of your total watch time.
+        </div>
       ),
       component: <TableComponent data={reportData.channelTable} />,
     },
@@ -290,12 +357,7 @@ const App = () => {
       heading: (
         <p className="Paragraph">See which categories you watch the most.</p>
       ),
-      subtitle: (
-        <span style={{ fontSize: 14, color: "#9d9d9d" }}>
-          Across your top 10 channels, you've watched 555 hours. This makes up
-          for 68% of your total watch time.
-        </span>
-      ),
+      subtitle: <p></p>,
       component: (
         <Chart
           key="categoryChart"
@@ -324,7 +386,7 @@ const App = () => {
                   backgroundColor: "#1C1C1C",
                   margin: 10,
                   borderRadius: 10,
-                  padding: 10,
+                  padding: 16,
                   justifyContent: "center",
                   display: "flex",
                   alignItems: "center",
@@ -336,8 +398,8 @@ const App = () => {
               >
                 <div
                   style={{
-                    width: 10,
-                    height: 10,
+                    width: 16,
+                    height: 16,
                     fontWeight: 20,
                     backgroundColor: selectCategory[index].color,
                     borderRadius: 20,
@@ -346,8 +408,8 @@ const App = () => {
                 ></div>
                 <span
                   style={{
-                    fontSize: 14,
-                    fontHeight: 14,
+                    fontSize: 18,
+                    fontHeight: 16,
                     fontWeight: "Medium",
                     color: "#b4b4b4",
                   }}
