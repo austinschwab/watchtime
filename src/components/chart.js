@@ -4,6 +4,14 @@ import Chart from "chart.js";
 const ChartComponent = ({ id, type, data, labels, title, xAxesType }) => {
   const chartRef = useRef();
   let colorArray = [];
+  let categoryChartColors = [
+    "#005CFF",
+    "#0083FF",
+    "#00A0FF",
+    "#00B9DD",
+    "#00CFA8",
+    "#E3F3FB",
+  ];
   let greenForMaxDaily = "#4fffaa";
   let redForMaxWeekly = "#c51818";
   let purpleForMaxCategory = "#4A0DCD";
@@ -31,6 +39,7 @@ const ChartComponent = ({ id, type, data, labels, title, xAxesType }) => {
     let largeNumber = Math.max(...data);
     let largeNumberIndex = data.indexOf(largeNumber);
     colorArray[largeNumberIndex] = getMaxBorderColor();
+    categoryChartColors[largeNumberIndex] = getMaxBorderColor();
 
     return largeNumber;
 
@@ -62,15 +71,7 @@ const ChartComponent = ({ id, type, data, labels, title, xAxesType }) => {
     },
     categoryChart: {
       borderColor: "white",
-      backgroundColor: [
-        colorArray,
-        "#005CFF",
-        "#0083FF",
-        "#00A0FF",
-        "#00B9DD",
-        "#00CFA8",
-        "#E3F3FB",
-      ],
+      backgroundColor: categoryChartColors,
     },
     historicalUsage: {
       borderColor: "#10ccf5",
