@@ -3,6 +3,7 @@
   width: 100%;
   background-color: #111111;
   font-family: "Inter";
+  font-weight: 500;
   padding-bottom: 100px;
 }
 
@@ -65,6 +66,22 @@
   font-weight: "Semi-bold";
   color: white;
   text-align: center;
+}
+
+.categoryBox {
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #1c1c1c;
+  border-radius: 10px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin: auto;
+  margin-bottom: 40px;
+  width: fit-content;
 }
 
 .ReportContainer {
@@ -186,8 +203,3 @@ ul {
 .reccomendation_item:hover {
   border: 2px solid #4fffaa;
 }
-
-@import url("https://fonts.google.com/specimen/Inter");
-
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap");

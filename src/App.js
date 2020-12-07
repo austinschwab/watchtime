@@ -128,11 +128,8 @@ const App = () => {
     return selectCategory.map((item, index) => (
       <div
         key={index}
+        className="categoryBox"
         style={{
-          backgroundColor: "#1C1C1C",
-          margin: 10,
-          borderRadius: 10,
-          padding: 10,
           ":hover": {
             border: "solid",
             borderColor: item.color,
@@ -381,21 +378,7 @@ const App = () => {
               id={`chart${index}`}
               style={{ marginBottom: 100, paddingTop: 75 }}
             >
-              <div
-                style={{
-                  backgroundColor: "#1C1C1C",
-                  margin: 10,
-                  borderRadius: 10,
-                  padding: 16,
-                  justifyContent: "center",
-                  display: "flex",
-                  alignItems: "center",
-                  flexDirection: "row",
-                  marginBottom: 60,
-                  margin: "auto",
-                  width: "fit-content",
-                }}
-              >
+              <div className="categoryBox">
                 <div
                   style={{
                     width: 16,
