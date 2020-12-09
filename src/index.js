@@ -1,12 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
+import Upload from "./Upload";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "antd/dist/antd.css";
 
 ReactDOM.render(
   <React.StrictMode>
+    {/* <Upload /> */}
     <App />
   </React.StrictMode>,
   document.getElementById("root")
