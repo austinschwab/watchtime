@@ -2,7 +2,7 @@ import React, { useState, useEffect, Item } from "react";
 import data from "./data/watch-history1.json";
 import * as classes from "./App.css";
 import axios from "axios";
-import _ from "lodash";
+import _, { slice } from "lodash";
 import moment from "moment";
 import { Button, Row, Col, Spin, Table } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
@@ -21,6 +21,55 @@ const App = () => {
     constants.sampleReportData ? constants.sampleReportData : null
   );
   const [isLoading, setIsLoading] = useState(false);
+  const getTimeOfDay = () => {
+    let index = reportData.averageTimesChart.data.indexOf(
+      Math.max(...reportData.averageTimesChart.data)
+    );
+    console.log("index", index);
+    if (index < 6) {
+      return "early morning";
+    }
+    if (6 <= index && index < 11) {
+      return "morning";
+    }
+    if (12 <= index && index < 16) {
+      return "afternoon";
+    } else {
+      return "evening";
+    }
+  };
+  const getSum = (array, isObj) => {
+    console.log(array);
+    let sum;
+    if (isObj) {
+      sum = array.reduce((a, b) => {
+        return a + +b.time;
+      }, 0);
+    } else {
+      sum = array.reduce((a, b) => a + b, 0);
+    }
+    console.log(sum);
+    return sum;
+  };
+
+  const percentageTimeOfDay = () => {
+    let index = reportData.averageTimesChart.data.indexOf(
+      Math.max(...reportData.averageTimesChart.data)
+    );
+    let slicedData;
+    if (index <= 11) {
+      slicedData = reportData.averageTimesChart.data.slice(0, 12);
+    }
+    if (12 <= index && index < 16) {
+      slicedData = reportData.averageTimesChart.data.slice(12, 17);
+    } else {
+      slicedData = reportData.averageTimesChart.data.slice(17, 23);
+    }
+    let sum = getSum(reportData.averageTimesChart.data, false);
+    let durationSum = slicedData.reduce((a, b) => a + b, 0);
+    let percentage = Math.round((durationSum / sum) * 100);
+    return percentage;
+  };
 
   // Request Youtube api for batched video/channel data
   const generateVideoList = async () => {
@@ -211,24 +260,36 @@ const App = () => {
       heading: (
         <p className="Paragraph">
           You watch Youtube the most on{" "}
-          <span style={{ color: "white" }}>Satrudays</span>
+          <span style={{ color: "white" }}>
+            {
+              reportData.averageWeekChart.labels[
+                reportData.averageWeekChart.data.indexOf(
+                  Math.max(...reportData.averageWeekChart.data)
+                )
+              ]
+            }
+            's
+          </span>
         </p>
       ),
       subtitle: (
-        <div className="Subtitle">
+        <p
+          style={{
+            fontSize: 14,
+            color: "#9d9d9d",
+            textAlign: "center",
+            width: "100%",
+          }}
+        >
           {" "}
           Your daily average is{" "}
-          <span
-            style={{
-              borderBottom: "1px solid #4fffaa",
-              display: "inline-block",
-              paddingBottom: 1,
-              color: "white",
-            }}
-          >
-            6.5 hours
+          <span style={{ color: "white" }}>
+            {(
+              reportData.averageWeekChart.data.reduce((a, b) => a + b) /
+              reportData.averageWeekChart.data.length
+            ).toFixed(1)}
           </span>{" "}
-        </div>
+        </p>
       ),
       component: (
         <Chart
@@ -245,24 +306,14 @@ const App = () => {
       heading: (
         <p className="Paragraph">
           You prefer watching videos during the{" "}
-          <span style={{ color: "white" }}>afternoon</span>.
+          <span style={{ color: "white" }}>{getTimeOfDay()}</span>
         </p>
       ),
       subtitle: (
-        <div className="Subtitle">
-          Afternoons make up{" "}
-          <span
-            style={{
-              borderBottom: "1px solid #c51818",
-              display: "inline-block",
-              paddingBottom: 1,
-              color: "white",
-            }}
-          >
-            51%{" "}
-          </span>{" "}
-          of your daily Youtube usage.
-        </div>
+        <span style={{ fontSize: 14, color: "#9d9d9d" }}>
+          {getTimeOfDay()[0].toUpperCase() + getTimeOfDay().slice(1)}'s make up{" "}
+          {percentageTimeOfDay()}% of your daily Youtube usage.
+        </span>
       ),
       component: (
         <Chart
@@ -322,39 +373,28 @@ const App = () => {
     {
       heading: <p className="Paragraph">Most watched channels</p>,
       subtitle: (
-        <div className="Subtitle">
+        <span style={{ fontSize: 14, color: "#9d9d9d" }}>
           Across your top 10 channels, you've watched{" "}
-          <span
-            style={{
-              borderBottom: "1px solid #f0f510",
-              display: "inline-block",
-              paddingBottom: 1,
-              color: "white",
-            }}
-          >
-            555 hours
-          </span>
-          . This makes up for{" "}
-          <span
-            style={{
-              borderBottom: "1px solid #f0f510",
-              display: "inline-block",
-              paddingBottom: 1,
-              color: "white",
-            }}
-          >
-            68%
-          </span>{" "}
-          of your total watch time.
-        </div>
+          {getSum(reportData.channelTable, true).toFixed(1)} hours. This makes
+          up for{" "}
+          {Math.round(
+            (getSum(reportData.channelTable, true) /
+              reportData.totalHoursWatched) *
+              100
+          )}
+          % of your total watch time.
+        </span>
       ),
       component: <TableComponent data={reportData.channelTable} />,
     },
     {
       heading: (
-        <p className="Paragraph">See which categories you watch the most.</p>
+        <p className="Paragraph">
+          See which categories you watch{" "}
+          <span style={{ color: "white" }}>more or less as %</span>
+        </p>
       ),
-      subtitle: <p></p>,
+      subtitle: null,
       component: (
         <Chart
           key="categoryChart"
