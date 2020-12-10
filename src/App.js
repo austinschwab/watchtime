@@ -2,7 +2,7 @@ import React, { useState, useEffect, Item } from "react";
 import data from "./data/watch-history1.json";
 import * as classes from "./App.css";
 import axios from "axios";
-import _, { slice } from "lodash";
+import _ from "lodash";
 import moment from "moment";
 import { Button, Row, Col, Spin, Table } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
@@ -310,10 +310,20 @@ const App = () => {
         </p>
       ),
       subtitle: (
-        <span style={{ fontSize: 14, color: "#9d9d9d" }}>
-          {getTimeOfDay()[0].toUpperCase() + getTimeOfDay().slice(1)}'s make up{" "}
-          {percentageTimeOfDay()}% of your daily Youtube usage.
-        </span>
+        <div className="Subtitle">
+          <span
+            style={{
+              borderBottom: "1px solid #c51818",
+              display: "inline-block",
+              paddingBottom: 1,
+              color: "white",
+            }}
+          >
+            {getTimeOfDay()[0].toUpperCase() + getTimeOfDay().slice(1)}'s make
+            up {percentageTimeOfDay()}%{" "}
+          </span>{" "}
+          of your daily Youtube usage.
+        </div>
       ),
       component: (
         <Chart
@@ -373,28 +383,44 @@ const App = () => {
     {
       heading: <p className="Paragraph">Most watched channels</p>,
       subtitle: (
-        <span style={{ fontSize: 14, color: "#9d9d9d" }}>
+        <div className="Subtitle">
           Across your top 10 channels, you've watched{" "}
-          {getSum(reportData.channelTable, true).toFixed(1)} hours. This makes
-          up for{" "}
-          {Math.round(
-            (getSum(reportData.channelTable, true) /
-              reportData.totalHoursWatched) *
-              100
-          )}
-          % of your total watch time.
-        </span>
+          <span
+            style={{
+              borderBottom: "1px solid #f0f510",
+              display: "inline-block",
+              paddingBottom: 1,
+              color: "white",
+            }}
+          >
+            {getSum(reportData.channelTable, true).toFixed(1)} hours
+          </span>
+          . This makes up for{" "}
+          <span
+            style={{
+              borderBottom: "1px solid #f0f510",
+              display: "inline-block",
+              paddingBottom: 1,
+              color: "white",
+            }}
+          >
+            {Math.round(
+              (getSum(reportData.channelTable, true) /
+                reportData.totalHoursWatched) *
+                100
+            )}
+            %
+          </span>{" "}
+          of your total watch time.
+        </div>
       ),
       component: <TableComponent data={reportData.channelTable} />,
     },
     {
       heading: (
-        <p className="Paragraph">
-          See which categories you watch{" "}
-          <span style={{ color: "white" }}>more or less as %</span>
-        </p>
+        <p className="Paragraph">See which categories you watch the most.</p>
       ),
-      subtitle: null,
+      subtitle: <p></p>,
       component: (
         <Chart
           key="categoryChart"
