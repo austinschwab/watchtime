@@ -325,6 +325,38 @@ export const recommendations = [
     link: "https://www.netflix.com/title/81254224",
   },
 ];
+export const Categories = [
+  {
+    name: "Total Watch Time",
+    color: "#FFFFFF",
+    id: Math.floor(Math.random() * 1000000),
+  },
+  {
+    name: "Avg. Daily Usage",
+    color: "#4FFFAA",
+    id: Math.floor(Math.random() * 1000000),
+  },
+  {
+    name: "Avg. Weekly Usage",
+    color: "#C51818",
+    id: Math.floor(Math.random() * 1000000),
+  },
+  {
+    name: "Historical Usage",
+    color: "#10CCF5",
+    id: Math.floor(Math.random() * 1000000),
+  },
+  {
+    name: "Most Watched Channels",
+    color: "#F0F510",
+    id: Math.floor(Math.random() * 1000000),
+  },
+  {
+    name: "Category Breakdown",
+    color: "#4A0DCD",
+    id: Math.floor(Math.random() * 1000000),
+  },
+];
 
 export const videoListData = [
   {
