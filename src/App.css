@@ -27,12 +27,12 @@
 }
 
 .Paragraph {
-  width: 80%;
   margin: auto;
   color: #9d9d9d;
   font-size: 48px;
   font-weight: "Semi-bold";
   text-align: center;
+  line-height: 115%;
 }
 
 .Subtitle {
@@ -69,12 +69,12 @@
 }
 
 .categoryBox {
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 16px;
+  padding-bottom: 16px;
   background-color: #1c1c1c;
-  border-radius: 10px;
+  border-radius: 12px;
   justify-content: center;
   display: flex;
   align-items: center;
@@ -103,6 +103,7 @@
   justify-content: center;
   align-items: center;
 }
+
 .Sidebar {
   position: sticky;
   top: 15%;
@@ -212,29 +213,43 @@ ul {
   padding-right: 32px;
   padding-top: 40px;
   padding-bottom: 40px;
-  margin-top: 20px;
+  margin: auto;
   width: fit-content;
   height: fit-content;
   display: flex;
   flex-direction: column;
-  align-self: center;
+  align-items: center;
 }
 
 .video {
   min-width: 267px;
-  min-height: 187px;
+  min-height: 200px;
 }
 
 .upload_button {
   background-color: #1f1f1f;
-  width: 267px;
   height: 50px;
   margin-top: 20px;
 }
 
 .calculate_button {
   background-color: white;
-  width: 267px;
-  height: 50px;
+  width: 266px;
+  height: 47px;
   margin-top: 20px;
+  border-radius: 11px;
+  border: 2px solid;
+}
+
+.InstructionsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.instructions {
+  font-size: 24px;
+  color: white;
+  font-weight: 400;
+  margin-top: 30px;
 }

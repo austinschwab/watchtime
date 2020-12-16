@@ -3,16 +3,31 @@ import * as classes from "./App.css";
 import Upload from "rc-upload";
 
 const UploadJSON = () => {
+  const [jsonfile, setJsonfile] = useState();
+
+  const props = {
+    action: (file) => {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(setJsonfile(file));
+        }, 2000);
+      });
+    },
+    multiple: false,
+    onStart(file) {
+      console.log("onStart", file, file.name);
+    },
+    onSuccess(ret) {
+      console.log("onSuccess", ret);
+    },
+    onError(err) {
+      console.log("onError", err);
+    },
+  };
+
   return (
     <div className="App">
       <div className="Content">
-        <div className="Menu">
-          <img
-            src={process.env.PUBLIC_URL + "images/watchtime_logo.png"}
-            alt="img"
-            style={{ width: 200, padding: 40 }}
-          />
-        </div>
         <div className="IntroSection">
           <h1
             style={{
@@ -63,34 +78,49 @@ const UploadJSON = () => {
                     position: "absolute",
                     top: 0,
                     left: 0,
-                    width: "100%",
-                    height: "100%",
+                    width: 266,
                   }}
                 ></iframe>
               </div>
             </div>
-            <Upload>
+            <Upload {...props}>
               <button className="upload_button">
                 <img
                   src={process.env.PUBLIC_URL + "images/upload.svg"}
                   alt="upload"
                 />
               </button>
+              {}
             </Upload>
             <button className="calculate_button">
               <p style={{ color: "#111", alignText: "center" }}>Calculate</p>
             </button>
           </div>
-          <p
-            style={{
-              fontSize: 20,
-              color: "white",
-              textAlign: "center",
-              fontWeight: 400,
-            }}
-          >
-            Navigate to Google Takeout to download your own watch history
-          </p>
+
+          {/* steps */}
+          <div className="InstructionsContainer">
+            <p className="instructions">
+              1) Navigate to{" "}
+              <a
+                href={"https://takeout.google.com/settings/takeout"}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ width: "100%" }}
+              >
+                Google Takeout
+              </a>{" "}
+              to download your own watch history.
+            </p>
+            <p className="instructions">
+              2) Click Deselect all, scroll down to select Youtube, click
+              multiple formats, and change History to JSON.
+            </p>
+            <p className="instructions">
+              3) The rest of the settings are fine as is. Create export and
+              check your email soon. Once you've recieved your watch history,
+              come back to this page to upload watch_history.json.
+            </p>
+          </div>
         </div>
       </div>{" "}
     </div>

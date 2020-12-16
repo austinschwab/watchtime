@@ -20,6 +20,8 @@
     "react": "^16.13.1",
     "react-animate-on-scroll": "^2.1.5",
     "react-dom": "^16.13.1",
+    "react-dropzone": "^11.2.4",
+    "react-files": "^2.4.8",
     "react-scripts": "3.4.3",
     "react-scroll-into-view": "^1.8.2",
     "react-scrollspy": "^3.4.3"
