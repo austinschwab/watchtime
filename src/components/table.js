@@ -53,6 +53,8 @@ const TableComponent = ({ data }) => {
         backgroundColor: "#111111",
         color: "#b9b9b9",
         fontSize: 18,
+        height: 400,
+        width: "40vw",
       }}
       options={{
         paging: false,

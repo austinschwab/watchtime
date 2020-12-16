@@ -118,6 +118,6 @@ const ChartComponent = ({ id, type, data, labels, title, xAxesType }) => {
     }
   }, [chartRef]);
 
-  return <canvas id="chart" width="650" height="312" ref={chartRef}></canvas>;
+  return <canvas id="chart" responsive="true" ref={chartRef}></canvas>;
 };
 export default ChartComponent;

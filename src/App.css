@@ -79,7 +79,7 @@
   display: flex;
   align-items: center;
   flex-direction: row;
-  margin: auto;
+  margin: 10px;
   margin-bottom: 40px;
   width: fit-content;
 }

@@ -5,6 +5,7 @@ import data from "../data/watch-history1.json";
 // Helper function to convert Youtube duration into seconds
 const convertISO8601ToSeconds = (input) => {
   var reptms = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/;
+  // var reptms = /^P(\d+Y)?(\d+M)?(\d+D)?(T(\d+H)?(\d+M)?(\d+S)?)?$/;
   var hours = 0,
     minutes = 0,
     seconds = 0,
@@ -30,23 +31,28 @@ export const getVideoIds = () => {
   let videoIdWithTime = [];
   let totalIdBatch = [];
   let idBatch = [];
-  for (let i = 0; i < 250; i++) {
-    if (
-      data[i].titleUrl.indexOf("https://www.youtube.com/watch?v\u003d") !== -1
-    ) {
-      let id = data[i].titleUrl.replace(
-        "https://www.youtube.com/watch?v\u003d",
-        ""
-      );
-      videoIdWithTime.push({ videoId: id, time: data[i].time });
-      if (idBatch.length < 50) {
-        idBatch.push(id);
-      } else {
-        totalIdBatch.push(idBatch);
-        idBatch = [];
-        idBatch.push(
-          data[i].titleUrl.replace("https://www.youtube.com/watch?v\u003d", "")
+  for (let i = 0; i < 999; i++) {
+    if (data[i].titleUrl) {
+      if (
+        data[i].titleUrl.indexOf("https://www.youtube.com/watch?v\u003d") !== -1
+      ) {
+        let id = data[i].titleUrl.replace(
+          "https://www.youtube.com/watch?v\u003d",
+          ""
         );
+        videoIdWithTime.push({ videoId: id, time: data[i].time });
+        if (idBatch.length < 50) {
+          idBatch.push(id);
+        } else {
+          totalIdBatch.push(idBatch);
+          idBatch = [];
+          idBatch.push(
+            data[i].titleUrl.replace(
+              "https://www.youtube.com/watch?v\u003d",
+              ""
+            )
+          );
+        }
       }
     }
   }
@@ -54,6 +60,7 @@ export const getVideoIds = () => {
     totalIdBatch.push(idBatch);
     idBatch = [];
   }
+  console.log({ batch: totalIdBatch, batchWithTimes: videoIdWithTime });
   return { batch: totalIdBatch, batchWithTimes: videoIdWithTime };
 };
 
@@ -143,10 +150,7 @@ export const getWatchTimeChartData = (videoList) => {
   let averageTimesChartData = getAverageTimesData(timeOfDayWithCount);
   let categoryChartData = getCategoryChartData(categoriesWithCount);
   let channelTableData = getChannelOverviewTableData(channelsWithVideosAndTime);
-  let historicalUsageChartData = getHistoricalUsageChartData(
-    dateLabels,
-    dateOverTimeData
-  );
+  let historicalUsageChartData = getHistoricalData(videoList);
 
   return {
     averageTimesChartData,
@@ -231,17 +235,56 @@ const getChannelOverviewTableData = (channelsWithVideosAndTime) => {
   });
 };
 
-// historical data chart
-const getHistoricalUsageChartData = (dateLabels, dateOverTimeData) => {
-  console.log("historical usage", dateLabels, dateOverTimeData);
-  let historicalData = Object.values(dateOverTimeData).sort(
-    (a, b) => new Date(b.t) - new Date(a.t)
-  );
-  //   let adjustedHistoricalDataTimes = historicalData.map((data) => data.y / 3600);
-  dateLabels.sort((a, b) => new Date(b) - new Date(a));
+export const getHistoricalData = () => {
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  let usedMonths = [];
+  let dataArray = {};
+  for (let obj of constants.videoListData) {
+    let duration = convertISO8601ToSeconds(obj.duration);
+    if (duration === undefined) {
+      duration = 0;
+    }
+    let month = months[new Date(obj.time).getMonth()];
+    let FourDigitYear = new Date(obj.time).getFullYear();
+    let TwoDigitYear = FourDigitYear.toString().substr(-2);
+    let string = month.concat(`${" "}${TwoDigitYear}`);
+    if (usedMonths.indexOf(string) !== -1) {
+      dataArray[string].time += duration;
+    } else {
+      usedMonths.push(string);
+      dataArray[string] = {
+        label: string,
+        time: duration,
+        date: new Date(obj.time),
+      };
+    }
+  }
+  let chronDates = Object.values(dataArray).sort((a, b) => b.date - a.date);
+  let sortedDates = [];
+  let labels = [];
+  let data = [];
 
-  return {
-    labels: dateLabels,
-    data: historicalData,
-  };
+  for (let obj of chronDates) {
+    sortedDates.unshift(obj);
+  }
+
+  for (let obj of sortedDates) {
+    labels.push(obj.label);
+    data.push(+(obj.time / 3600).toFixed(1));
+  }
+
+  return { labels, data };
 };

@@ -25,7 +25,6 @@ const App = () => {
     let index = reportData.averageTimesChart.data.indexOf(
       Math.max(...reportData.averageTimesChart.data)
     );
-    console.log("index", index);
     if (index < 6) {
       return "early morning";
     }
@@ -39,7 +38,6 @@ const App = () => {
     }
   };
   const getSum = (array, isObj) => {
-    console.log(array);
     let sum;
     if (isObj) {
       sum = array.reduce((a, b) => {
@@ -48,7 +46,6 @@ const App = () => {
     } else {
       sum = array.reduce((a, b) => a + b, 0);
     }
-    console.log(sum);
     return sum;
   };
 
@@ -96,6 +93,7 @@ const App = () => {
         })
         .catch((e) => console.log(e));
     }
+
     if (requestData.length > 0) {
       updateVideoListWithTimes(requestData, videoIds.batchWithTimes);
       return requestData;
@@ -442,7 +440,10 @@ const App = () => {
             <div
               key={index}
               id={`chart${index}`}
-              style={{ marginBottom: 100, paddingTop: 75 }}
+              style={{
+                marginBottom: 100,
+                paddingTop: 75,
+              }}
             >
               <div className="categoryBox">
                 <div
@@ -468,7 +469,17 @@ const App = () => {
               </div>
               {item.heading}
               {item.subtitle}
-              <div>{item.component}</div>
+              <div
+                style={{
+                  position: "relative",
+                  width: "40vw",
+                  height: "40vh",
+                  minWidth: 300,
+                  minHeight: 300,
+                }}
+              >
+                {item.component}
+              </div>
             </div>
           );
         })}
@@ -476,14 +487,14 @@ const App = () => {
     );
   };
 
-  /* <Button type="primary" onClick={() => generateCompleteReportData()}>
-        Generate Report
-      </Button> */
-
   /* {isLoading && <LoadingOutlined style={{ fontSize: 300 }} spin />} */
 
   return (
     <div className="App">
+      <Button type="primary" onClick={() => generateCompleteReportData()}>
+        Generate Report
+      </Button>
+
       <div className="Content">
         <div className="Menu">
           <img
