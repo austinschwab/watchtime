@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Item } from "react";
+import React, { useState, useEffect } from "react";
 import _ from "lodash";
 import { Button, Row, Col, Spin, Table } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
@@ -23,7 +23,8 @@ const Report = ({ json }) => {
 
   const processReport = async () => {
     setIsLoading(true);
-    let response = await GenerateCompleteReportData(json);
+    let jsonData = _.cloneDeep(json);
+    let response = await GenerateCompleteReportData(jsonData);
     if (response) {
       setReportData(response);
     }

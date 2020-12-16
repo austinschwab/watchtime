@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import _ from "lodash";
 import * as constants from "../constants";
 import moment from "moment";
 import axios from "axios";
 // import data from "../data/watch-history1.json";
 
-const GenerateReport = ({ json, setIsLoading }) => {
+const GenerateReport = async (json) => {
   const convertISO8601ToSeconds = (input) => {
     var reptms = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/;
     var hours = 0,
@@ -79,7 +79,7 @@ const GenerateReport = ({ json, setIsLoading }) => {
     let videoIdWithTime = [];
     let totalIdBatch = [];
     let idBatch = [];
-    for (let i = 0; i < 999; i++) {
+    for (let i = 0; i < 1999; i++) {
       if (json[i].titleUrl) {
         if (
           json[i].titleUrl.indexOf("https://www.youtube.com/watch?v\u003d") !==
@@ -109,7 +109,10 @@ const GenerateReport = ({ json, setIsLoading }) => {
       totalIdBatch.push(idBatch);
       idBatch = [];
     }
-
+    console.log("videolistssss", {
+      batch: totalIdBatch,
+      batchWithTimes: videoIdWithTime,
+    });
     return { batch: totalIdBatch, batchWithTimes: videoIdWithTime };
   };
 
@@ -197,7 +200,7 @@ const GenerateReport = ({ json, setIsLoading }) => {
     });
   };
 
-  const getHistoricalData = () => {
+  const getHistoricalData = (videoListData) => {
     const months = [
       "Jan",
       "Feb",
@@ -214,7 +217,7 @@ const GenerateReport = ({ json, setIsLoading }) => {
     ];
     let usedMonths = [];
     let dataArray = {};
-    for (let obj of constants.videoListData) {
+    for (let obj of videoListData) {
       let duration = convertISO8601ToSeconds(obj.duration);
       if (duration === undefined) {
         duration = 0;
@@ -334,6 +337,7 @@ const GenerateReport = ({ json, setIsLoading }) => {
       channelsWithVideosAndTime
     );
     let historicalUsageChartData = getHistoricalData(videoList);
+    console.log(historicalUsageChartData);
 
     return {
       averageTimesChartData,
@@ -362,6 +366,7 @@ const GenerateReport = ({ json, setIsLoading }) => {
 
     // videoId structure = {batch: videoIdList, batchWithTimes: videoIdListWithVideoDurations}
     let videoIds = getVideoIds();
+    console.log("videoid", videoIds);
     let requestData = [];
     for (let videoList of videoIds.batch) {
       await axios
@@ -394,18 +399,17 @@ const GenerateReport = ({ json, setIsLoading }) => {
 
   // Outputs all watchtime report data fields
   const generateCompleteReportData = async () => {
-    setIsLoading(true);
-
     let videoList = await generateVideoList();
     let firstVideoWatchedOn = moment(json[json.length - 1].time).format("L");
     let numberOfVideosWatched = json.length;
     let daysSinceFirstVideo = getDaySinceFirstVideo();
     let chartData = getWatchTimeChartData(videoList);
     let averageTimesText = {
-      timeOfDay: getTimeOfDay(),
+      timeOfDay: getTimeOfDay(chartData.averageTimesChartData.data),
       timeOfDayPlural:
-        getTimeOfDay()[0].toUpperCase() + getTimeOfDay().slice(1),
-      percentage: percentageTimeOfDay(),
+        getTimeOfDay(chartData.averageTimesChartData.data)[0].toUpperCase() +
+        getTimeOfDay(chartData.averageTimesChartData.data).slice(1),
+      percentage: percentageTimeOfDay(chartData.averageTimesChartData.data),
     };
     let tableText = {
       hours: getSum(chartData.channelTableData, true).toFixed(1),
@@ -415,7 +419,6 @@ const GenerateReport = ({ json, setIsLoading }) => {
           100
       ),
     };
-    setIsLoading(false);
 
     return {
       firstVideoWatchedOn,

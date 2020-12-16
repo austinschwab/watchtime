@@ -12,19 +12,14 @@ const App = () => {
 
   const handleChange = (e) => {
     const fileReader = new FileReader();
-    let fileName = "";
-    let fileExtension = fileName.split(".").pop(); //"json"
 
-    if (fileExtension === "json") {
-      fileReader.readAsText(e.target.files[0]);
-      fileReader.onload = (e) => {
-        // console.log("e.target.result", e.target.result);
-        setJsonfile(e.target.result);
-        console.log("test", fileExtension);
-      };
-    } else {
-      console.log("error");
-    }
+    fileReader.onload = (e) => {
+      // console.log("e.target.result", e.target.result);
+      let jsonObj = JSON.parse(e.target.result);
+      console.log("JSON", jsonObj);
+      setJsonfile(jsonObj);
+    };
+    fileReader.readAsText(e.target.files[0]);
   };
 
   return (
