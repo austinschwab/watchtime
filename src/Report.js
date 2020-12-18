@@ -10,21 +10,21 @@ import ScrollIntoView from "react-scroll-into-view";
 import * as functions from "./functions/report";
 import Scrollspy from "react-scrollspy";
 import GenerateCompleteReportData from "./functions/report";
-
+import ProgressBar from "./components/progress";
 const Report = ({ json }) => {
   const [reportData, setReportData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [progress, setProgress] = useState(0);
   useEffect(() => {
     if (json && json.length > 0) {
       processReport();
     }
   }, [json]);
-
+  console.log(progress);
   const processReport = async () => {
     setIsLoading(true);
     let jsonData = _.cloneDeep(json);
-    let response = await GenerateCompleteReportData(jsonData);
+    let response = await GenerateCompleteReportData(jsonData, setProgress);
     if (response) {
       setReportData(response);
     }
@@ -352,7 +352,7 @@ const Report = ({ json }) => {
       {/* <Button type="primary" onClick={() => generateCompleteReportData()}>
         Generate Report
       </Button> */}
-      {reportData && (
+      {reportData ? (
         <>
           <div className="Content">
             <div className="Menu">
@@ -491,6 +491,8 @@ const Report = ({ json }) => {
             </div>
           </div>{" "}
         </>
+      ) : (
+        <ProgressBar progress={progress} />
       )}
     </div>
   );

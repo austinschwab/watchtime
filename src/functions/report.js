@@ -5,7 +5,7 @@ import moment from "moment";
 import axios from "axios";
 // import data from "../data/watch-history1.json";
 
-const GenerateReport = async (json) => {
+const GenerateReport = async (json, setProgress) => {
   const convertISO8601ToSeconds = (input) => {
     var reptms = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/;
     var hours = 0,
@@ -368,6 +368,8 @@ const GenerateReport = async (json) => {
     let videoIds = getVideoIds();
     console.log("videoid", videoIds);
     let requestData = [];
+    let totalRequests = videoIds.batch.length;
+    let count = 0;
     for (let videoList of videoIds.batch) {
       await axios
         .get(
@@ -376,6 +378,8 @@ const GenerateReport = async (json) => {
         .then((response) => {
           console.log("API response", response);
           if (response) {
+            count += 1;
+            setProgress((count / totalRequests) * 100);
             for (let obj of response.data.items) {
               requestData.push({
                 duration: obj.contentDetails.duration,
