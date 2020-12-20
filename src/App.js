@@ -107,8 +107,12 @@ const App = () => {
                       ></iframe>
                     </div>
                   </div>
-                  <form>
-                    <input type="file" onChange={handleChange} />
+                  <form style={{ width: "50%" }}>
+                    <input
+                      type="file"
+                      onChange={handleChange}
+                      style={{ color: "white", width: "50%" }}
+                    />
                   </form>
 
                   <Button

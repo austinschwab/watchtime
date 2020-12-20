@@ -7,14 +7,14 @@ import Box from "@material-ui/core/Box";
 
 function LinearProgressWithLabel(props) {
   return (
-    <Box display="flex" alignItems="center">
+    <Box display="flex">
       <Box width="100%" mr={1}>
-        <LinearProgress variant="determinate" {...props} />
+        <LinearProgress variant="determinate" {...props} color="secondary" />
       </Box>
       <Box minWidth={35}>
-        <Typography variant="body2" color="textSecondary">{`${Math.round(
+        {/* <Typography variant="body2" color="white">{`${Math.round(
           props.value
-        )}%`}</Typography>
+        )}%`}</Typography> */}
       </Box>
     </Box>
   );
@@ -30,7 +30,8 @@ LinearProgressWithLabel.propTypes = {
 
 const useStyles = makeStyles({
   root: {
-    width: "100%",
+    width: "100vw",
+    height: "100vh",
   },
 });
 
@@ -40,6 +41,18 @@ export default function LinearWithValueLabel({ progress }) {
   return (
     <div className={classes.root}>
       <LinearProgressWithLabel value={+progress} />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          textAlign: "center",
+          minHeight: "100vh",
+        }}
+      >
+        <p style={{ color: "white" }}>Gererating report</p>
+      </div>
     </div>
   );
 }
