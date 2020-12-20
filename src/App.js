@@ -15,9 +15,18 @@ const App = () => {
 
     fileReader.onload = (e) => {
       // console.log("e.target.result", e.target.result);
-      let jsonObj = JSON.parse(e.target.result);
-      console.log("JSON", jsonObj);
-      setJsonfile(jsonObj);
+      let fileInput = document.getElementById("upload");
+      let fileName = fileInput.files[0].name;
+      let fileExtension = fileName.split(".").pop();
+
+      if (fileExtension === "json") {
+        let jsonObj = JSON.parse(e.target.result);
+        setJsonfile(jsonObj);
+        setError(null);
+      } else {
+        setError("Error");
+        console.log(error);
+      }
     };
     fileReader.readAsText(e.target.files[0]);
   };
@@ -109,11 +118,17 @@ const App = () => {
                   </div>
                   <form style={{ width: "50%" }}>
                     <input
+                      id="upload"
                       type="file"
                       onChange={handleChange}
                       style={{ color: "white", width: "50%" }}
                     />
                   </form>
+                  {error ? (
+                    <p style={{ color: "#c51818" }}>
+                      Wrong file type. Please upload a .json file as instructed.
+                    </p>
+                  ) : null}
 
                   <Button
                     className="calculate_button"

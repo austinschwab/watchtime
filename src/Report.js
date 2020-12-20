@@ -11,6 +11,7 @@ import * as functions from "./functions/report";
 import Scrollspy from "react-scrollspy";
 import GenerateCompleteReportData from "./functions/report";
 import ProgressBar from "./components/progress";
+
 const Report = ({ json }) => {
   const [reportData, setReportData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
