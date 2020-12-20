@@ -13,7 +13,7 @@ import GenerateCompleteReportData from "./functions/report";
 import ProgressBar from "./components/progress";
 
 const Report = ({ json }) => {
-  const [reportData, setReportData] = useState(null);
+  const [reportData, setReportData] = useState(constants.TestData);
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   useEffect(() => {
@@ -21,7 +21,7 @@ const Report = ({ json }) => {
       processReport();
     }
   }, [json]);
-  console.log(progress);
+  console.log(reportData);
   const processReport = async () => {
     setIsLoading(true);
     let jsonData = _.cloneDeep(json);
@@ -217,7 +217,7 @@ const Report = ({ json }) => {
                 color: "white",
               }}
             >
-              June 2020
+              {reportData.historicalText.label}
             </span>
             . You watched{" "}
             <span
@@ -228,8 +228,7 @@ const Report = ({ json }) => {
                 color: "white",
               }}
             >
-              {" "}
-              160
+              {reportData.historicalText.hour}
             </span>{" "}
             hours.
           </div>
@@ -328,8 +327,11 @@ const Report = ({ json }) => {
                   {constants.Categories[index].name}
                 </span>
               </div>
-              {item.heading}
-              {item.subtitle}
+              <div style={{ width: '90%', margin: "auto" }}>
+                {item.heading}
+                {item.subtitle}
+              </div>
+
               <div
                 style={{
                   position: "relative",
@@ -337,6 +339,8 @@ const Report = ({ json }) => {
                   height: "40vh",
                   minWidth: 300,
                   minHeight: 300,
+                  maxWidth: 600,
+                  margin: "auto",
                 }}
               >
                 {item.component}
@@ -347,123 +351,65 @@ const Report = ({ json }) => {
       </div>
     );
   };
+  let colorArray = ["white", "green", "red", "blue", "yellow", "purple"];
 
   return (
     <div className="App">
-      {/* <Button type="primary" onClick={() => generateCompleteReportData()}>
-        Generate Report
-      </Button> */}
       {reportData ? (
-        <>
-          <div className="Content">
-            <div className="Menu">
+        <div className="Content">
+          <div className="Menu">
+            <img
+              src={process.env.PUBLIC_URL + "images/watchtime_logo.png"}
+              alt="img"
+              style={{ width: 200, padding: 40 }}
+            />
+          </div>
+          <div className="IntroSection">
+            <p className="Paragraph">
+              <span style={{ color: "white" }}>Scroll down</span> to see your
+              Youtube stats.
+            </p>
+            <div className="BreakdownImageContainer">
               <img
-                src={process.env.PUBLIC_URL + "images/watchtime_logo.png"}
+                src={process.env.PUBLIC_URL + "images/Arrows.png"}
                 alt="img"
-                style={{ width: 200, padding: 40 }}
+                style={{ width: 130, marginTop: 15 }}
               />
             </div>
-            <div className="IntroSection">
-              <p className="Paragraph">
-                <span style={{ color: "white" }}>Scroll down</span> to see your
-                Youtube stats.
-              </p>
-              <div className="BreakdownImageContainer">
-                <img
-                  src={process.env.PUBLIC_URL + "images/Arrows.png"}
-                  alt="img"
-                  style={{ width: 130, marginTop: 15 }}
-                />
-              </div>
-              <p className="BreakdownTitle">Data categories</p>
-              <div className="BreakdownContainer">{mapCategories()}</div>
-            </div>
-            <div className="ReportContainer">
-              <Row>
-                <Col span={4}>
-                  <Scrollspy
-                    className="Sidebar"
-                    items={[
-                      "chart0",
-                      "chart1",
-                      "chart2",
-                      "chart3",
-                      "chart4",
-                      "chart5",
-                    ]}
-                    currentClassName="is-active"
-                  >
-                    <li className="sidelink white">
-                      <a href="#chart0" className="SideLinkAnchor">
-                        <div
-                          className="sidedot"
-                          style={{
-                            backgroundColor: constants.Categories[0].color,
-                          }}
-                        ></div>
-                      </a>
-                    </li>
-                    <li className="sidelink green">
-                      <a href="#chart1" className="SideLinkAnchor">
-                        {" "}
-                        <div
-                          className="sidedot"
-                          style={{
-                            backgroundColor: constants.Categories[1].color,
-                          }}
-                        ></div>
-                      </a>
-                    </li>
-                    <li className="sidelink red">
-                      <a href="#chart2" className="SideLinkAnchor">
-                        <div
-                          className="sidedot"
-                          style={{
-                            backgroundColor: constants.Categories[2].color,
-                          }}
-                        ></div>
-                      </a>
-                    </li>
-                    <li className="sidelink blue">
-                      <a href="#chart3" className="SideLinkAnchor">
-                        {" "}
-                        <div
-                          className="sidedot"
-                          style={{
-                            backgroundColor: constants.Categories[3].color,
-                          }}
-                        ></div>
-                      </a>
-                    </li>
-                    <li className="sidelink  yellow">
-                      <a href="#chart4" className="SideLinkAnchor">
-                        {" "}
-                        <div
-                          className="sidedot"
-                          style={{
-                            backgroundColor: constants.Categories[4].color,
-                          }}
-                        ></div>
-                      </a>
-                    </li>
-                    <li className="sidelink purple">
-                      <a href="#chart5" className="SideLinkAnchor">
-                        {" "}
-                        <div
-                          className="sidedot"
-                          style={{
-                            backgroundColor: constants.Categories[5].color,
-                          }}
-                        ></div>
-                      </a>
-                    </li>
-                  </Scrollspy>
-                </Col>
-                <Col span={16}> {renderCharts()}</Col>
-                <Col span={4}> </Col>
-              </Row>
-            </div>
+            <p className="BreakdownTitle">Data categories</p>
+            <div className="BreakdownContainer">{mapCategories()}</div>
           </div>
+          <div className="ReportContainer">
+            <Scrollspy
+              className="Sidebar"
+              items={[
+                "chart0",
+                "chart1",
+                "chart2",
+                "chart3",
+                "chart4",
+                "chart5",
+              ]}
+              currentClassName="is-active"
+            >
+              {colorArray.map((color, index) => {
+                return (
+                  <li className={`sidelink ${color}`}>
+                    <a href={`#chart${index}`} className="SideLinkAnchor">
+                      <div
+                        className="sidedot"
+                        style={{
+                          backgroundColor: constants.Categories[index].color,
+                        }}
+                      ></div>
+                    </a>
+                  </li>
+                );
+              })}
+            </Scrollspy>
+            <div style={{ width: "100%" }}>{renderCharts()}</div>
+          </div>
+
           <div className="Reccomendation_Section">
             <h1
               style={{
@@ -490,8 +436,8 @@ const Report = ({ json }) => {
                 </a>
               ))}
             </div>
-          </div>{" "}
-        </>
+          </div>
+        </div>
       ) : (
         <ProgressBar progress={progress} />
       )}

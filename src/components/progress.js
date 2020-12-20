@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import { Loading } from "react-loading-dot";
 
 function LinearProgressWithLabel(props) {
   return (
@@ -39,14 +40,13 @@ export default function LinearWithValueLabel({ progress }) {
       <div
         style={{
           display: "flex",
-          flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
           textAlign: "center",
           minHeight: "100vh",
         }}
       >
-        <p style={{ color: "white" }}>Gererating report</p>
+        <Loading size="1rem" />
       </div>
     </div>
   );

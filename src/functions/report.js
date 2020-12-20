@@ -55,6 +55,12 @@ const GenerateReport = async (json, setProgress) => {
     }
     return sum;
   };
+  const getTopMonth = (data, labels) => {
+    let index = data.indexOf(Math.max(...data));
+    let hour = data[index];
+    let label = labels[index];
+    return { label, hour };
+  };
 
   const percentageTimeOfDay = (data) => {
     // reportData.averageTimesChart.data
@@ -79,7 +85,7 @@ const GenerateReport = async (json, setProgress) => {
     let videoIdWithTime = [];
     let totalIdBatch = [];
     let idBatch = [];
-    for (let i = 0; i < 1999; i++) {
+    for (let i = 0; i < 499; i++) {
       if (json[i].titleUrl) {
         if (
           json[i].titleUrl.indexOf("https://www.youtube.com/watch?v\u003d") !==
@@ -424,6 +430,11 @@ const GenerateReport = async (json, setProgress) => {
       ),
     };
 
+    let historicalText = getTopMonth(
+      chartData.historicalUsageChartData.data,
+      chartData.historicalUsageChartData.labels
+    );
+
     return {
       firstVideoWatchedOn,
       numberOfVideosWatched,
@@ -436,6 +447,7 @@ const GenerateReport = async (json, setProgress) => {
       channelTable: chartData.channelTableData,
       averageTimesText,
       tableText,
+      historicalText,
     };
   };
   return generateCompleteReportData();
