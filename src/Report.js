@@ -13,7 +13,7 @@ import GenerateCompleteReportData from "./functions/report";
 import ProgressBar from "./components/progress";
 
 const Report = ({ json }) => {
-  const [reportData, setReportData] = useState(constants.TestData);
+  const [reportData, setReportData] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   useEffect(() => {
@@ -135,23 +135,25 @@ const Report = ({ json }) => {
           </p>
         ),
         subtitle: (
-          <p
-            style={{
-              fontSize: 14,
-              color: "#9d9d9d",
-              textAlign: "center",
-              width: "100%",
-            }}
-          >
-            {" "}
-            Your daily average is{" "}
-            <span style={{ color: "white" }}>
-              {(
-                reportData.averageWeekChart.data.reduce((a, b) => a + b) /
-                reportData.averageWeekChart.data.length
-              ).toFixed(1)}
-            </span>{" "}
-          </p>
+          <div className="Subtitle">
+            <p
+              style={{
+                fontSize: 14,
+                color: "#9d9d9d",
+                textAlign: "center",
+                width: "100%",
+              }}
+            >
+              {" "}
+              Your daily average is{" "}
+              <span style={{ color: "white" }}>
+                {(
+                  reportData.averageWeekChart.data.reduce((a, b) => a + b) /
+                  reportData.averageWeekChart.data.length
+                ).toFixed(1)}
+              </span>{" "}
+            </p>
+          </div>
         ),
         component: (
           <Chart
@@ -280,7 +282,11 @@ const Report = ({ json }) => {
         heading: (
           <p className="Paragraph">See which categories you watch the most.</p>
         ),
-        subtitle: <p></p>,
+        subtitle: (
+          <div className="Subtitle">
+            <p></p>
+          </div>
+        ),
         component: (
           <Chart
             key="categoryChart"
@@ -327,24 +333,29 @@ const Report = ({ json }) => {
                   {constants.Categories[index].name}
                 </span>
               </div>
-              <div style={{ width: '90%', margin: "auto" }}>
+              <div style={{ width: "90%", margin: "auto" }}>
                 {item.heading}
                 {item.subtitle}
               </div>
 
-              <div
-                style={{
-                  position: "relative",
-                  width: "40vw",
-                  height: "40vh",
-                  minWidth: 300,
-                  minHeight: 300,
-                  maxWidth: 600,
-                  margin: "auto",
-                }}
-              >
-                {item.component}
-              </div>
+              {index !== 0 &&
+                (index !== 4 ? (
+                  <div
+                    style={{
+                      position: "relative",
+                      width: "40vw",
+                      height: "40vh",
+                      minWidth: 300,
+                      minHeight: 300,
+                      maxWidth: 600,
+                      margin: "auto",
+                    }}
+                  >
+                    {item.component}
+                  </div>
+                ) : (
+                  item.component
+                ))}
             </div>
           );
         })}
@@ -395,7 +406,7 @@ const Report = ({ json }) => {
               {colorArray.map((color, index) => {
                 return (
                   <li className={`sidelink ${color}`}>
-                    <a href={`#chart${index}`} className="SideLinkAnchor">
+                    <a href={`#chart${index}`} className="sidedotAnchor">
                       <div
                         className="sidedot"
                         style={{
@@ -435,6 +446,50 @@ const Report = ({ json }) => {
                   </div>
                 </a>
               ))}
+            </div>
+            <Scrollspy
+              className="Sidebar"
+              style={{
+                flexDirection: "row",
+              }}
+              items={[
+                "chart0",
+                "chart1",
+                "chart2",
+                "chart3",
+                "chart4",
+                "chart5",
+              ]}
+              currentClassName="is-active"
+            >
+              {colorArray.map((color, index) => {
+                return (
+                  <li
+                    className={`sidelink ${color}`}
+                    style={{
+                      marginLeft: 11,
+                      marginRight: 11,
+                    }}
+                  >
+                    <a href={`#chart${index}`} className="sidedotAnchor">
+                      <div
+                        className="sidedot"
+                        style={{
+                          backgroundColor: constants.Categories[index].color,
+                        }}
+                      ></div>
+                    </a>
+                  </li>
+                );
+              })}
+            </Scrollspy>
+            <div>
+              {" "}
+              <img
+                src={process.env.PUBLIC_URL + "images/readmanifesto.png"}
+                alt="img"
+                style={{ width: 444, height: 48 }}
+              />
             </div>
           </div>
         </div>

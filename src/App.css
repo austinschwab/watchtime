@@ -110,6 +110,23 @@
 
 .Sidebar {
   position: sticky;
+  display: flex;
+  flex-direction: column;
+  top: 15%;
+  width: auto;
+  height: auto;
+  max-height: 391px;
+  max-width: none;
+  margin-top: 236px;
+  margin-right: 0px;
+  border-radius: 13px;
+  background-color: transparent;
+}
+
+.Sidebar_bottom {
+  position: sticky;
+  display: flex;
+  flex-direction: row;
   top: 15%;
   width: auto;
   height: auto;
@@ -122,13 +139,26 @@
 }
 
 .sidelink {
-  padding: 12px;
+  /* padding: 12px; */
+
   width: 38px;
   height: 38px;
   border-radius: 12px;
   background: #1c1c1c;
   margin-top: 32px;
+  border-color: transparent !important;
+  border: solid;
+  border-width: 1px;
 }
+
+.sidedotAnchor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
 .sidelink.red.is-active {
   border-color: #c51818 !important;
   border: solid;
@@ -165,6 +195,7 @@
   height: 12px;
   border-radius: 12px;
 }
+
 ul {
   list-style-type: none;
   margin: 0;

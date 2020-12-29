@@ -1,42 +1,7 @@
 import React from "react";
 import { Table } from "antd";
-import MaterialTable, { MTableToolbar } from "material-table";
 import styles from "../App.css";
-
-const columns = [
-  {
-    title: "Name",
-    dataIndex: "name",
-  },
-  {
-    title: "Age",
-    dataIndex: "age",
-  },
-  {
-    title: "Address",
-    dataIndex: "address",
-  },
-];
-const data = [
-  {
-    key: "1",
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-  },
-  {
-    key: "3",
-    name: "Joe Black",
-    age: 32,
-    address: "Sidney No. 1 Lake Park",
-  },
-];
+import { List, Typography, Divider, Row, Col } from "antd";
 
 const TableComponent = ({ data }) => {
   let columns = [
@@ -45,35 +10,51 @@ const TableComponent = ({ data }) => {
     { title: "Videos", field: "count" },
     { title: "Time(hrs)", field: "time" },
   ];
+  console.log(data);
+  data.unshift({
+    title: "Channel Name",
+    count: "Videos",
+    time: "Time(hrs)",
+  });
   return (
-    <MaterialTable
-      columns={columns}
-      data={data}
-      style={{
-        backgroundColor: "#111111",
-        color: "#b9b9b9",
-        fontSize: 18,
-        height: 400,
-        width: "40vw",
-      }}
-      options={{
-        paging: false,
-        search: false,
-        headerStyle: { backgroundColor: "#111111", color: "#727272" },
-      }}
-      components={{
-        Groupbar: (props) => (
-          <div style={{ backgroundColor: "D4AF37", borderColor: "yellow" }}>
-            {" "}
-            <MTableToolbar {...props} /> {props.children}{" "}
-          </div>
-        ),
-      }}
-      // size="middle"
-      // rowClassName={(record, index) =>
-      //   record.count > 0 ? "transparent" : "transparent"
-      // }
-    />
+    <List>
+      {data &&
+        data.map((item, index) => {
+          return (
+            <div style={{ fontSize: 18 }}>
+              <Row style={{ width: "100%" }}>
+                <Col
+                  span={4}
+                  style={{
+                    color: index === 0 ? "#727272" : "#b9b9b9",
+                  }}
+                >
+                  {index === 0 ? "#" : index}
+                </Col>
+                <Col
+                  span={12}
+                  style={{ color: index === 0 ? "#727272" : "#b9b9b9" }}
+                >
+                  {item.title}
+                </Col>
+                <Col
+                  span={3}
+                  style={{ color: index === 0 ? "#727272" : "#b9b9b9" }}
+                >
+                  {item.count}
+                </Col>
+                <Col
+                  span={3}
+                  style={{ color: index === 0 ? "#727272" : "#b9b9b9" }}
+                >
+                  {item.time}
+                </Col>
+              </Row>
+              <Divider style={{ borderTop: "1px solid #333" }} />
+            </div>
+          );
+        })}
+    </List>
   );
 };
 export default TableComponent;
