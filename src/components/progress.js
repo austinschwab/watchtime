@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
@@ -30,9 +30,22 @@ const useStyles = makeStyles({
     height: "100vh",
   },
 });
+const quotes = [
+  "Any fool can know. The point is to understand. -Albert Einstein",
+  "test",
+  "test",
+  "The interesting thing about your personality, your essence, is that it is not more or less permanent like your leg bone. Your essence is changeable, like your mind. Every action you take, every thought you have, changes you, even if just a little, making you a little more elevated or a little more degraded.",
+];
 
 export default function LinearWithValueLabel({ progress }) {
   const classes = useStyles();
+  const [intervalIndex, setIntervalIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIntervalIndex(intervalIndex + 1);
+    }, 2000);
+  });
 
   return (
     <div className={classes.root}>
@@ -47,6 +60,7 @@ export default function LinearWithValueLabel({ progress }) {
         }}
       >
         <Loading size="1rem" />
+        <p style={{ color: "white" }}>{quotes[intervalIndex]}</p>
       </div>
     </div>
   );
