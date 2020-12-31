@@ -105,7 +105,7 @@ const Report = ({ json }) => {
             <p className="Paragraph">
               That's a total of{" "}
               <span style={{ color: "white" }}>
-                {reportData.totalHoursWatched}
+                {reportData.totalHoursWatched.toFixed(2)}
               </span>{" "}
               hours in the past{" "}
               <span style={{ color: "white" }}>

@@ -280,8 +280,12 @@ const GenerateReport = async (json, setProgress) => {
       const date = new Date(videoObj.time);
       const formattedDate = moment(videoObj.time).format("l");
       const hour = date.getHours();
-      const duration = convertISO8601ToSeconds(videoObj.duration) / 3600;
+      let duration = convertISO8601ToSeconds(videoObj.duration) / 3600;
       const day = date.getDay();
+      if (Number.isNaN(duration)) {
+        duration = 0;
+      }
+
       // populate channel data arrays
       if (channelList.indexOf(videoObj.channelTitle) !== -1) {
         channelsWithVideosAndTime[videoObj.channelTitle].videos += 1;
