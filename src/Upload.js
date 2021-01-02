@@ -3,7 +3,7 @@ import { Button } from "antd";
 import "./App.css";
 import { Link, Route, Redirect } from "react-router-dom";
 
-const UploadJSON = ({ navigation, setReportData }) => {
+const UploadJSON = ({ navigation, setJsonData }) => {
   const [error, setError] = useState(null);
   const [filedUploaded, setFiledUploaded] = useState(false);
 
@@ -17,7 +17,7 @@ const UploadJSON = ({ navigation, setReportData }) => {
 
       if (fileExtension === "json") {
         let jsonObj = JSON.parse(e.target.result);
-        setReportData(jsonObj);
+        setJsonData(jsonObj);
         setFiledUploaded(true);
         setError(null);
       } else {

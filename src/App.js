@@ -9,8 +9,7 @@ import Manifesto from "./Manifesto";
 // constants.sampleReportData ? constants.sampleReportData : null
 
 const App = () => {
-  const [reportData, setReportData] = useState(null);
-  console.log(reportData);
+  const [jsonData, setJsonData] = useState(null);
   return (
     <div className="App">
       <BrowserRouter>
@@ -23,14 +22,14 @@ const App = () => {
           path="/upload"
           exact
           render={(props) => (
-            <Upload navigation={props} setReportData={setReportData} />
+            <Upload navigation={props} setJsonData={setJsonData} />
           )}
         />
         <Route
           path="/report"
           exact
           render={(props) => (
-            <Report navigation={props} sample={false} reportData={reportData} />
+            <Report navigation={props} sample={false} json={jsonData} />
           )}
         />
         <Route

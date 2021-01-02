@@ -11,9 +11,11 @@ import * as functions from "./functions/report";
 import Scrollspy from "react-scrollspy";
 import GenerateCompleteReportData from "./functions/report";
 import ProgressBar from "./components/progress";
-
+import { Link } from "react-router-dom";
 const Report = ({ json, navigation, sample }) => {
-  const [reportData, setReportData] = useState();
+  const [reportData, setReportData] = useState(
+    sample ? constants.TestData : null
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   useEffect(() => {
@@ -104,7 +106,7 @@ const Report = ({ json, navigation, sample }) => {
             <p className="Paragraph">
               That's a total of{" "}
               <span style={{ color: "white" }}>
-                {reportData.totalHoursWatched}
+                {reportData.totalHoursWatched.toFixed(1)}
               </span>{" "}
               hours in the past{" "}
               <span style={{ color: "white" }}>
@@ -392,10 +394,12 @@ const Report = ({ json, navigation, sample }) => {
                   It’s easy to lose track of how much time you spend watching
                   videos online.
                 </p>
-                <div className="calculatebtn_container">
-                  <div className="calculate_top">Get started</div>
-                  <div className="calculate_bottom">Calculate</div>
-                </div>
+                <Link to={{ pathname: "/upload" }}>
+                  <div className="calculatebtn_container">
+                    <div className="calculate_top">Get started</div>
+                    <div className="calculate_bottom">Calculate</div>
+                  </div>
+                </Link>
               </div>
             ) : (
               <>
