@@ -315,7 +315,7 @@ export const TestData = {
     {
       time: 11.56,
       title: "Kitco NEWS",
-      count: 40,
+      videos: 40,
       key: 0,
       tableData: {
         id: 0,
@@ -324,7 +324,7 @@ export const TestData = {
     {
       time: 16.92,
       title: "Fox News",
-      count: 37,
+      videos: 37,
       key: 1,
       tableData: {
         id: 1,
@@ -333,7 +333,7 @@ export const TestData = {
     {
       time: 10.56,
       title: "Webflow",
-      count: 15,
+      videos: 15,
       key: 2,
       tableData: {
         id: 2,
@@ -342,7 +342,7 @@ export const TestData = {
     {
       time: 0.86,
       title: "Zeth Beatz",
-      count: 14,
+      videos: 14,
       key: 3,
       tableData: {
         id: 3,
@@ -351,7 +351,7 @@ export const TestData = {
     {
       time: 7.33,
       title: "Automate All the Things",
-      count: 9,
+      videos: 9,
       key: 4,
       tableData: {
         id: 4,
@@ -360,7 +360,7 @@ export const TestData = {
     {
       time: 0.54,
       title: "FeidVEVO",
-      count: 9,
+      videos: 9,
       key: 5,
       tableData: {
         id: 5,
@@ -369,7 +369,7 @@ export const TestData = {
     {
       time: 1.81,
       title: "Donald J Trump",
-      count: 7,
+      videos: 7,
       key: 6,
       tableData: {
         id: 6,
@@ -378,7 +378,7 @@ export const TestData = {
     {
       time: 1.23,
       title: "CNBC Television",
-      count: 7,
+      videos: 7,
       key: 7,
       tableData: {
         id: 7,
@@ -387,7 +387,7 @@ export const TestData = {
     {
       time: 3.29,
       title: "Framer",
-      count: 7,
+      videos: 7,
       key: 8,
       tableData: {
         id: 8,
@@ -396,7 +396,7 @@ export const TestData = {
     {
       time: 0.47,
       title: "Hedgeye",
-      count: 6,
+      videos: 6,
       key: 9,
       tableData: {
         id: 9,

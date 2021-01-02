@@ -3,7 +3,7 @@ import Radium from "radium";
 import Report from "./Report";
 import Upload from "./Upload";
 import "./App.css";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import Manifesto from "./Manifesto";
 
 // constants.sampleReportData ? constants.sampleReportData : null
@@ -37,6 +37,7 @@ const App = () => {
           exact
           render={(props) => <Manifesto navigation={props} />}
         />
+        <Route path="/*" render={(props) => <Redirect to="/" />} />
       </BrowserRouter>
     </div>
   );

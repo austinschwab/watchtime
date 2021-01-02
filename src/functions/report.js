@@ -48,7 +48,11 @@ const GenerateReport = async (json, setProgress) => {
     let sum;
     if (isObj) {
       sum = array.reduce((a, b) => {
-        return a + +b.time;
+        if (Number.isNaN(+b.time)) {
+          return a + +0;
+        } else {
+          return a + +b.time;
+        }
       }, 0);
     } else {
       sum = array.reduce((a, b) => a + b, 0);
@@ -192,18 +196,23 @@ const GenerateReport = async (json, setProgress) => {
 
   // channel overview Table
   const getChannelOverviewTableData = (channelsWithVideosAndTime) => {
-    console.log("channelsWithVideosAndTime", channelsWithVideosAndTime);
     let channelTableData = Object.values(channelsWithVideosAndTime)
       .sort((a, b) => b.videos - a.videos)
       .slice(0, 10);
-    return channelTableData.map((obj, index) => {
+    channelTableData.map((obj, index) => {
       return {
         time: roundNumber(obj.time),
         title: obj.title,
-        count: obj.videos,
+        videos: obj.videos,
         key: index,
       };
     });
+    channelTableData.unshift({
+      title: "Channel Name",
+      videos: "Videos",
+      time: "Time(hrs)",
+    });
+    return channelTableData;
   };
 
   const getHistoricalData = (videoListData) => {

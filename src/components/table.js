@@ -4,18 +4,14 @@ import styles from "../App.css";
 import { List, Typography, Divider, Row, Col } from "antd";
 
 const TableComponent = ({ data }) => {
-  let columns = [
-    { title: "#", field: "number" },
-    { title: "Channel Name", field: "title" },
-    { title: "Videos", field: "count" },
-    { title: "Time(hrs)", field: "time" },
-  ];
   console.log(data);
-  data.unshift({
-    title: "Channel Name",
-    count: "Videos",
-    time: "Time(hrs)",
-  });
+  if (data && data[0].title !== "Channel Name") {
+    data.unshift({
+      title: "Channel Name",
+      videos: "Videos",
+      time: "Time(hrs)",
+    });
+  }
   return (
     <List>
       {data &&
@@ -41,13 +37,13 @@ const TableComponent = ({ data }) => {
                   span={3}
                   style={{ color: index === 0 ? "#727272" : "#b9b9b9" }}
                 >
-                  {item.count}
+                  {item.videos}
                 </Col>
                 <Col
                   span={3}
                   style={{ color: index === 0 ? "#727272" : "#b9b9b9" }}
                 >
-                  {item.time}
+                  {index === 0 ? item.time : Math.round(item.time)}
                 </Col>
               </Row>
               <Divider style={{ borderTop: "1px solid #333" }} />
