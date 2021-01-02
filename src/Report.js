@@ -61,8 +61,8 @@ const Report = ({ json, navigation, sample }) => {
         >
           <div
             style={{
-              width: 16,
-              height: 16,
+              width: 12,
+              height: 12,
               fontWeight: 20,
               backgroundColor: item.color,
               borderRadius: 20,
@@ -71,9 +71,8 @@ const Report = ({ json, navigation, sample }) => {
           ></div>
           <span
             style={{
-              fontSize: 18,
-              fontHeight: 16,
-              fontWeight: "Medium",
+              fontSize: 15,
+              fontWeight: 550,
               color: "#b4b4b4",
             }}
           >
@@ -139,7 +138,6 @@ const Report = ({ json, navigation, sample }) => {
           <div className="Subtitle">
             <p
               style={{
-                fontSize: 14,
                 color: "#9d9d9d",
                 textAlign: "center",
                 width: "100%",
@@ -178,15 +176,14 @@ const Report = ({ json, navigation, sample }) => {
         ),
         subtitle: (
           <div className="Subtitle">
+            {reportData.averageTimesText.timeOfDayPlural}'s make up{" "}
             <span
               style={{
                 borderBottom: "1px solid #c51818",
                 display: "inline-block",
-                paddingBottom: 1,
                 color: "white",
               }}
             >
-              {reportData.averageTimesText.timeOfDayPlural}'s make up{" "}
               {reportData.averageTimesText.percentage}%{" "}
             </span>{" "}
             of your daily Youtube usage.
@@ -206,7 +203,8 @@ const Report = ({ json, navigation, sample }) => {
       {
         heading: (
           <p className="Paragraph">
-            Here’s a breakdown of your historical usage
+            Here’s a breakdown of your{" "}
+            <span style={{ color: "white" }}>historical usage</span>
           </p>
         ),
         subtitle: (
@@ -249,9 +247,14 @@ const Report = ({ json, navigation, sample }) => {
         ),
       },
       {
-        heading: <p className="Paragraph">Most watched channels</p>,
+        heading: (
+          <p className="Paragraph">
+            {" "}
+            <span style={{ color: "white" }}> Most watched</span> channels
+          </p>
+        ),
         subtitle: (
-          <div className="Subtitle">
+          <div className="Subtitle" style={{ width: "100%" }}>
             Across your top 10 channels, you've watched{" "}
             <span
               style={{
@@ -313,20 +316,22 @@ const Report = ({ json, navigation, sample }) => {
                 paddingTop: 75,
               }}
             >
-              <div className="categoryBox">
+              <div
+                className="categoryBox"
+                style={{ margin: "auto", marginBottom: 50 }}
+              >
                 <div
                   style={{
-                    width: 16,
-                    height: 16,
+                    width: 12,
+                    height: 12,
                     backgroundColor: constants.Categories[index].color,
                     borderRadius: 20,
                   }}
                 ></div>
                 <span
                   style={{
-                    fontSize: 18,
-                    fontHeight: 16,
-                    fontWeight: "Medium",
+                    fontSize: 15,
+                    fontWeight: 550,
                     color: "#b4b4b4",
                     marginLeft: 12,
                   }}
@@ -373,15 +378,15 @@ const Report = ({ json, navigation, sample }) => {
             <img
               src={process.env.PUBLIC_URL + "images/watchtime_logo.png"}
               alt="img"
-              style={{ width: 200 }}
+              style={{ width: 125 }}
             />
             <div style={{ float: "right" }}>
               <Link
                 to={{ pathname: "/manifesto" }}
-                style={{ fontSize: 20, color: "white" }}
+                style={{ fontSize: 17, color: "#cfcfcf", fontWeight: 600 }}
               >
                 Manifesto
-              </Link>{" "}
+              </Link>
             </div>
           </div>
           <div className="IntroSection">
@@ -463,7 +468,7 @@ const Report = ({ json, navigation, sample }) => {
               </div>
             </div>
           )}
-          {sample && <h2 className="h2">But now you can.</h2>}
+          {sample && <h2 className="BigText">But now you can.</h2>}
           <div className="ReportContainer">
             <Scrollspy
               className="Sidebar"
