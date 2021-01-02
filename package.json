@@ -23,6 +23,7 @@
     "react-dropzone": "^11.2.4",
     "react-files": "^2.4.8",
     "react-loading-dot": "^1.0.6",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "react-scroll-into-view": "^1.8.2",
     "react-scrollspy": "^3.4.3"
