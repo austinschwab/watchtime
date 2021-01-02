@@ -3,10 +3,10 @@ import { Button } from "antd";
 import Radium from "radium";
 import Report from "./Report";
 import "./App.css";
-// constants.sampleReportData ? constants.sampleReportData : null
+import * as constants from "./constants";
 
 const App = () => {
-  const [jsonfile, setJsonfile] = useState(null);
+  const [jsonfile, setJsonfile] = useState(constants.TestData);
   const [error, setError] = useState(null);
   const [getReport, setGetReport] = useState(false);
 
@@ -57,6 +57,7 @@ const App = () => {
               </a>{" "}
             </div>
           </div>
+
           <div className="Content">
             <div className="IntroSection">
               <h1

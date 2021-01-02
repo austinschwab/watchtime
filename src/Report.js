@@ -13,7 +13,8 @@ import GenerateCompleteReportData from "./functions/report";
 import ProgressBar from "./components/progress";
 
 const Report = ({ json }) => {
-  const [reportData, setReportData] = useState();
+  const sample = true;
+  const [reportData, setReportData] = useState(json);
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   useEffect(() => {
@@ -21,7 +22,7 @@ const Report = ({ json }) => {
       processReport();
     }
   }, [json]);
-  console.log(reportData);
+
   const processReport = async () => {
     setIsLoading(true);
     let jsonData = _.cloneDeep(json);
@@ -105,7 +106,7 @@ const Report = ({ json }) => {
             <p className="Paragraph">
               That's a total of{" "}
               <span style={{ color: "white" }}>
-                {reportData.totalHoursWatched.toFixed(2)}
+                {reportData.totalHoursWatched}
               </span>{" "}
               hours in the past{" "}
               <span style={{ color: "white" }}>
@@ -372,24 +373,87 @@ const Report = ({ json }) => {
             <img
               src={process.env.PUBLIC_URL + "images/watchtime_logo.png"}
               alt="img"
-              style={{ width: 200, padding: 40 }}
+              style={{ width: 200 }}
             />
+            <div style={{ float: "right" }}>
+              <a
+                href={"https://takeout.google.com/settings/takeout"}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ fontSize: 20, color: "white" }}
+              >
+                Manifesto
+              </a>{" "}
+            </div>
           </div>
           <div className="IntroSection">
-            <p className="Paragraph">
-              <span style={{ color: "white" }}>Scroll down</span> to see your
-              Youtube stats.
+            {sample ? (
+              <div className="Hero">
+                <h1 className="h1_monitor">Monitor your Youtube usage</h1>
+                <p className="hero_subtitle">
+                  It’s easy to lose track of how much time you spend watching
+                  videos online.
+                </p>
+                <div className="calculatebtn_container">
+                  <div className="calculate_top">Get started</div>
+                  <div className="calculate_bottom">Calculate</div>
+                </div>
+              </div>
+            ) : (
+              <>
+                <p className="Paragraph">
+                  <span style={{ color: "white" }}>Scroll down</span> to see
+                  your Youtube stats.
+                </p>
+                <div className="BreakdownImageContainer">
+                  <img
+                    src={process.env.PUBLIC_URL + "images/Arrows.png"}
+                    alt="img"
+                    style={{ width: 130, marginTop: 15 }}
+                  />
+                </div>
+              </>
+            )}
+
+            <p className="BreakdownTitle">
+              {sample ? "What you get" : "Data categories"}
             </p>
-            <div className="BreakdownImageContainer">
-              <img
-                src={process.env.PUBLIC_URL + "images/Arrows.png"}
-                alt="img"
-                style={{ width: 130, marginTop: 15 }}
-              />
-            </div>
-            <p className="BreakdownTitle">Data categories</p>
             <div className="BreakdownContainer">{mapCategories()}</div>
           </div>
+          {sample && (
+            <div className="Mini_IntroContainer">
+              <p className="minitext">
+                Our society is{" "}
+                <span style={{ color: "white" }}>
+                  addicted to digital consumption.{" "}
+                </span>
+                Most people spend a few hours of their day on Youtube.
+                <p></p>
+                <span style={{ color: "white" }}>
+                  We know there is a problem.
+                </span>{" "}
+                But, how big is it?
+                <p></p>
+                We created a tool that calculates your total Youtube watchtime
+                along with other key metrics. <p></p>
+                <span style={{ color: "white" }}>
+                  If you can’t measure it, you can’t manage it.
+                </span>
+              </p>
+              <div
+                className="read_more"
+                style={{
+                  ":hover": {
+                    color: "#c51818",
+                    borderColor: "#c51818",
+                  },
+                }}
+              >
+                Read more
+              </div>
+            </div>
+          )}
+          {sample && <h2 className="h2">But now you can.</h2>}
           <div className="ReportContainer">
             <Scrollspy
               className="Sidebar"
@@ -420,78 +484,78 @@ const Report = ({ json }) => {
             </Scrollspy>
             <div style={{ width: "100%" }}>{renderCharts()}</div>
           </div>
-
-          <div className="Reccomendation_Section">
-            <h1
-              style={{
-                color: "white",
-                fontSize: 36,
-                marginBottom: 100,
-                width: "70%",
-              }}
-            >
-              Now that you have a better sense of your usage. Here are some
-              resources to help :D
-            </h1>
-            <p style={{ fontSize: 20, color: "white" }}>Handpicked resources</p>
-            <div className="ReccomendationContainer">
-              {constants.recommendations.map((item, index) => (
-                <a href={item.link} style={{ width: "100%" }}>
-                  <div className="reccomendation_item" key={index}>
-                    {item.image}
-                    <div style={{ marginLeft: 16 }}>
-                      <p style={{ fontSize: 12 }}>{item.name}</p>
-                      <p style={{ fontSize: 12 }}>{item.type}</p>
+          {sample ? null : (
+            <div className="Reccomendation_Section">
+              <h1
+                style={{
+                  color: "white",
+                  fontSize: 36,
+                  marginBottom: 100,
+                  width: "70%",
+                }}
+              >
+                Now that you have a better sense of your usage. Here are some
+                resources to help :D
+              </h1>
+              <p style={{ fontSize: 20, color: "white" }}>
+                Handpicked resources
+              </p>
+              <div className="ReccomendationContainer">
+                {constants.recommendations.map((item, index) => (
+                  <a href={item.link} style={{ width: "100%" }}>
+                    <div className="reccomendation_item" key={index}>
+                      {item.image}
+                      <div style={{ marginLeft: 16 }}>
+                        <p style={{ fontSize: 12 }}>{item.name}</p>
+                        <p style={{ fontSize: 12 }}>{item.type}</p>
+                      </div>
                     </div>
-                  </div>
-                </a>
-              ))}
+                  </a>
+                ))}
+              </div>
             </div>
-            <Scrollspy
-              className="Sidebar"
-              style={{
-                flexDirection: "row",
-              }}
-              items={[
-                "chart0",
-                "chart1",
-                "chart2",
-                "chart3",
-                "chart4",
-                "chart5",
-              ]}
-              currentClassName="is-active"
-            >
-              {colorArray.map((color, index) => {
-                return (
-                  <li
-                    className={`sidelink ${color}`}
-                    style={{
-                      marginLeft: 11,
-                      marginRight: 11,
-                    }}
-                  >
-                    <a href={`#chart${index}`} className="sidedotAnchor">
-                      <div
-                        className="sidedot"
-                        style={{
-                          backgroundColor: constants.Categories[index].color,
-                        }}
-                      ></div>
-                    </a>
-                  </li>
-                );
-              })}
-            </Scrollspy>
-            <div>
-              {" "}
-              <img
-                src={process.env.PUBLIC_URL + "images/readmanifesto.png"}
-                alt="img"
-                style={{ width: 444, height: 48 }}
-              />
-            </div>
-          </div>
+          )}
+          <h1
+            className="manifesto_text"
+            key="manifesto"
+            style={{
+              ":hover": {
+                color: "white",
+              },
+            }}
+          >
+            Read our manifesto
+          </h1>
+          <Scrollspy
+            className="Sidebar"
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+            }}
+            items={["chart0", "chart1", "chart2", "chart3", "chart4", "chart5"]}
+            currentClassName="is-active"
+          >
+            {colorArray.map((color, index) => {
+              return (
+                <li
+                  className={`sidelink ${color}`}
+                  style={{
+                    marginLeft: 11,
+                    marginRight: 11,
+                  }}
+                >
+                  <a href={`#chart${index}`} className="sidedotAnchor">
+                    <div
+                      className="sidedot"
+                      style={{
+                        backgroundColor: constants.Categories[index].color,
+                      }}
+                    ></div>
+                  </a>
+                </li>
+              );
+            })}
+          </Scrollspy>
         </div>
       ) : (
         <ProgressBar progress={progress} />
@@ -500,4 +564,4 @@ const Report = ({ json }) => {
   );
 };
 
-export default Report;
+export default Radium(Report);
