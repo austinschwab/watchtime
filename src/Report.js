@@ -376,14 +376,12 @@ const Report = ({ json, navigation, sample }) => {
               style={{ width: 200 }}
             />
             <div style={{ float: "right" }}>
-              <a
-                href={"https://takeout.google.com/settings/takeout"}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                to={{ pathname: "/manifesto" }}
                 style={{ fontSize: 20, color: "white" }}
               >
                 Manifesto
-              </a>{" "}
+              </Link>{" "}
             </div>
           </div>
           <div className="IntroSection">
