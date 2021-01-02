@@ -394,7 +394,17 @@ const Report = ({ json, navigation, sample }) => {
                 </p>
                 <Link to={{ pathname: "/upload" }}>
                   <div className="calculatebtn_container">
-                    <div className="calculate_top">Get started</div>
+                    <div
+                      className="calculate_top"
+                      key="calculate_top"
+                      style={{
+                        ":hover": {
+                          transform: `translate(${2}px, ${-2}px)`,
+                        },
+                      }}
+                    >
+                      Get started
+                    </div>
                     <div className="calculate_bottom">Calculate</div>
                   </div>
                 </Link>
@@ -484,6 +494,29 @@ const Report = ({ json, navigation, sample }) => {
             </Scrollspy>
             <div style={{ width: "100%" }}>{renderCharts()}</div>
           </div>
+
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <div className="Github_Container">
+              <p>We do not store any data. Our code is public and auditable.</p>
+
+              <div className="github_btn">
+                <img
+                  src={process.env.PUBLIC_URL + "images/github.png"}
+                  alt="img"
+                  style={{ width: 24 }}
+                />
+                <span className="github_text">Github</span>
+              </div>
+            </div>
+          </div>
+
           {sample ? null : (
             <div className="Reccomendation_Section">
               <h1

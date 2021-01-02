@@ -28,13 +28,15 @@ const useStyles = makeStyles({
   root: {
     width: "100vw",
     height: "100vh",
+    backgroundColor: "black",
   },
 });
 const quotes = [
-  "Any fool can know. The point is to understand. -Albert Einstein",
-  "test",
-  "test",
-  "The interesting thing about your personality, your essence, is that it is not more or less permanent like your leg bone. Your essence is changeable, like your mind. Every action you take, every thought you have, changes you, even if just a little, making you a little more elevated or a little more degraded.",
+  "Your worldview is a portfolio of stories. —Jack Butcher",
+  "If you’re not paying for the product, then you are the product. —Daniel Hövermann",
+  "Nothing vast enters the life of mortals without a curse. —Sophocles",
+  "We’re training and conditioning a whole new generation of people that when we are uncomfortable or lonely or uncertain or afraid we have a digital pacifier for ourselves that is kind of atrophying our own ability to deal with that. —Tristan Harris",
+  "Don’t think about turning your smartphone off once in a while...think about turning it on once in a while. -Bodo Schäfer",
 ];
 
 export default function LinearWithValueLabel({ progress }) {
@@ -44,7 +46,7 @@ export default function LinearWithValueLabel({ progress }) {
   useEffect(() => {
     const timer = setInterval(() => {
       setIntervalIndex(intervalIndex + 1);
-    }, 2000);
+    }, 7000);
   });
 
   return (
@@ -59,8 +61,17 @@ export default function LinearWithValueLabel({ progress }) {
           minHeight: "100vh",
         }}
       >
-        <Loading size="1rem" />
-        <p style={{ color: "white" }}>{quotes[intervalIndex]}</p>
+        <p
+          style={{
+            marginTop: 90,
+            color: "white",
+            fontSize: 25,
+            fontWeight: 500,
+            maxWidth: "60%",
+          }}
+        >
+          {quotes[intervalIndex]}
+        </p>
       </div>
     </div>
   );
