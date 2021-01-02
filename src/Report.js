@@ -12,9 +12,8 @@ import Scrollspy from "react-scrollspy";
 import GenerateCompleteReportData from "./functions/report";
 import ProgressBar from "./components/progress";
 
-const Report = ({ json }) => {
-  const sample = true;
-  const [reportData, setReportData] = useState(json);
+const Report = ({ json, navigation, sample }) => {
+  const [reportData, setReportData] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   useEffect(() => {
@@ -22,7 +21,6 @@ const Report = ({ json }) => {
       processReport();
     }
   }, [json]);
-
   const processReport = async () => {
     setIsLoading(true);
     let jsonData = _.cloneDeep(json);

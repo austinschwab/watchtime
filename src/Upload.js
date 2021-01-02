@@ -1,32 +1,53 @@
-import React, { useState, useEffect, Item, button } from "react";
-import * as classes from "./App.css";
-import Upload from "rc-upload";
+import React, { useState, useEffect } from "react";
+import { Button } from "antd";
+import "./App.css";
+import { Link, Route, Redirect } from "react-router-dom";
 
-const UploadJSON = () => {
-  const [jsonfile, setJsonfile] = useState();
+const UploadJSON = ({ navigation, setReportData }) => {
+  const [error, setError] = useState(null);
+  const [filedUploaded, setFiledUploaded] = useState(false);
 
-  const props = {
-    action: (file) => {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(setJsonfile(file));
-        }, 2000);
-      });
-    },
-    multiple: false,
-    onStart(file) {
-      console.log("onStart", file, file.name);
-    },
-    onSuccess(ret) {
-      console.log("onSuccess", ret);
-    },
-    onError(err) {
-      console.log("onError", err);
-    },
+  const handleChange = (e) => {
+    const fileReader = new FileReader();
+
+    fileReader.onload = (e) => {
+      let fileInput = document.getElementById("upload");
+      let fileName = fileInput.files[0].name;
+      let fileExtension = fileName.split(".").pop();
+
+      if (fileExtension === "json") {
+        let jsonObj = JSON.parse(e.target.result);
+        setReportData(jsonObj);
+        setFiledUploaded(true);
+        setError(null);
+      } else {
+        setError("Error");
+      }
+    };
+    fileReader.readAsText(e.target.files[0]);
   };
 
   return (
-    <div className="App">
+    <div className="Content">
+      <div className="Menu">
+        <Link to={{ pathname: "/" }}>
+          {" "}
+          <img
+            src={process.env.PUBLIC_URL + "images/watchtime_logo.png"}
+            alt="img"
+            style={{ width: 200 }}
+          />
+        </Link>
+
+        <div style={{ float: "right" }}>
+          <Link
+            to={{ pathname: "/manifesto" }}
+            style={{ fontSize: 20, color: "white" }}
+          >
+            Manifesto
+          </Link>
+        </div>
+      </div>
       <div className="Content">
         <div className="IntroSection">
           <h1
@@ -56,7 +77,7 @@ const UploadJSON = () => {
               ":hover": {
                 border: "solid",
                 borderColor: "#c51818",
-                borderWidth: "1px",
+                borderWidth: "4px",
               },
             }}
           >
@@ -71,6 +92,7 @@ const UploadJSON = () => {
                 <iframe
                   src="https://www.loom.com/embed/911c36117e15469aa341e2408805a0bf"
                   frameborder="0"
+                  title="testvideo"
                   webkitallowfullscreen
                   mozallowfullscreen
                   allowfullscreen
@@ -79,25 +101,33 @@ const UploadJSON = () => {
                     top: 0,
                     left: 0,
                     width: 266,
+                    height: 189,
                   }}
                 ></iframe>
               </div>
             </div>
-            <Upload {...props}>
-              <button className="upload_button">
-                <img
-                  src={process.env.PUBLIC_URL + "images/upload.svg"}
-                  alt="upload"
-                />
-              </button>
-              {}
-            </Upload>
-            <button className="calculate_button">
-              <p style={{ color: "#111", alignText: "center" }}>Calculate</p>
-            </button>
-          </div>
+            <form style={{ width: "50%" }}>
+              <input
+                id="upload"
+                type="file"
+                onChange={handleChange}
+                style={{ color: "white", width: "50%" }}
+              />
+            </form>
+            {error ? (
+              <p style={{ color: "#c51818" }}>
+                Wrong file type. Please upload a .json file as instructed.
+              </p>
+            ) : null}
 
-          {/* steps */}
+            <Button
+              disabled={!filedUploaded}
+              className="calculate_button"
+              onClick={() => navigation.history.push("/report")}
+            >
+              Calculate
+            </Button>
+          </div>
           <div className="InstructionsContainer">
             <p className="instructions">
               1) Navigate to{" "}
@@ -120,9 +150,14 @@ const UploadJSON = () => {
               check your email soon. Once you've recieved your watch history,
               come back to this page to upload watch_history.json.
             </p>
+            <p className="instructions">
+              After processing your watch history, we delete the file you
+              provided us. We do not store your data. Our code is public and
+              auditable.
+            </p>
           </div>
         </div>
-      </div>{" "}
+      </div>
     </div>
   );
 };
