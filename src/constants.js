@@ -417,3 +417,57 @@ export const TestData = {
     hour: 158.9,
   },
 };
+
+export const quotes = [
+  {
+    description: "Day by day, what you do is who you become. — Heraclitus",
+    image: (
+      <img
+        src={process.env.PUBLIC_URL + "images/heraclitus.png"}
+        alt="img"
+        style={{ height: 600, margin: "auto" }}
+      />
+    ),
+  },
+  {
+    description: "The sooner we start, the sooner we improve.",
+    image: (
+      <img
+        src={process.env.PUBLIC_URL + "images/improve.png"}
+        alt="img"
+        style={{ height: 600, margin: "auto" }}
+      />
+    ),
+  },
+  {
+    description:
+      "Reduce options. Increase focus. Multiply results. — Carl Richards",
+    image: (
+      <img
+        src={process.env.PUBLIC_URL + "images/focus.png"}
+        alt="img"
+        style={{ height: 600, margin: "auto" }}
+      />
+    ),
+  },
+  {
+    description: "Chase discipline, not dopamine. — Jim Fisher",
+    image: (
+      <img
+        src={process.env.PUBLIC_URL + "images/dopamine.png"}
+        alt="img"
+        style={{ height: 600, margin: "auto" }}
+      />
+    ),
+  },
+  {
+    description: "Don't stop working before it starts working.",
+    image: (
+      <img
+        src={process.env.PUBLIC_URL + "images/pointless.png"}
+        alt="img"
+        style={{ height: 600, margin: "auto" }}
+      />
+    ),
+  },
+];

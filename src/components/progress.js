@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import * as constants from "../constants";
 import { Loading } from "react-loading-dot";
 
 function LinearProgressWithLabel(props) {
@@ -31,13 +32,6 @@ const useStyles = makeStyles({
     backgroundColor: "black",
   },
 });
-const quotes = [
-  "Your worldview is a portfolio of stories. —Jack Butcher",
-  "If you’re not paying for the product, then you are the product. —Daniel Hövermann",
-  "Nothing vast enters the life of mortals without a curse. —Sophocles",
-  "We’re training and conditioning a whole new generation of people that when we are uncomfortable or lonely or uncertain or afraid we have a digital pacifier for ourselves that is kind of atrophying our own ability to deal with that. —Tristan Harris",
-  "Don’t think about turning your smartphone off once in a while...think about turning it on once in a while. -Bodo Schäfer",
-];
 
 export default function LinearWithValueLabel({ progress }) {
   const classes = useStyles();
@@ -46,7 +40,7 @@ export default function LinearWithValueLabel({ progress }) {
   useEffect(() => {
     const timer = setInterval(() => {
       setIntervalIndex(intervalIndex + 1);
-    }, 7000);
+    }, 5000);
   });
 
   return (
@@ -55,22 +49,41 @@ export default function LinearWithValueLabel({ progress }) {
       <div
         style={{
           display: "flex",
+          flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
           textAlign: "center",
-          minHeight: "100vh",
         }}
       >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {constants.quotes[intervalIndex].image}
+        </div>
         <p
           style={{
-            marginTop: 90,
+            marginTop: 10,
             color: "white",
             fontSize: 25,
             fontWeight: 500,
             maxWidth: "60%",
           }}
         >
-          {quotes[intervalIndex]}
+          {constants.quotes[intervalIndex].description}
+          <p
+            style={{
+              marginTop: 10,
+              color: "white",
+              fontSize: 15,
+              fontWeight: 300,
+            }}
+          >
+            Art by Visualize Value
+          </p>
         </p>
       </div>
     </div>

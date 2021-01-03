@@ -12,6 +12,7 @@ import Scrollspy from "react-scrollspy";
 import GenerateCompleteReportData from "./functions/report";
 import ProgressBar from "./components/progress";
 import { Link } from "react-router-dom";
+
 const Report = ({ json, navigation, sample }) => {
   const [reportData, setReportData] = useState(
     sample ? constants.TestData : null
@@ -509,7 +510,9 @@ const Report = ({ json, navigation, sample }) => {
             }}
           >
             <div className="Github_Container">
-              <p>We do not store any data. Our code is public and auditable.</p>
+              <p style={{ textAlign: "center" }}>
+                We do not store any data. Our code is public and auditable.
+              </p>
 
               <div className="github_btn">
                 <img
