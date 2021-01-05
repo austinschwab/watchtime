@@ -81,7 +81,7 @@ const ChartComponent = ({ id, type, data, labels, title, xAxesType }) => {
 
   useEffect(() => {
     let options;
-    if (type !== "pie") {
+    if (type !== "doughnut") {
       options = {
         scales: {
           yAxes: [
@@ -118,6 +118,14 @@ const ChartComponent = ({ id, type, data, labels, title, xAxesType }) => {
     }
   }, [chartRef]);
 
-  return <canvas id="chart" responsive="true" ref={chartRef}></canvas>;
+  return (
+    <canvas
+      id="chart"
+      responsive="true"
+      width="440"
+      height="320"
+      ref={chartRef}
+    ></canvas>
+  );
 };
 export default ChartComponent;

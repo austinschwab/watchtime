@@ -185,10 +185,15 @@ const GenerateReport = async (json, setProgress) => {
   const getCategoryChartData = (categoriesWithCount) => {
     let categoryLabels = [];
     let categoryData = [];
-
+    let i = 0;
     for (let obj of Object.values(categoriesWithCount)) {
-      categoryLabels.push(obj.id);
-      categoryData.push(obj.value);
+      if (i < 8) {
+        categoryLabels.push(obj.id);
+        categoryData.push(obj.value);
+        i++;
+      } else {
+        continue;
+      }
     }
 
     return { labels: categoryLabels, data: categoryData };

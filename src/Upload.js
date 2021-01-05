@@ -110,7 +110,7 @@ const UploadJSON = ({ navigation, setJsonData }) => {
           ) : null}
 
           <Button
-            disabled={!filedUploaded}
+            // disabled={!filedUploaded}
             className="calculate_button"
             onClick={() => navigation.history.push("/report")}
           >
