@@ -12,6 +12,9 @@ import Scrollspy from "react-scrollspy";
 import GenerateCompleteReportData from "./functions/report";
 import ProgressBar from "./components/progress";
 import { Link } from "react-router-dom";
+import ScrollAnimation from "react-animate-on-scroll";
+import Menu from "./components/menu";
+import "animate.css/animate.min.css";
 
 const Report = ({ json, navigation, sample }) => {
   const [reportData, setReportData] = useState(
@@ -72,7 +75,7 @@ const Report = ({ json, navigation, sample }) => {
           ></div>
           <span
             style={{
-              fontSize: 15,
+              fontSize: 16,
               fontWeight: 550,
               color: "#b4b4b4",
             }}
@@ -295,7 +298,7 @@ const Report = ({ json, navigation, sample }) => {
         component: (
           <Chart
             key="categoryChart"
-            type="pie"
+            type="doughnut"
             data={reportData.categoryChart.data}
             labels={reportData.categoryChart.labels}
             id="categoryChart"
@@ -350,10 +353,10 @@ const Report = ({ json, navigation, sample }) => {
                   <div
                     style={{
                       position: "relative",
-                      width: "40vw",
-                      height: "40vh",
-                      minWidth: 300,
-                      minHeight: 300,
+                      width: "45vw",
+                      height: "45vh",
+                      minWidth: 375,
+                      minHeight: 375,
                       maxWidth: 600,
                       margin: "auto",
                     }}
@@ -373,23 +376,9 @@ const Report = ({ json, navigation, sample }) => {
 
   return (
     <div className="App">
+      <Menu />
       {reportData ? (
         <div className="Content">
-          <div className="Menu">
-            <img
-              src={process.env.PUBLIC_URL + "images/watchtime_logo.png"}
-              alt="img"
-              style={{ width: 125 }}
-            />
-            <div style={{ float: "right" }}>
-              <Link
-                to={{ pathname: "/manifesto" }}
-                style={{ fontSize: 17, color: "#cfcfcf", fontWeight: 600 }}
-              >
-                Manifesto
-              </Link>
-            </div>
-          </div>
           <div className="IntroSection">
             {sample ? (
               <div className="Hero">
@@ -456,17 +445,19 @@ const Report = ({ json, navigation, sample }) => {
                   If you can’t measure it, you can’t manage it.
                 </span>
               </p>
-              <div
-                className="read_more"
-                style={{
-                  ":hover": {
-                    color: "#c51818",
-                    borderColor: "#c51818",
-                  },
-                }}
-              >
-                Read more
-              </div>
+              <Link to={{ pathname: "/manifesto" }}>
+                <div
+                  className="read_more"
+                  style={{
+                    ":hover": {
+                      color: "#c51818",
+                      borderColor: "#c51818",
+                    },
+                  }}
+                >
+                  Read more
+                </div>
+              </Link>
             </div>
           )}
           {sample && <h2 className="BigText">But now you can.</h2>}
@@ -498,7 +489,12 @@ const Report = ({ json, navigation, sample }) => {
                 );
               })}
             </Scrollspy>
-            <div style={{ width: "100%" }}>{renderCharts()}</div>
+            <ScrollAnimation
+              animateIn="animate__animated animate__fadeIn"
+              duration={6}
+            >
+              <div style={{ width: "100%" }}>{renderCharts()}</div>
+            </ScrollAnimation>
           </div>
 
           <div
@@ -509,20 +505,30 @@ const Report = ({ json, navigation, sample }) => {
               justifyContent: "center",
             }}
           >
-            <div className="Github_Container">
-              <p style={{ textAlign: "center" }}>
-                We do not store any data. Our code is public and auditable.
-              </p>
+            {sample ? (
+              <div className="Github_Container">
+                <p style={{ textAlign: "center", color: "#9d9d9d" }}>
+                  After processing your report, {""}
+                  <span style={{ color: "white" }}>
+                    we do not store any data. {""}
+                  </span>
+                  Our code is public and auditable.
+                </p>
 
-              <div className="github_btn">
-                <img
-                  src={process.env.PUBLIC_URL + "images/github.png"}
-                  alt="img"
-                  style={{ width: 24 }}
-                />
-                <span className="github_text">Github</span>
+                <a href="https://github.com">
+                  <div className="github_btn" key="github">
+                    <img
+                      src={process.env.PUBLIC_URL + "images/github.png"}
+                      alt="img"
+                      style={{ width: 24 }}
+                    />
+                    <span className="github_text" key="gittext">
+                      Github
+                    </span>
+                  </div>
+                </a>
               </div>
-            </div>
+            ) : null}
           </div>
 
           {sample ? null : (
@@ -536,7 +542,7 @@ const Report = ({ json, navigation, sample }) => {
                 }}
               >
                 Now that you have a better sense of your usage. Here are some
-                resources to help :D
+                resources to help:
               </h1>
               <p style={{ fontSize: 20, color: "white" }}>
                 Handpicked resources
@@ -556,17 +562,19 @@ const Report = ({ json, navigation, sample }) => {
               </div>
             </div>
           )}
-          <h1
-            className="manifesto_text"
-            key="manifesto"
-            style={{
-              ":hover": {
-                color: "white",
-              },
-            }}
-          >
-            Read our manifesto
-          </h1>
+          <Link to={{ pathname: "/manifesto" }}>
+            <h1
+              className="manifesto_text"
+              key="manifesto"
+              style={{
+                ":hover": {
+                  color: "white",
+                },
+              }}
+            >
+              Read our manifesto
+            </h1>
+          </Link>
           <Scrollspy
             className="Sidebar"
             style={{
@@ -597,6 +605,9 @@ const Report = ({ json, navigation, sample }) => {
               );
             })}
           </Scrollspy>
+          <p style={{ color: "white", textAlign: "center" }}>
+            watchtime.tv © 2021
+          </p>
         </div>
       ) : (
         <ProgressBar progress={progress} />

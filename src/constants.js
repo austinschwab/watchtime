@@ -220,7 +220,7 @@ export const timeOfDayWithCount = {
 
 export const TestData = {
   firstVideoWatchedOn: "07/28/2016",
-  numberOfVideosWatched: 17400,
+  numberOfVideosWatched: "17,400",
   daysSinceFirstVideo: 1605,
   averageWeekChart: {
     labels: [
@@ -263,9 +263,9 @@ export const TestData = {
     ],
     data: [
       71.62,
-      0,
-      0,
-      0,
+      5,
+      4,
+      2,
       4,
       7.25,
       11.38,
@@ -309,7 +309,7 @@ export const TestData = {
   totalHoursWatched: 158.850277777778,
   historicalChart: {
     labels: ["Sep 20"],
-    data: [158.9],
+    data: [158.9, 150, 200, 500, 700],
   },
   channelTable: [
     {
@@ -444,7 +444,7 @@ export const quotes = [
       "Reduce options. Increase focus. Multiply results. — Carl Richards",
     image: (
       <img
-        src={process.env.PUBLIC_URL + "images/focus.png"}
+        src={process.env.PUBLIC_URL + "images/focus.jpg"}
         alt="img"
         style={{ height: 600, margin: "auto" }}
       />
@@ -454,7 +454,7 @@ export const quotes = [
     description: "Chase discipline, not dopamine. — Jim Fisher",
     image: (
       <img
-        src={process.env.PUBLIC_URL + "images/dopamine.png"}
+        src={process.env.PUBLIC_URL + "images/dopamine.jpg"}
         alt="img"
         style={{ height: 600, margin: "auto" }}
       />

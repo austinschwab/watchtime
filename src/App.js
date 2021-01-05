@@ -5,6 +5,7 @@ import Upload from "./Upload";
 import "./App.css";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import Manifesto from "./Manifesto";
+import ScrollToTop from "./functions/scrollToTop";
 
 // constants.sampleReportData ? constants.sampleReportData : null
 
@@ -13,6 +14,7 @@ const App = () => {
   return (
     <div className="App">
       <BrowserRouter>
+        <ScrollToTop />
         <Route
           path="/"
           exact

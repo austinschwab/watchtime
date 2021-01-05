@@ -2,9 +2,9 @@ import React from "react";
 import { Table } from "antd";
 import styles from "../App.css";
 import { List, Typography, Divider, Row, Col } from "antd";
+import Radium from "radium";
 
 const TableComponent = ({ data }) => {
-  console.log(data);
   if (data && data[0].title !== "Channel Name") {
     data.unshift({
       title: "Channel Name",
@@ -12,14 +12,25 @@ const TableComponent = ({ data }) => {
       time: "Time(hrs)",
     });
   }
+
   return (
     <List>
       {data &&
         data.map((item, index) => {
           return (
-            <div style={{ fontSize: 18 }}>
-              <Row style={{ width: "100%" }}>
+            <div
+              key={index}
+              style={{
+                fontSize: 18,
+              }}
+            >
+              <Row
+                style={{
+                  width: "100%",
+                }}
+              >
                 <Col
+                  className="ChangeRowColor"
                   span={4}
                   style={{
                     color: index === 0 ? "#727272" : "#b9b9b9",
@@ -28,8 +39,11 @@ const TableComponent = ({ data }) => {
                   {index === 0 ? "#" : index}
                 </Col>
                 <Col
+                  className="ChangeRowColor"
                   span={12}
-                  style={{ color: index === 0 ? "#727272" : "#b9b9b9" }}
+                  style={{
+                    color: index === 0 ? "#727272" : "#b9b9b9",
+                  }}
                 >
                   {item.title}
                 </Col>
@@ -53,4 +67,4 @@ const TableComponent = ({ data }) => {
     </List>
   );
 };
-export default TableComponent;
+export default Radium(TableComponent);

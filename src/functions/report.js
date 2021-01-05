@@ -196,6 +196,7 @@ const GenerateReport = async (json, setProgress) => {
 
   // channel overview Table
   const getChannelOverviewTableData = (channelsWithVideosAndTime) => {
+    console.log("TABLE", channelsWithVideosAndTime);
     let channelTableData = Object.values(channelsWithVideosAndTime)
       .sort((a, b) => b.videos - a.videos)
       .slice(0, 10);
@@ -424,7 +425,7 @@ const GenerateReport = async (json, setProgress) => {
   const generateCompleteReportData = async () => {
     let videoList = await generateVideoList();
     let firstVideoWatchedOn = moment(json[json.length - 1].time).format("L");
-    let numberOfVideosWatched = json.length;
+    let numberOfVideosWatched = json.length.toLocaleString();
     let daysSinceFirstVideo = getDaySinceFirstVideo();
     let chartData = getWatchTimeChartData(videoList);
     let averageTimesText = {

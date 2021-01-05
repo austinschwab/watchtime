@@ -4,11 +4,11 @@
   background-color: #111111;
   font-family: "Inter", sans-serif !important;
   font-weight: 500;
-  padding-bottom: 100px;
+  padding-bottom: 20px;
 }
 
 .Hero {
-  height: 70vh;
+  margin-bottom: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -83,7 +83,8 @@
   flex-direction: column;
   align-items: center;
   padding: 56px;
-  max-width: 80%;
+  width: fit-content;
+  max-width: 650px;
   color: white;
   font-size: 32px;
   font-weight: 500;
@@ -116,6 +117,13 @@
   height: 100%;
   margin: auto;
   /* max-width: 800px; */
+}
+
+.ChangeRowColor {
+}
+
+.ChangeRowColor:hover {
+  color: white !important;
 }
 
 .Menu {
@@ -153,7 +161,7 @@
   font-weight: 500;
   font-size: 50px;
   color: #9d9d9d;
-  margin-top: 240px;
+  margin-top: 100px;
   margin-bottom: 160px;
   text-align: center;
 }
