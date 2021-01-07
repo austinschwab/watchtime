@@ -1,7 +1,7 @@
 import React from "react";
 import { Table } from "antd";
-import styles from "../App.css";
-import { List, Typography, Divider, Row, Col } from "antd";
+import "../App.css";
+import { List, Typography, Divider, Row, span } from "antd";
 import Radium from "radium";
 
 const TableComponent = ({ data }) => {
@@ -14,57 +14,64 @@ const TableComponent = ({ data }) => {
   }
 
   return (
-    <List>
+    <>
       {data &&
         data.map((item, index) => {
           return (
-            <div
-              key={index}
-              style={{
-                fontSize: 18,
-              }}
-            >
-              <Row
+            <div key={`listContainer${index}`}>
+              <div
+                key={index}
                 style={{
                   width: "100%",
+                  display: "flex",
+                  flexDirection: "row",
+                  fontSize: 18,
+                  alignItems: "center",
+                  color: index === 0 ? "#727272" : "#b9b9b9",
+                  ":hover": {
+                    color: "white",
+                  },
                 }}
+                // className="ChangeRowColor"
               >
-                <Col
-                  className="ChangeRowColor"
-                  span={4}
+                <span
                   style={{
-                    color: index === 0 ? "#727272" : "#b9b9b9",
+                    color: "inherit",
+                    width: "10%",
                   }}
                 >
                   {index === 0 ? "#" : index}
-                </Col>
-                <Col
-                  className="ChangeRowColor"
-                  span={12}
+                </span>
+                <span
                   style={{
-                    color: index === 0 ? "#727272" : "#b9b9b9",
+                    color: "inherit",
+                    width: "50%",
                   }}
                 >
                   {item.title}
-                </Col>
-                <Col
-                  span={3}
-                  style={{ color: index === 0 ? "#727272" : "#b9b9b9" }}
+                </span>
+                <span
+                  style={{
+                    color: "inherit",
+                    width: "20%",
+                  }}
                 >
                   {item.videos}
-                </Col>
-                <Col
-                  span={3}
-                  style={{ color: index === 0 ? "#727272" : "#b9b9b9" }}
+                </span>
+                <span
+                  style={{
+                    color: "inherit",
+                    width: "20%",
+                  }}
                 >
                   {index === 0 ? item.time : Math.round(item.time)}
-                </Col>
-              </Row>
+                </span>
+              </div>
               <Divider style={{ borderTop: "1px solid #333" }} />
             </div>
           );
         })}
-    </List>
+    </>
   );
 };
 export default Radium(TableComponent);

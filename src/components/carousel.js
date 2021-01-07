@@ -70,7 +70,7 @@ const CarouselComponent = () => {
           alt="quote"
           style={{ height: 600, margin: "auto" }}
         />{" "}
-        <h3 style={contentStyle}>{constants.quotes[2].description}</h3>
+        <h3 style={contentStyle}>{constants.quotes[3].description}</h3>
       </div>
       <div
         style={{
@@ -85,7 +85,7 @@ const CarouselComponent = () => {
           alt="quote"
           style={{ height: 600, margin: "auto" }}
         />{" "}
-        <h3 style={contentStyle}>{constants.quotes[2].description}</h3>
+        <h3 style={contentStyle}>{constants.quotes[4].description}</h3>
       </div>
     </Carousel>
   );
