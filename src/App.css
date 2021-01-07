@@ -7,8 +7,9 @@
   padding-bottom: 20px;
 }
 
-.Hero {
+.HomepageSection {
   margin-bottom: 50px;
+  margin-top: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,7 +26,7 @@
   max-width: 609.125px;
 }
 
-.hero_subtitle {
+.subtitle {
   color: white;
   font-size: 22px;
   line-height: 140%;
@@ -114,7 +115,6 @@
 
 .Content {
   width: 65%;
-  height: 100%;
   margin: auto;
   /* max-width: 800px; */
 }
@@ -126,9 +126,20 @@
   color: white !important;
 }
 
-.Menu {
+.NavContainer {
   width: 100%;
-  padding: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Menu {
+  display: flex;
+  width: 90%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px;
 }
 
 .IntroSection {

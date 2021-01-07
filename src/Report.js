@@ -15,6 +15,10 @@ import { Link } from "react-router-dom";
 import ScrollAnimation from "react-animate-on-scroll";
 import Menu from "./components/menu";
 import "animate.css/animate.min.css";
+import { useSpring, animated } from "react-spring";
+import { Parallax, ParallaxLayer } from "react-spring/renderprops-addons";
+import { Spring, config } from "react-spring/renderprops";
+import VisibilitySensor from "react-visibility-sensor";
 
 const Report = ({ json, navigation, sample }) => {
   const [reportData, setReportData] = useState(
@@ -22,6 +26,12 @@ const Report = ({ json, navigation, sample }) => {
   );
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
+  const props = useSpring({
+    config: { duration: 10000 },
+    opacity: 1,
+    from: { opacity: 0 },
+  });
+
   useEffect(() => {
     if (json && json.length > 0) {
       processReport();
@@ -54,7 +64,6 @@ const Report = ({ json, navigation, sample }) => {
           selector={`#chart${index}`}
           smooth
           style={{
-            // hover effect using Radium
             width: "100%",
             height: "100%",
             justifyContent: "center",
@@ -75,7 +84,7 @@ const Report = ({ json, navigation, sample }) => {
           ></div>
           <span
             style={{
-              fontSize: 16,
+              fontSize: 18,
               fontWeight: 550,
               color: "#b4b4b4",
             }}
@@ -312,61 +321,81 @@ const Report = ({ json, navigation, sample }) => {
       <div className="StatsContainer">
         {chartItems.map((item, index) => {
           return (
-            <div
-              key={index}
-              id={`chart${index}`}
-              style={{
-                marginBottom: 100,
-                paddingTop: 75,
-              }}
-            >
+            <>
               <div
-                className="categoryBox"
-                style={{ margin: "auto", marginBottom: 50 }}
+                key={index}
+                id={`chart${index}`}
+                style={{
+                  marginBottom: 100,
+                  paddingTop: 75,
+                }}
               >
-                <div
-                  style={{
-                    width: 12,
-                    height: 12,
-                    backgroundColor: constants.Categories[index].color,
-                    borderRadius: 20,
-                  }}
-                ></div>
-                <span
-                  style={{
-                    fontSize: 15,
-                    fontWeight: 550,
-                    color: "#b4b4b4",
-                    marginLeft: 12,
-                  }}
-                >
-                  {constants.Categories[index].name}
-                </span>
-              </div>
-              <div style={{ width: "90%", margin: "auto" }}>
-                {item.heading}
-                {item.subtitle}
-              </div>
+                <VisibilitySensor>
+                  {({ isVisible }) => (
+                    <Spring delay={100} to={{ opacity: isVisible ? 1 : 0 }}>
+                      {({ opacity }) => (
+                        <div
+                          className="categoryBox"
+                          style={{ opacity, margin: "auto", marginBottom: 50 }}
+                        >
+                          <div
+                            style={{
+                              width: 12,
+                              height: 12,
+                              backgroundColor:
+                                constants.Categories[index].color,
+                              borderRadius: 20,
+                            }}
+                          ></div>
+                          <span
+                            style={{
+                              fontSize: 15,
+                              fontWeight: 550,
+                              color: "#b4b4b4",
+                              marginLeft: 12,
+                            }}
+                          >
+                            {constants.Categories[index].name}
+                          </span>
+                        </div>
+                      )}
+                    </Spring>
+                  )}
+                </VisibilitySensor>
 
-              {index !== 0 &&
-                (index !== 4 ? (
-                  <div
-                    style={{
-                      position: "relative",
-                      width: "45vw",
-                      height: "45vh",
-                      minWidth: 375,
-                      minHeight: 375,
-                      maxWidth: 600,
-                      margin: "auto",
-                    }}
-                  >
-                    {item.component}
-                  </div>
-                ) : (
-                  item.component
-                ))}
-            </div>
+                <VisibilitySensor>
+                  {({ isVisible }) => (
+                    <Spring delay={100} to={{ opacity: isVisible ? 1 : 0 }}>
+                      {({ opacity }) => (
+                        <div style={{ opacity, width: "90%", margin: "auto" }}>
+                          {item.heading}
+                          {item.subtitle}
+                        </div>
+                      )}
+                    </Spring>
+                  )}
+                </VisibilitySensor>
+
+                {index !== 0 &&
+                  (index !== 4 ? (
+                    <div
+                      style={{
+                        position: "relative",
+                        width: "45vw",
+                        height: "45vh",
+                        minWidth: 375,
+                        minHeight: 375,
+                        maxWidth: 600,
+                        margin: "auto",
+                      }}
+                    >
+                      {item.component}
+                    </div>
+                  ) : (
+                    item.component
+                  ))}
+              </div>
+            </>
           );
         })}
       </div>
@@ -376,14 +405,14 @@ const Report = ({ json, navigation, sample }) => {
 
   return (
     <div className="App">
-      <Menu />
       {reportData ? (
         <div className="Content">
-          <div className="IntroSection">
+          <Menu />
+          <div className="HomepageSection">
             {sample ? (
-              <div className="Hero">
+              <>
                 <h1 className="h1_monitor">Monitor your Youtube usage</h1>
-                <p className="hero_subtitle">
+                <p className="subtitle">
                   It’s easy to lose track of how much time you spend watching
                   videos online.
                 </p>
@@ -403,7 +432,7 @@ const Report = ({ json, navigation, sample }) => {
                     <div className="calculate_bottom">Calculate</div>
                   </div>
                 </Link>
-              </div>
+              </>
             ) : (
               <>
                 <p className="Paragraph">
@@ -425,6 +454,7 @@ const Report = ({ json, navigation, sample }) => {
             </p>
             <div className="BreakdownContainer">{mapCategories()}</div>
           </div>
+
           {sample && (
             <div className="Mini_IntroContainer">
               <p className="minitext">
@@ -448,6 +478,7 @@ const Report = ({ json, navigation, sample }) => {
               <Link to={{ pathname: "/manifesto" }}>
                 <div
                   className="read_more"
+                  key="read_more"
                   style={{
                     ":hover": {
                       color: "#c51818",
@@ -460,7 +491,21 @@ const Report = ({ json, navigation, sample }) => {
               </Link>
             </div>
           )}
-          {sample && <h2 className="BigText">But now you can.</h2>}
+
+          <VisibilitySensor>
+            {({ isVisible }) => (
+              <Spring delay={100} to={{ opacity: isVisible ? 1 : 0 }}>
+                {({ opacity }) =>
+                  sample && (
+                    <h2 className="BigText" style={{ opacity }}>
+                      But now you can.
+                    </h2>
+                  )
+                }
+              </Spring>
+            )}
+          </VisibilitySensor>
+
           <div className="ReportContainer">
             <Scrollspy
               className="Sidebar"
@@ -489,12 +534,8 @@ const Report = ({ json, navigation, sample }) => {
                 );
               })}
             </Scrollspy>
-            <ScrollAnimation
-              animateIn="animate__animated animate__fadeIn"
-              duration={6}
-            >
-              <div style={{ width: "100%" }}>{renderCharts()}</div>
-            </ScrollAnimation>
+
+            <div style={{ width: "100%" }}>{renderCharts()}</div>
           </div>
 
           <div
