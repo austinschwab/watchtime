@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import Chart from "chart.js";
 
-const ChartComponent = ({ id, type, data, labels, title, xAxesType }) => {
+const ChartComponent = ({ id, type, data, labels, title }) => {
   const chartRef = useRef();
   let colorArray = [];
   let categoryChartColors = [
@@ -59,7 +59,6 @@ const ChartComponent = ({ id, type, data, labels, title, xAxesType }) => {
     // return borderColors;
   };
   getLargeNumber();
-
   const styles = {
     averageWeek: {
       borderColor: colorArray,

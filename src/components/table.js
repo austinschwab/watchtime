@@ -14,7 +14,7 @@ const TableComponent = ({ data }) => {
   }
 
   return (
-    <>
+    <div style={{ maxWidth: "40vw", margin: "auto" }}>
       {data &&
         data.map((item, index) => {
           return (
@@ -71,7 +71,7 @@ const TableComponent = ({ data }) => {
             </div>
           );
         })}
-    </>
+    </div>
   );
 };
 export default Radium(TableComponent);
