@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
 import _ from "lodash";
-import { Button, Row, Col, Spin, Table } from "antd";
-import { LoadingOutlined } from "@ant-design/icons";
 import * as constants from "./constants";
-import Chart from "./components/chart";
-import TableComponent from "./components/table";
 import Radium from "radium";
 import ScrollIntoView from "react-scroll-into-view";
 import * as functions from "./functions/report";
@@ -12,13 +8,12 @@ import Scrollspy from "react-scrollspy";
 import GenerateCompleteReportData from "./functions/report";
 import ProgressBar from "./components/progress";
 import { Link } from "react-router-dom";
-import ScrollAnimation from "react-animate-on-scroll";
 import Menu from "./components/menu";
 import "animate.css/animate.min.css";
 import { useSpring, animated } from "react-spring";
-import { Parallax, ParallaxLayer } from "react-spring/renderprops-addons";
 import { Spring, config } from "react-spring/renderprops";
 import VisibilitySensor from "react-visibility-sensor";
+import RenderChart from "./components/renderchart";
 
 const Report = ({ json, navigation, sample }) => {
   const [reportData, setReportData] = useState(
@@ -96,311 +91,210 @@ const Report = ({ json, navigation, sample }) => {
     ));
   };
 
-  //finish chart items and rendercharts styles
-
-  const renderCharts = () => {
-    let chartItems = [
-      {
-        heading: (
-          <>
-            <p className="Paragraph">
-              {" "}
-              Since you watched your first Youtube video on{" "}
-              <span style={{ color: "white" }}>
-                {reportData.firstVideoWatchedOn}
-              </span>
-              , you've watched{" "}
-              <span style={{ color: "white" }}>
-                {reportData.numberOfVideosWatched} videos.
-              </span>
-            </p>
-            <div style={{ height: 20 }} />
-            <p className="Paragraph">
-              That's a total of{" "}
-              <span style={{ color: "white" }}>
-                {reportData.totalHoursWatched.toFixed(1)}
-              </span>{" "}
-              hours in the past{" "}
-              <span style={{ color: "white" }}>
-                {reportData.daysSinceFirstVideo}
-              </span>{" "}
-              days.
-            </p>
-          </>
-        ),
-        subtitle: null,
-        component: null,
-      },
-      {
-        heading: (
-          <p className="Paragraph">
-            You watch Youtube the most on{" "}
-            <span style={{ color: "white" }}>
-              {
-                reportData.averageWeekChart.labels[
-                  reportData.averageWeekChart.data.indexOf(
-                    Math.max(...reportData.averageWeekChart.data)
-                  )
-                ]
-              }
-              's
-            </span>
-          </p>
-        ),
-        subtitle: (
-          <div className="Subtitle">
-            <p
-              style={{
-                color: "#9d9d9d",
-                textAlign: "center",
-                width: "100%",
-              }}
-            >
-              {" "}
-              Your daily average is{" "}
-              <span style={{ color: "white" }}>
-                {(
-                  reportData.averageWeekChart.data.reduce((a, b) => a + b) /
-                  reportData.averageWeekChart.data.length
-                ).toFixed(1)}
-              </span>{" "}
-            </p>
-          </div>
-        ),
-        component: (
-          <Chart
-            key="averageWeek"
-            type="bar"
-            data={reportData.averageWeekChart.data}
-            labels={reportData.averageWeekChart.labels}
-            id="averageWeek"
-            title="Hours per Day"
-          />
-        ),
-      },
-      {
-        heading: (
-          <p className="Paragraph">
-            You prefer watching videos during the{" "}
-            <span style={{ color: "white" }}>
-              {reportData.averageTimesText.timeOfDay}
-            </span>
-          </p>
-        ),
-        subtitle: (
-          <div className="Subtitle">
-            {reportData.averageTimesText.timeOfDayPlural}'s make up{" "}
-            <span
-              style={{
-                borderBottom: "1px solid #c51818",
-                display: "inline-block",
-                color: "white",
-              }}
-            >
-              {reportData.averageTimesText.percentage}%{" "}
-            </span>{" "}
-            of your daily Youtube usage.
-          </div>
-        ),
-        component: (
-          <Chart
-            key="averageTimes"
-            type="bar"
-            data={reportData.averageTimesChart.data}
-            labels={reportData.averageTimesChart.labels}
-            id="averageTimes"
-            title="Minutes per hour"
-          />
-        ),
-      },
-      {
-        heading: (
-          <p className="Paragraph">
-            Here’s a breakdown of your{" "}
-            <span style={{ color: "white" }}>historical usage</span>
-          </p>
-        ),
-        subtitle: (
-          <div className="Subtitle">
-            Your top month was{" "}
-            <span
-              style={{
-                borderBottom: "1px solid #10ccf5",
-                display: "inline-block",
-                paddingBottom: 1,
-                color: "white",
-              }}
-            >
-              {reportData.historicalText.label}
-            </span>
-            . You watched{" "}
-            <span
-              style={{
-                borderBottom: "1px solid #10ccf5",
-                display: "inline-block",
-                paddingBottom: 1,
-                color: "white",
-              }}
-            >
-              {reportData.historicalText.hour}
-            </span>{" "}
-            hours.
-          </div>
-        ),
-        component: (
-          <Chart
-            key="historicalUsage"
-            type="line"
-            data={reportData.historicalChart.data}
-            labels={reportData.historicalChart.labels}
-            id="historicalUsage"
-            title="Hours per month"
-            // xAxesType="time"
-          />
-        ),
-      },
-      {
-        heading: (
-          <p className="Paragraph">
+  const chartDataArray = [
+    {
+      heading: (
+        <>
+          Since you watched your first Youtube video on{" "}
+          <span className="white">{reportData.firstVideoWatchedOn}</span>,
+          you've watched{" "}
+          <span className="white">
+            {reportData.numberOfVideosWatched} videos.
+          </span>
+          <div className="marginMedium" />
+          That's a total of{" "}
+          <span style={{ color: "whit" }}>
+            {reportData.totalHoursWatched.toFixed(1)}
+          </span>{" "}
+          hours in the past{" "}
+          <span style={{ color: "white" }}>
+            {reportData.daysSinceFirstVideo}
+          </span>{" "}
+          days.
+        </>
+      ),
+      subtitle: null,
+      component: null,
+    },
+    {
+      heading: (
+        <p className="Paragraph">
+          You watch Youtube the most on{" "}
+          <span style={{ color: "white" }}>
+            {
+              reportData.averageWeekChart.labels[
+                reportData.averageWeekChart.data.indexOf(
+                  Math.max(...reportData.averageWeekChart.data)
+                )
+              ]
+            }
+            's
+          </span>
+        </p>
+      ),
+      subtitle: (
+        <div className="Subtitle">
+          <p
+            style={{
+              color: "#9d9d9d",
+              textAlign: "center",
+              width: "100%",
+            }}
+          >
             {" "}
-            <span style={{ color: "white" }}> Most watched</span> channels
-          </p>
-        ),
-        subtitle: (
-          <div className="Subtitle" style={{ width: "100%" }}>
-            Across your top 10 channels, you've watched{" "}
-            <span
-              style={{
-                borderBottom: "1px solid #f0f510",
-                display: "inline-block",
-                paddingBottom: 1,
-                color: "white",
-              }}
-            >
-              {reportData.tableText.hours} hours
-            </span>
-            . This makes up for{" "}
-            <span
-              style={{
-                borderBottom: "1px solid #f0f510",
-                display: "inline-block",
-                paddingBottom: 1,
-                color: "white",
-              }}
-            >
-              {reportData.tableText.percentage}%
+            Your daily average is{" "}
+            <span style={{ color: "white" }}>
+              {(
+                reportData.averageWeekChart.data.reduce((a, b) => a + b) /
+                reportData.averageWeekChart.data.length
+              ).toFixed(1)}
             </span>{" "}
-            of your total watch time.
-          </div>
-        ),
-        component: <TableComponent data={reportData.channelTable} />,
+          </p>
+        </div>
+      ),
+      component: {
+        key: "averageWeek",
+        type: "bar",
+        data: reportData.averageWeekChart.data,
+        labels: reportData.averageWeekChart.labels,
+        id: "averageWeek",
+        title: "Hours per Day",
       },
-      {
-        heading: (
-          <p className="Paragraph">See which categories you watch the most.</p>
-        ),
-        subtitle: (
-          <div className="Subtitle">
-            <p></p>
-          </div>
-        ),
-        component: (
-          <Chart
-            key="categoryChart"
-            type="doughnut"
-            data={reportData.categoryChart.data}
-            labels={reportData.categoryChart.labels}
-            id="categoryChart"
-            title=""
-            // xAxesType="time"
-          />
-        ),
+    },
+    {
+      heading: (
+        <p className="Paragraph">
+          You prefer watching videos during the{" "}
+          <span style={{ color: "white" }}>
+            {reportData.averageTimesText.timeOfDay}
+          </span>
+        </p>
+      ),
+      subtitle: (
+        <div className="Subtitle">
+          {reportData.averageTimesText.timeOfDayPlural}'s make up{" "}
+          <span
+            style={{
+              borderBottom: "1px solid #c51818",
+              display: "inline-block",
+              color: "white",
+            }}
+          >
+            {reportData.averageTimesText.percentage}%{" "}
+          </span>{" "}
+          of your daily Youtube usage.
+        </div>
+      ),
+      component: {
+        key: "averageTimes",
+        type: "bar",
+        data: reportData.averageTimesChart.data,
+        labels: reportData.averageTimesChart.labels,
+        id: "averageTimes",
+        title: "Minutes per hour",
       },
-    ];
-    return (
-      <div className="StatsContainer">
-        {chartItems.map((item, index) => {
-          return (
-            <>
-              <div
-                key={index}
-                id={`chart${index}`}
-                style={{
-                  marginBottom: 100,
-                  paddingTop: 75,
-                }}
-              >
-                <VisibilitySensor>
-                  {({ isVisible }) => (
-                    <Spring delay={100} to={{ opacity: isVisible ? 1 : 0 }}>
-                      {({ opacity }) => (
-                        <div
-                          className="categoryBox"
-                          style={{ opacity, margin: "auto", marginBottom: 50 }}
-                        >
-                          <div
-                            style={{
-                              width: 12,
-                              height: 12,
-                              backgroundColor:
-                                constants.Categories[index].color,
-                              borderRadius: 20,
-                            }}
-                          ></div>
-                          <span
-                            style={{
-                              fontSize: 15,
-                              fontWeight: 550,
-                              color: "#b4b4b4",
-                              marginLeft: 12,
-                            }}
-                          >
-                            {constants.Categories[index].name}
-                          </span>
-                        </div>
-                      )}
-                    </Spring>
-                  )}
-                </VisibilitySensor>
+    },
+    {
+      heading: (
+        <p className="Paragraph">
+          Here’s a breakdown of your{" "}
+          <span style={{ color: "white" }}>historical usage</span>
+        </p>
+      ),
+      subtitle: (
+        <div className="Subtitle">
+          Your top month was{" "}
+          <span
+            style={{
+              borderBottom: "1px solid #10ccf5",
+              display: "inline-block",
+              paddingBottom: 1,
+              color: "white",
+            }}
+          >
+            {reportData.historicalText.label}
+          </span>
+          . You watched{" "}
+          <span
+            style={{
+              borderBottom: "1px solid #10ccf5",
+              display: "inline-block",
+              paddingBottom: 1,
+              color: "white",
+            }}
+          >
+            {reportData.historicalText.hour}
+          </span>{" "}
+          hours.
+        </div>
+      ),
+      component: {
+        key: "historicalUsage",
+        type: "line",
+        data: reportData.historicalChart.data,
+        labels: reportData.historicalChart.labels,
+        id: "historicalUsage",
+        title: "Hours per month",
+      },
+    },
+    {
+      heading: (
+        <p className="Paragraph">
+          {" "}
+          <span style={{ color: "white" }}> Most watched</span> channels
+        </p>
+      ),
+      subtitle: (
+        <div className="Subtitle" style={{ width: "100%" }}>
+          Across your top 10 channels, you've watched{" "}
+          <span
+            style={{
+              borderBottom: "1px solid #f0f510",
+              display: "inline-block",
+              paddingBottom: 1,
+              color: "white",
+            }}
+          >
+            {reportData.tableText.hours} hours
+          </span>
+          . This makes up for{" "}
+          <span
+            style={{
+              borderBottom: "1px solid #f0f510",
+              display: "inline-block",
+              paddingBottom: 1,
+              color: "white",
+            }}
+          >
+            {reportData.tableText.percentage}%
+          </span>{" "}
+          of your total watch time.
+        </div>
+      ),
+      component: {
+        data: reportData.channelTable,
+      },
+    },
+    {
+      heading: (
+        <p className="Paragraph">See which categories you watch the most.</p>
+      ),
+      subtitle: (
+        <div className="Subtitle">
+          <p></p>
+        </div>
+      ),
+      component: {
+        key: "categoryChart",
+        type: "doughnut",
+        data: reportData.categoryChart.data,
+        labels: reportData.categoryChart.labels,
+        id: "categoryChart",
+        title: "",
+      },
+    },
+  ];
 
-                <VisibilitySensor>
-                  {({ isVisible }) => (
-                    <Spring delay={100} to={{ opacity: isVisible ? 1 : 0 }}>
-                      {({ opacity }) => (
-                        <div style={{ opacity, width: "90%", margin: "auto" }}>
-                          {item.heading}
-                          {item.subtitle}
-                        </div>
-                      )}
-                    </Spring>
-                  )}
-                </VisibilitySensor>
-
-                {index !== 0 &&
-                  (index !== 4 ? (
-                    <div
-                      style={{
-                        position: "relative",
-                        width: "45vw",
-                        height: "45vh",
-                        minWidth: 375,
-                        minHeight: 375,
-                        maxWidth: 600,
-                        margin: "auto",
-                      }}
-                    >
-                      {item.component}
-                    </div>
-                  ) : (
-                    item.component
-                  ))}
-              </div>
-            </>
-          );
-        })}
-      </div>
-    );
-  };
   let colorArray = ["white", "green", "red", "blue", "yellow", "purple"];
 
   return (
@@ -408,7 +302,7 @@ const Report = ({ json, navigation, sample }) => {
       {reportData ? (
         <div className="Content">
           <Menu />
-          <div className="HomepageSection">
+          <div className="HomepageSection column_center">
             {sample ? (
               <>
                 <h1 className="h1_monitor">Monitor your Youtube usage</h1>
@@ -452,7 +346,9 @@ const Report = ({ json, navigation, sample }) => {
             <p className="BreakdownTitle">
               {sample ? "What you get" : "Data categories"}
             </p>
-            <div className="BreakdownContainer">{mapCategories()}</div>
+            <div className="BreakdownContainer column_center">
+              {mapCategories()}
+            </div>
           </div>
 
           {sample && (
@@ -535,7 +431,11 @@ const Report = ({ json, navigation, sample }) => {
               })}
             </Scrollspy>
 
-            <div style={{ width: "100%" }}>{renderCharts()}</div>
+            <div style={{ width: "100%" }}>
+              {chartDataArray.map((item, index) => {
+                return <RenderChart item={item} index={index} />;
+              })}
+            </div>
           </div>
 
           <div

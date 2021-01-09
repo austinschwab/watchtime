@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Menu = () => {
   return (
-    <div className="NavContainer">
+    <div className="NavContainer column_center">
       <div className="Menu">
         <Link to={{ pathname: "/" }}>
           {" "}
