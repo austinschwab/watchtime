@@ -44,7 +44,7 @@ const UploadJSON = ({ navigation, setJsonData }) => {
         </p>
 
         <div
-          className="UploadContainer flex column align-center margin-atuo"
+          className="UploadContainer flex column align-center margin-auto"
           style={{
             ":hover": {
               border: "solid",

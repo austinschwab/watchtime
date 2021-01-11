@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Radium from "radium";
 const HomepageTop = ({ sample }) => {
   return (
     <>
@@ -13,10 +14,10 @@ const HomepageTop = ({ sample }) => {
             online.
           </p>
           <Link to={{ pathname: "/upload" }}>
-            <div className="calculate-btn-container flex column align-stretch justify-start">
+            <div className="calculate-btn-container flex column">
               <div
                 className="calculate-btn calculate-btn-top"
-                key="calculate_top"
+                key="calculate-btn-top"
                 style={{
                   ":hover": {
                     transform: `translate(${2}px, ${-2}px)`,
@@ -49,4 +50,4 @@ const HomepageTop = ({ sample }) => {
     </>
   );
 };
-export default HomepageTop;
+export default Radium(HomepageTop);
