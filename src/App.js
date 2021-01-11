@@ -1,16 +1,19 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import Radium from "radium";
 import Report from "./Report";
 import Upload from "./Upload";
 import "./App.css";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import Manifesto from "./Manifesto";
+import ScrollToTop from "./functions/scrollToTop";
 
 const App = () => {
   const [jsonData, setJsonData] = useState(null);
   return (
     <div className="App">
       <BrowserRouter>
+        <ScrollToTop />
+
         <Route
           path="/"
           exact
