@@ -1,7 +1,5 @@
 import React from "react";
-import { Table } from "antd";
-import "../App.css";
-import { List, Typography, Divider, Row, span } from "antd";
+import { Divider } from "antd";
 import Radium from "radium";
 
 const TableComponent = ({ data }) => {
@@ -14,54 +12,44 @@ const TableComponent = ({ data }) => {
   }
 
   return (
-    <div style={{ maxWidth: "40vw", margin: "auto" }}>
+    <div className="Table margin-auto">
       {data &&
         data.map((item, index) => {
           return (
             <div key={`listContainer${index}`}>
               <div
                 key={index}
+                className="flex full-width row align-center table_row"
                 style={{
-                  width: "100%",
-                  display: "flex",
-                  flexDirection: "row",
-                  fontSize: 18,
-                  alignItems: "center",
                   color: index === 0 ? "#727272" : "#b9b9b9",
                   ":hover": {
                     color: "white",
                   },
                 }}
-                // className="ChangeRowColor"
               >
                 <span
+                  className="inherit-color "
                   style={{
-                    color: "inherit",
                     width: "10%",
                   }}
                 >
                   {index === 0 ? "#" : index}
                 </span>
-                <span
-                  style={{
-                    color: "inherit",
-                    width: "50%",
-                  }}
-                >
+                <span className="inherit-color" style={{ width: "55%" }}>
                   {item.title}
                 </span>
                 <span
+                  className="inherit-color text-center"
                   style={{
-                    color: "inherit",
                     width: "20%",
                   }}
                 >
                   {item.videos}
                 </span>
                 <span
+                  className="inherit-color text-center"
                   style={{
-                    color: "inherit",
-                    width: "20%",
+                    width: "15%",
                   }}
                 >
                   {index === 0 ? item.time : Math.round(item.time)}

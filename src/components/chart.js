@@ -43,21 +43,8 @@ const ChartComponent = ({ id, type, data, labels, title }) => {
 
     return largeNumber;
 
-    // if (data === largeNumber) {
-    //   borderColors.push("green");
-    // } else {
-    //   borderColors.push("white");
-    // }
-
-    // let borderColors = [];
-    // let iterationCount = Math.round(data.length / colorPalette.length);
-    // for (let i = 0; i < iterationCount; i++) {
-    //   for (let item of colorPalette) {
-    //     borderColors.push(item);
-    //   }
-    // }
-    // return borderColors;
   };
+  
   getLargeNumber();
   const styles = {
     averageWeek: {

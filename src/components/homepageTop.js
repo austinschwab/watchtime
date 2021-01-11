@@ -5,15 +5,17 @@ const HomepageTop = ({ sample }) => {
     <>
       {sample ? (
         <>
-          <h1 className="h1_monitor">Monitor your Youtube usage</h1>
-          <p className="subtitle">
+          <h1 className="HomepageTopTitle white text-center">
+            Monitor your Youtube usage
+          </h1>
+          <p className="HomepageTopSubtitle white text-center">
             It’s easy to lose track of how much time you spend watching videos
             online.
           </p>
           <Link to={{ pathname: "/upload" }}>
-            <div className="calculatebtn_container">
+            <div className="calculate-btn-container flex column align-stretch justify-start">
               <div
-                className="calculate_top"
+                className="calculate-btn calculate-btn-top"
                 key="calculate_top"
                 style={{
                   ":hover": {
@@ -23,17 +25,19 @@ const HomepageTop = ({ sample }) => {
               >
                 Get started
               </div>
-              <div className="calculate_bottom">Calculate</div>
+              <div className="calculate-btn calculate-btn-bottom">
+                Calculate
+              </div>
             </div>
           </Link>
         </>
       ) : (
         <>
-          <p className="Paragraph">
-            <span style={{ color: "white" }}>Scroll down</span> to see your
-            Youtube stats.
+          <p className="Paragraph margin-auto text-center">
+            <span className="white">Scroll down</span> to see your Youtube
+            stats.
           </p>
-          <div className="BreakdownImageContainer">
+          <div className="HomepageImage justify-center flex">
             <img
               src={process.env.PUBLIC_URL + "images/Arrows.png"}
               alt="img"

@@ -1,15 +1,13 @@
 import React from "react";
 import * as constants from "../constants";
-import "../App.css";
 import Radium from "radium";
 
 const CategoryBox = ({ index, opacity, hover }) => {
   return (
     <div
-      className="categoryBox"
+      className="categoryBox flex justify-center align-center row margin-auto"
       style={{
         opacity,
-        margin: "auto",
         ":hover": {
           border: "solid",
           borderColor: hover
@@ -20,23 +18,12 @@ const CategoryBox = ({ index, opacity, hover }) => {
       }}
     >
       <div
+        className="category-dot"
         style={{
-          width: 12,
-          height: 12,
           backgroundColor: constants.Categories[index].color,
-          borderRadius: 20,
         }}
       ></div>
-      <span
-        style={{
-          fontSize: 15,
-          fontWeight: 550,
-          color: "#b4b4b4",
-          marginLeft: 12,
-        }}
-      >
-        {constants.Categories[index].name}
-      </span>
+      <span className="category-text">{constants.Categories[index].name}</span>
     </div>
   );
 };

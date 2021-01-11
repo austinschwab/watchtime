@@ -3,23 +3,18 @@ import * as constants from "../constants";
 
 const Resources = () => {
   return (
-    <div className="Reccomendation_Section">
-      <h1
-        style={{
-          color: "white",
-          fontSize: 36,
-          marginBottom: 100,
-          width: "70%",
-        }}
-      >
+    <div className="ReccomendationSection flex column align-center justify-center white margin-auto text-center">
+      <h1 className="ReccomendationTitle white">
         Now that you have a better sense of your usage. Here are some resources
-        to help:
+        to help :D
       </h1>
-      <p style={{ fontSize: 20, color: "white" }}>Handpicked resources</p>
-      <div className="ReccomendationContainer">
+      <p className="white" style={{ fontSize: 20 }}>
+        Handpicked resources
+      </p>
+      <div className="ReccomendationContainer align-center justify-center">
         {constants.recommendations.map((item, index) => (
-          <a href={item.link} style={{ width: "100%" }}>
-            <div className="reccomendation_item" key={index}>
+          <a href={item.link} className="full-width" key={index}>
+            <div className="recc_item flex border-solid row align-center justify-center white">
               {item.image}
               <div style={{ marginLeft: 16 }}>
                 <p style={{ fontSize: 12 }}>{item.name}</p>

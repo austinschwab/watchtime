@@ -195,8 +195,10 @@ const GenerateReport = async (json, setProgress) => {
         continue;
       }
     }
+    let slicedLabels = categoryLabels.slice(8);
+    let slicedData = categoryLabels.slice(8);
 
-    return { labels: categoryLabels, data: categoryData };
+    return { labels: slicedLabels, data: slicedData };
   };
 
   // channel overview Table

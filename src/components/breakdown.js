@@ -1,16 +1,15 @@
 import React from "react";
 import * as constants from "../constants";
-import "../App.css";
 import ScrollIntoView from "react-scroll-into-view";
 import CategoryBox from "./categoryBox";
+
 const Breakdown = ({ sample }) => {
   return (
     <>
-      {" "}
-      <p className="BreakdownTitle">
+      <p className="BreakdownTitle white text-center">
         {sample ? "What you get" : "Data categories"}
       </p>
-      <div className="BreakdownContainer column_center">
+      <div className="BreakdownContainer full-width flex flex-wrap colummn justify-center align-center">
         {constants.Categories.map((item, index) => (
           <ScrollIntoView
             key={index}
