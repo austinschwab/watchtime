@@ -34,7 +34,7 @@ const HomepageTop = ({ sample }) => {
         </>
       ) : (
         <>
-          <p className="Paragraph margin-auto text-center">
+          <p className="Paragraph margin-auto text-center grey">
             <span className="white">Scroll down</span> to see your Youtube
             stats.
           </p>
