@@ -10,7 +10,7 @@ const Menu = () => {
           <img
             src={process.env.PUBLIC_URL + "images/watchtime_logo.png"}
             alt="img"
-            style={{ width: 125 }}
+            style={{ width: 180 }}
           />
         </Link>
         <Link

@@ -6,7 +6,7 @@ const Manifesto = ({ navigation }) => {
   return (
     <div className="Content">
       <Menu />
-      <div className="flex column align-center">
+      <div className="IntroSection full-width flex column margin-auto">
         <img
           src={process.env.PUBLIC_URL + "images/Manifesto.png"}
           alt="img"

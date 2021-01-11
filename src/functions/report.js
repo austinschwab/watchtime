@@ -89,7 +89,7 @@ const GenerateReport = async (json, setProgress) => {
     let videoIdWithTime = [];
     let totalIdBatch = [];
     let idBatch = [];
-    for (let i = 0; i < 499; i++) {
+    for (let i = 0; i < json.length - 1; i++) {
       if (json[i].titleUrl) {
         if (
           json[i].titleUrl.indexOf("https://www.youtube.com/watch?v\u003d") !==

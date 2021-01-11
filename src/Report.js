@@ -22,7 +22,7 @@ const Report = ({ json, navigation, sample }) => {
   );
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
- 
+
   useEffect(() => {
     if (json && json.length > 0) {
       processReport();
@@ -69,11 +69,12 @@ const Report = ({ json, navigation, sample }) => {
             <RenderChart reportData={reportData} />
           </div>
 
-          {sample && (
+          {sample ? (
             <>
               <Github />
-              <Resources />
             </>
+          ) : (
+            <Resources />
           )}
 
           <Link to={{ pathname: "/manifesto" }}>

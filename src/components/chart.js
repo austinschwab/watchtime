@@ -10,7 +10,9 @@ const ChartComponent = ({ id, type, data, labels, title }) => {
     "#00A0FF",
     "#00B9DD",
     "#00CFA8",
+    "#FFFFFF",
     "#E3F3FB",
+    "#5391FF",
   ];
   let greenForMaxDaily = "#4fffaa";
   let redForMaxWeekly = "#c51818";
@@ -42,9 +44,8 @@ const ChartComponent = ({ id, type, data, labels, title }) => {
     categoryChartColors[largeNumberIndex] = getMaxBorderColor();
 
     return largeNumber;
-
   };
-  
+
   getLargeNumber();
   const styles = {
     averageWeek: {

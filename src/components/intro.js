@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Radium from "radium";
+
 const IntroContainer = ({ sample }) => {
   return (
     <div style={{ marginTop: 80 }}>
@@ -38,4 +40,4 @@ const IntroContainer = ({ sample }) => {
     </div>
   );
 };
-export default IntroContainer;
+export default Radium(IntroContainer);
