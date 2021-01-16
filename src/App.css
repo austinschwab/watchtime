@@ -136,6 +136,26 @@
   border-color: transparent !important;
 }
 
+.sidelink.red:hover {
+  border-color: #c51818 !important;
+}
+
+.sidelink.green:hover {
+  border-color: #4fffaa !important;
+}
+.sidelink.white:hover {
+  border-color: #ffffff !important;
+}
+.sidelink.blue:hover {
+  border-color: #10ccf5 !important;
+}
+.sidelink.yellow:hover {
+  border-color: #f0f510 !important;
+}
+.sidelink.purple:hover {
+  border-color: #4a0dcd !important;
+}
+
 .sidelink.red.is-active {
   border-color: #c51818 !important;
 }
