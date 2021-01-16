@@ -1,10 +1,13 @@
 import React from "react";
 import { Carousel } from "antd";
 import * as constants from "../constants";
+
 const contentStyle = {
   color: "white",
   textAlign: "center",
+  marginBottom: 10,
 };
+
 const CarouselComponent = () => {
   return (
     <Carousel autoplay effect="fade" className="margin-auto carousel-container">

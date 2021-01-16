@@ -10,6 +10,7 @@ const CategoryBox = ({ index, opacity, hover }) => {
         opacity,
         ":hover": {
           border: "solid",
+          cursor: "pointer",
           borderColor: hover
             ? constants.Categories[index].color
             : "transparent",

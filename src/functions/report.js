@@ -89,8 +89,9 @@ const GenerateReport = async (json, setProgress) => {
     let videoIdWithTime = [];
     let totalIdBatch = [];
     let idBatch = [];
+
     for (let i = 0; i < json.length - 1; i++) {
-      if (json[i].titleUrl) {
+      if (json[i] && json[i].titleUrl) {
         if (
           json[i].titleUrl.indexOf("https://www.youtube.com/watch?v\u003d") !==
           -1
@@ -119,10 +120,7 @@ const GenerateReport = async (json, setProgress) => {
       totalIdBatch.push(idBatch);
       idBatch = [];
     }
-    console.log("videolistssss", {
-      batch: totalIdBatch,
-      batchWithTimes: videoIdWithTime,
-    });
+
     return { batch: totalIdBatch, batchWithTimes: videoIdWithTime };
   };
 
@@ -139,8 +137,6 @@ const GenerateReport = async (json, setProgress) => {
 
   // averageWeek Chart
   const getAverageWeekData = (daysWithCount) => {
-    console.log("daysWithCount", daysWithCount);
-
     let averageWeekLabels = [];
     let averageWeekData = [];
     for (let index in daysWithCount) {
@@ -159,8 +155,7 @@ const GenerateReport = async (json, setProgress) => {
   };
 
   // averageTimes Chart
-  const getAverageTimesData = (timeOfDayWithCount) => {
-    console.log("Timeofdaywithcount", timeOfDayWithCount);
+  const getAverageTimesData = (timeOfDayWithCount, totalHoursWatched) => {
     let averageTimesLabels = [];
     let averageTimesData = [];
     for (let index in timeOfDayWithCount) {
@@ -168,13 +163,23 @@ const GenerateReport = async (json, setProgress) => {
       averageTimesLabels.push(hour);
       if (timeOfDayWithCount[index].count > 0) {
         averageTimesData.push(
+          // roundNumber(
+          //   Math.floor(timeOfDayWithCount[index].time * 60) /
+          //     timeOfDayWithCount[index].count
+          // )
           roundNumber(
-            Math.floor(timeOfDayWithCount[index].time * 60) /
-              timeOfDayWithCount[index].count
+            (timeOfDayWithCount[index].time / totalHoursWatched) * 100
           )
         );
       } else {
         averageTimesData.push(0);
+      }
+    }
+    for (let index in averageTimesLabels) {
+      if (index < 12) {
+        averageTimesLabels[index] = `${constants.hourFormat[index].value}am`;
+      } else {
+        averageTimesLabels[index] = `${constants.hourFormat[index].value}pm`;
       }
     }
 
@@ -201,7 +206,6 @@ const GenerateReport = async (json, setProgress) => {
 
   // channel overview Table
   const getChannelOverviewTableData = (channelsWithVideosAndTime) => {
-    console.log("TABLE", channelsWithVideosAndTime);
     let channelTableData = Object.values(channelsWithVideosAndTime)
       .sort((a, b) => b.videos - a.videos)
       .slice(0, 10);
@@ -346,6 +350,9 @@ const GenerateReport = async (json, setProgress) => {
       // populate hour and day arrays & total watched hours
       timeOfDayWithCount[hour].count += 1;
       timeOfDayWithCount[hour].time += duration;
+      //11
+      //200 mintues
+      //
 
       daysWithCount[day].time += duration;
       daysWithCount[day].count += 1;
@@ -356,13 +363,15 @@ const GenerateReport = async (json, setProgress) => {
     Math.round(totalHoursWatched);
 
     let averageWeekChartData = getAverageWeekData(daysWithCount);
-    let averageTimesChartData = getAverageTimesData(timeOfDayWithCount);
+    let averageTimesChartData = getAverageTimesData(
+      timeOfDayWithCount,
+      totalHoursWatched
+    );
     let categoryChartData = getCategoryChartData(categoriesWithCount);
     let channelTableData = getChannelOverviewTableData(
       channelsWithVideosAndTime
     );
     let historicalUsageChartData = getHistoricalData(videoList);
-    console.log(historicalUsageChartData);
 
     return {
       averageTimesChartData,
@@ -391,7 +400,6 @@ const GenerateReport = async (json, setProgress) => {
 
     // videoId structure = {batch: videoIdList, batchWithTimes: videoIdListWithVideoDurations}
     let videoIds = getVideoIds();
-    console.log("videoid", videoIds);
     let requestData = [];
     let totalRequests = videoIds.batch.length;
     let count = 0;
@@ -401,7 +409,6 @@ const GenerateReport = async (json, setProgress) => {
           `https://www.googleapis.com/youtube/v3/videos?id=${videoList}&part=contentDetails&part=snippet&key=${key}`
         )
         .then((response) => {
-          console.log("API response", response);
           if (response) {
             count += 1;
             setProgress((count / totalRequests) * 100);

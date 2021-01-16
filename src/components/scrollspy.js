@@ -1,6 +1,7 @@
 import React from "react";
 import Scrollspy from "react-scrollspy";
 import * as constants from "../constants";
+import Radium from "radium";
 
 const ScrollpsyComponent = ({ direction }) => {
   let colorArray = ["white", "green", "red", "blue", "yellow", "purple"];
@@ -15,13 +16,17 @@ const ScrollpsyComponent = ({ direction }) => {
     >
       {colorArray.map((color, index) => {
         return (
-          <li className={`sidelink ${color} border-solid`}>
+          <li
+            className={`sidelink ${color} border-solid`}
+            key={`sidelink${index}`}
+          >
             <a
               href={`#chart${index}`}
               className="flex justify-center align-center full-width full-height"
             >
               <div
                 className="sidedot"
+                key={`sidedot${index}`}
                 style={{
                   backgroundColor: constants.Categories[index].color,
                 }}
@@ -33,4 +38,4 @@ const ScrollpsyComponent = ({ direction }) => {
     </Scrollspy>
   );
 };
-export default ScrollpsyComponent;
+export default Radium(ScrollpsyComponent);

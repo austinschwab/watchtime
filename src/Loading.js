@@ -13,9 +13,12 @@ const Loading = ({ progress }) => {
       }}
       //   className="full-width full-height"
     >
-      <ProgressBar value={+progress} />
+      <ProgressBar value={progress} />
       <div className="full-width full-height">
         <Carousel />
+        <p style={{ color: "white", textAlign: "center" }}>
+          Art/Quotes by Visualize Value
+        </p>
       </div>
     </div>
   );

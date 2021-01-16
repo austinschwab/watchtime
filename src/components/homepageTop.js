@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Radium from "radium";
+
 const HomepageTop = ({ sample }) => {
   return (
     <>
@@ -42,7 +43,12 @@ const HomepageTop = ({ sample }) => {
             <img
               src={process.env.PUBLIC_URL + "images/Arrows.png"}
               alt="img"
-              style={{ width: 130, marginTop: 15 }}
+              style={{
+                height: 300,
+                maxWidth: 130,
+                maxHeight: 400,
+                marginTop: 15,
+              }}
             />
           </div>
         </>

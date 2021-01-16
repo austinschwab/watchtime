@@ -71,10 +71,20 @@ const ChartComponent = ({ id, type, data, labels, title }) => {
     if (type !== "doughnut") {
       options = {
         scales: {
+          xAxes: [
+            {
+              gridLines: {
+                color: "black",
+              },
+            },
+          ],
           yAxes: [
             {
               ticks: {
                 beginAtZero: true,
+              },
+              gridLines: {
+                color: "black",
               },
             },
           ],

@@ -6,7 +6,7 @@ const Resources = () => {
     <div className="ReccomendationSection flex column align-center justify-center white margin-auto text-center">
       <h1 className="ReccomendationTitle white">
         Now that you have a better sense of your usage. Here are some resources
-        to help :D
+        to help:
       </h1>
       <p className="white" style={{ fontSize: 20 }}>
         Handpicked resources

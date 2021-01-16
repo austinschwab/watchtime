@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "antd";
 import "./App.css";
 import Radium from "radium";
@@ -8,6 +8,10 @@ import Menu from "./components/menu";
 const UploadJSON = ({ navigation, setJsonData }) => {
   const [error, setError] = useState(null);
   const [filedUploaded, setFiledUploaded] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleChange = (e) => {
     const fileReader = new FileReader();
@@ -37,10 +41,13 @@ const UploadJSON = ({ navigation, setJsonData }) => {
           animateIn="animate__animated animate__fadeIn"
           duration={6}
         >
-          <h1 className="white text-center welcome-text">Welcome Youtuber</h1>
+          <p className="white text-center welcome-text">
+            Welcome <span style={{ fontWeight: 700 }}>Youtuber</span>
+          </p>
         </ScrollAnimation>
         <p className="welcome-instructions-text white text-center">
-          Follow the instructions below to get your Youtube stats.
+          Follow the instructions below to download your Youtube
+          watch-history.json
         </p>
 
         <div
@@ -56,9 +63,9 @@ const UploadJSON = ({ navigation, setJsonData }) => {
           <div className="video">
             <div className="iframe-container">
               <iframe
-                src="https://www.loom.com/embed/911c36117e15469aa341e2408805a0bf"
+                src="https://www.loom.com/embed/ff08b15400a34979b5a162163156b5e4"
                 frameborder="0"
-                title="testvideo"
+                title="watchtime"
                 webkitallowfullscreen
                 mozallowfullscreen
                 allowfullscreen
@@ -66,12 +73,13 @@ const UploadJSON = ({ navigation, setJsonData }) => {
               ></iframe>
             </div>
           </div>
-          <form className="half-width">
+          <form className="margin-auto">
             <input
               id="upload"
               type="file"
               onChange={handleChange}
-              className="half-width white"
+              className="white"
+              style={{ width: 225, marginTop: 20 }}
             />
           </form>
           {error ? (
@@ -81,7 +89,7 @@ const UploadJSON = ({ navigation, setJsonData }) => {
           ) : null}
 
           <Button
-            // disabled={!filedUploaded}
+            disabled={!filedUploaded}
             className="calculate_button"
             onClick={() => navigation.history.push("/report")}
           >
@@ -102,17 +110,21 @@ const UploadJSON = ({ navigation, setJsonData }) => {
             to download your own watch history.
           </p>
           <p className="instructions white">
-            2) Click Deselect all, scroll down to select Youtube, click multiple
-            formats, and change History to JSON.
+            2) Click Deselect all, scroll down to the bottom to select YouTube
+            and YouTube Music, click multiple formats, and change History to
+            JSON.
+            <p></p>
+            <p>Click Next step</p>
           </p>
           <p className="instructions white">
-            3) The rest of the settings are fine as is. Create export and check
-            your email soon. Once you've recieved your watch history, come back
-            to this page to upload watch_history.json.
+            3) Create export and you'll receieve an email when it's ready.
+            You'll now have a folder called YouTube and YouTube Music. Open
+            history you'll find a file called watch-history.json.
           </p>
           <p className="instructions white">
-            After processing your watch history, we delete the file you provided
-            us. We do not store your data. Our code is public and auditable.
+            Your watch-history.json file contains an array of videos you've
+            watched. It doesn't include any personal information. We do not
+            store your data. Our code is public and auditable.
           </p>
         </div>
       </div>

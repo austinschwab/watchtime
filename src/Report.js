@@ -9,8 +9,7 @@ import Loading from "./Loading";
 import { Link } from "react-router-dom";
 import Menu from "./components/menu";
 import "animate.css/animate.min.css";
-import { Spring } from "react-spring/renderprops";
-import VisibilitySensor from "react-visibility-sensor";
+import { useSpring, animated } from "react-spring";
 import RenderChart from "./components/renderchart";
 import Intro from "./components/intro";
 import ScrollspyComponent from "./components/scrollspy";
@@ -20,7 +19,12 @@ const Report = ({ json, navigation, sample }) => {
   const [reportData, setReportData] = useState(
     sample ? constants.TestData : null
   );
+  const props = useSpring({
+    to: [{ opacity: 1 }],
+    from: { opacity: 0 },
+  });
   const [isLoading, setIsLoading] = useState(false);
+  const [bigText, setBigText] = useState(true);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -47,22 +51,17 @@ const Report = ({ json, navigation, sample }) => {
           </div>
           <Breakdown sample={sample} />
           <Intro sample={sample} />
-          <VisibilitySensor>
-            {({ isVisible }) => (
-              <Spring delay={100} to={{ opacity: isVisible ? 1 : 0 }}>
-                {({ opacity }) =>
-                  sample && (
-                    <h2
-                      className="BigText white text-center"
-                      style={{ opacity }}
-                    >
-                      But now you can.
-                    </h2>
-                  )
-                }
-              </Spring>
+          <animated.div style={props}>
+            {sample && (
+              <h2 className="BigText white text-center">But now you can.</h2>
             )}
-          </VisibilitySensor>
+          </animated.div>
+
+          {/* <Spring delay={300} to={{ opacity: isVisible ? 1 : 0 }}>
+                {({ opacity }) =>
+                 
+              </Spring>
+           */}
 
           <div className="full-width flex row">
             <ScrollspyComponent direction={"vertical"} />
@@ -90,7 +89,12 @@ const Report = ({ json, navigation, sample }) => {
             </h1>
           </Link>
           <ScrollspyComponent direction={"horizontal"} />
-          <p className="white text-center">watchtime.tv © 2021</p>
+          <p
+            className="white text-center"
+            style={{ margin: "15px 0px 5px 0px" }}
+          >
+            watchtime.io © 2021
+          </p>
         </div>
       ) : (
         <Loading progress={progress} />

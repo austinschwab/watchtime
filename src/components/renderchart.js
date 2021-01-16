@@ -1,6 +1,5 @@
 import React from "react";
 import { Spring } from "react-spring/renderprops";
-import VisibilitySensor from "react-visibility-sensor";
 import ChartComponent from "./chart";
 import TableComponent from "./table";
 import CategoryBox from "./categoryBox";
@@ -59,7 +58,8 @@ const RenderChart = ({ reportData }) => {
               reportData.averageWeekChart.data.reduce((a, b) => a + b) /
               reportData.averageWeekChart.data.length
             ).toFixed(1)}
-          </span>
+          </span>{" "}
+          hours.
         </>
       ),
       component: {
@@ -101,7 +101,7 @@ const RenderChart = ({ reportData }) => {
         data: reportData.averageTimesChart.data,
         labels: reportData.averageTimesChart.labels,
         id: "averageTimes",
-        title: "Minutes per hour",
+        title: "% of total hours watched",
       },
     },
     {
@@ -185,7 +185,7 @@ const RenderChart = ({ reportData }) => {
       },
     },
     {
-      heading: <>See which categories you watch the most.</>,
+      heading: <>See which categories you watch the most</>,
       subtitle: null,
       component: {
         key: "categoryChart",
@@ -202,38 +202,22 @@ const RenderChart = ({ reportData }) => {
       {chartDataArray.map((item, index) => {
         return (
           <div id={`chart${index}`} className="RenderChartContainer">
-            <VisibilitySensor>
-              {({ isVisible }) => (
-                <Spring delay={100} to={{ opacity: isVisible ? 1 : 0 }}>
-                  {({ opacity }) => (
-                    <CategoryBox opacity={opacity} index={index} />
-                  )}
-                </Spring>
-              )}
-            </VisibilitySensor>
+            <CategoryBox index={index} />
 
-            <VisibilitySensor>
-              {({ isVisible }) => (
-                <Spring delay={100} to={{ opacity: isVisible ? 1 : 0 }}>
-                  {({ opacity }) => (
-                    <div
-                      className="margin-auto"
-                      style={{ opacity, width: "60%", marginTop: 50 }}
-                    >
-                      <div className="Paragraph grey margin-auto text-center">
-                        {item.heading}
-                      </div>
-                      <div
-                        className="Subtitle grey"
-                        style={{ width: `${index === 4 && "90%"}` }}
-                      >
-                        {item.subtitle}
-                      </div>
-                    </div>
-                  )}
-                </Spring>
-              )}
-            </VisibilitySensor>
+            <div
+              className="margin-auto"
+              style={{ width: "70%", marginTop: 50 }}
+            >
+              <div className="Paragraph grey margin-auto text-center">
+                {item.heading}
+              </div>
+              <div
+                className="Subtitle grey"
+                style={{ width: `${index === 4 && "90%"}` }}
+              >
+                {item.subtitle}
+              </div>
+            </div>
 
             {index === 4 && <TableComponent data={item.component.data} />}
 
