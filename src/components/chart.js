@@ -117,6 +117,7 @@ const ChartComponent = ({ id, type, data, labels, title }) => {
 
   return (
     <canvas
+      className="chart-adjust"
       id="chart"
       responsive="true"
       width="440"

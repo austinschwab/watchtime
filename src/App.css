@@ -68,6 +68,10 @@
   transition-property: transform !important;
   transition-duration: 200ms !important;
 }
+.calculate-btn-top:hover {
+  transform: translate(2px, -2px);
+  cursor: pointer;
+}
 
 .calculate-btn-bottom {
   position: relative;
@@ -192,7 +196,7 @@
   height: 45vh;
   min-width: 375px;
   min-height: 375px;
-  max-width: 600px;
+  max-width: 550px;
 }
 
 .GithubContainer {
@@ -476,4 +480,46 @@ ul {
 .border-solid {
   border: solid;
   border-width: 1px;
+}
+.print-button {
+  width: fit-content;
+  margin-right: auto;
+  margin-left: auto;
+  position: relative;
+  top: 3%;
+  left: -4%;
+}
+@media all {
+  .page-break {
+    /* display: none; */
+  }
+}
+
+@media print {
+  html,
+  body {
+    height: initial !important;
+    overflow: initial !important;
+    -webkit-print-color-adjust: exact;
+    background-color: black !important;
+  }
+}
+
+@media print {
+  .page-break {
+    margin-top: 1rem;
+    display: block;
+    page-break-before: always;
+  }
+  .chart-adjust {
+    margin-left: -100px !important;
+  }
+  .adjust-table {
+    height: 0px !important;
+  }
+}
+
+@page {
+  size: auto;
+  margin: 0mm !important;
 }

@@ -19,11 +19,6 @@ const HomepageTop = ({ sample }) => {
               <div
                 className="calculate-btn calculate-btn-top"
                 key="calculate-btn-top"
-                style={{
-                  ":hover": {
-                    transform: `translate(${2}px, ${-2}px)`,
-                  },
-                }}
               >
                 Get started
               </div>

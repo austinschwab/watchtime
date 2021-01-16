@@ -19,7 +19,7 @@ const TableComponent = ({ data }) => {
             <div key={`listContainer${index}`}>
               <div
                 key={index}
-                className="flex full-width row align-center table_row"
+                className="flex full-width row align-center table_row adjust-table"
                 style={{
                   color: index === 0 ? "#727272" : "#b9b9b9",
                   ":hover": {
