@@ -2,13 +2,13 @@ import React from "react";
 const GithubContainer = () => {
   return (
     <div className="GithubContainer flex column align-center white margin-auto">
-      <span className="text-center grey" >
+      <span className="text-center grey">
         After processing your report, {""}
         <span className="white">we do not store any data. {""}</span>
         Our code is public and auditable.
       </span>
 
-      <a href="https://github.com">
+      <a href="https://github.com/austinschwab/watchtime">
         <div
           className="github_btn flex row align-center justify-start"
           key="github"
