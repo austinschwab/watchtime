@@ -3,6 +3,7 @@ import _ from "lodash";
 import * as constants from "../constants";
 import moment from "moment";
 import axios from "axios";
+import { API_Key } from "../api";
 // import data from "../data/watch-history1.json";
 
 const GenerateReport = async (json, setProgress) => {
@@ -396,7 +397,8 @@ const GenerateReport = async (json, setProgress) => {
   };
   // Request Youtube api for batched video/channel data
   const generateVideoList = async () => {
-    const key = "AIzaSyBGA1zk3BrWeWEPMOv4zI1u0-wEvByfRdo";
+    const key = API_Key;
+    console.log(key);
 
     // videoId structure = {batch: videoIdList, batchWithTimes: videoIdListWithVideoDurations}
     let videoIds = getVideoIds();

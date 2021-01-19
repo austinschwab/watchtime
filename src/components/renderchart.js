@@ -206,6 +206,7 @@ class RenderChart extends Component {
         {chartDataArray.map((item, index) => {
           return (
             <div
+              key={`chart${index}`}
               id={`chart${index}`}
               className="RenderChartContainer page-break"
             >
