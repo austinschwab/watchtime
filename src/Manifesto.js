@@ -13,7 +13,7 @@ const Manifesto = ({ navigation }) => {
       <Menu />
       <div className="IntroSection full-width flex column margin-auto">
         <h1 className="ManifestoTitle white text-center">Manifesto</h1>
-        <p className="grey" style={{ fontSize: 32 }}>
+        <p className="grey manifestoBody" style={{ fontSize: 32 }}>
           Our society is{" "}
           <span className="white">addicted to digital consumption.</span> Many
           of us spend a quarter of our days on Youtube, Twitter or Instagram. We
@@ -32,7 +32,7 @@ const Manifesto = ({ navigation }) => {
           <p />
           With greater awareness comes more conscious usage of these platforms.{" "}
           <span className="white">
-            Conspicuous consumption. That’s the goal.
+            Mindful consumption. That’s the goal.
           </span>{" "}
           Watchtime aims to shed light on our excessive Youtube usage, so we can
           make better decisions.

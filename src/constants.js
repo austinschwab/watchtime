@@ -319,7 +319,7 @@ export const TestData = {
   channelTable: [
     {
       time: 11.56,
-      title: "Kitco NEWS",
+      title: "PowerfulJRE",
       videos: 40,
       key: 0,
       tableData: {
@@ -328,7 +328,7 @@ export const TestData = {
     },
     {
       time: 16.92,
-      title: "Fox News",
+      title: "Surfline",
       videos: 37,
       key: 1,
       tableData: {
@@ -337,7 +337,7 @@ export const TestData = {
     },
     {
       time: 10.56,
-      title: "Webflow",
+      title: "Graham Stephan",
       videos: 15,
       key: 2,
       tableData: {
@@ -346,7 +346,7 @@ export const TestData = {
     },
     {
       time: 0.86,
-      title: "Zeth Beatz",
+      title: "Bad Friends",
       videos: 14,
       key: 3,
       tableData: {
@@ -355,7 +355,7 @@ export const TestData = {
     },
     {
       time: 7.33,
-      title: "Automate All the Things",
+      title: "Saturday Night Live",
       videos: 9,
       key: 4,
       tableData: {
@@ -364,7 +364,7 @@ export const TestData = {
     },
     {
       time: 0.54,
-      title: "FeidVEVO",
+      title: "Jamie O'Brien",
       videos: 9,
       key: 5,
       tableData: {
@@ -373,7 +373,7 @@ export const TestData = {
     },
     {
       time: 1.81,
-      title: "Donald J Trump",
+      title: "CNBC Television",
       videos: 7,
       key: 6,
       tableData: {
@@ -382,7 +382,7 @@ export const TestData = {
     },
     {
       time: 1.23,
-      title: "CNBC Television",
+      title: "Real Vision Finance",
       videos: 7,
       key: 7,
       tableData: {
@@ -391,7 +391,7 @@ export const TestData = {
     },
     {
       time: 3.29,
-      title: "Framer",
+      title: "David Dobrik",
       videos: 7,
       key: 8,
       tableData: {
@@ -399,8 +399,8 @@ export const TestData = {
       },
     },
     {
-      time: 0.47,
-      title: "Hedgeye",
+      time: 1.47,
+      title: "David Blaine",
       videos: 6,
       key: 9,
       tableData: {

@@ -398,7 +398,6 @@ const GenerateReport = async (json, setProgress) => {
   // Request Youtube api for batched video/channel data
   const generateVideoList = async () => {
     const key = API_Key;
-    console.log(key);
 
     // videoId structure = {batch: videoIdList, batchWithTimes: videoIdListWithVideoDurations}
     let videoIds = getVideoIds();
